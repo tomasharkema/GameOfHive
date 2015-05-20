@@ -69,7 +69,22 @@ public struct HexagonGrid {
         default:
             isActive = false
         }
-        return isActive ? cell.activate() : cell
+        return cell.setActive(isActive)
+    }
+    
+    func setActive(active: Bool, atLocation location: Coordinate) -> HexagonGrid
+    {
+        var newGrid = grid
+        if newGrid.count < location.row {
+            return self
+        }
+        var row = newGrid[location.row]
+        if row.count < location.column {
+            return self
+        }
+        row[location.column] = row[location.column].setActive(active)
+        newGrid[location.row] = row
+        return HexagonGrid(grid: newGrid)
     }
 }
 
