@@ -35,18 +35,34 @@ class ViewController: UIViewController {
                 let x = column & 1 == 0 ? (cellWidth * CGFloat(row)) : (cellWidth * CGFloat(row)) + (cellWidth * 0.5)
                 let y = (cellHeight - sideLength/2) * CGFloat(column)
                 
-                let hexView = HexagonView(frame: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
-                if let hex = grid.hexagon(atLocation:Coordinate(row: row, column: column)) {
+                let location = Coordinate(row: row, column: column)
+                if let hex = grid.hexagon(atLocation: location) {
+                    let frame = CGRect(x: x, y: y, width: cellWidth, height: cellHeight)
+                    let hexView = cellWithCoordinate(location, frame: frame)
+                    hexView.coordinate = location
                     hexView.alive = hex.active
                 }
-                view.addSubview(hexView)
             }
         }
     }
     
+    func cellWithCoordinate(coordinate: Coordinate, frame: CGRect) -> HexagonView {
+        let optionalCell = cells.filter { cell in
+            cell.coordinate == coordinate
+        }.first
+        
+        if let cell = optionalCell {
+            return cell
+        }
+        
+        let cell = HexagonView(frame: frame)
+        cells.append(cell)
+        view.addSubview(cell)
+        return cell
+    }
+    
     
     func tick(timer: NSTimer) {
-        
     }
     
     deinit {
