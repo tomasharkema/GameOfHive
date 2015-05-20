@@ -13,6 +13,9 @@ protocol HexagonViewDelegate {
 }
 
 class HexagonView: UIView {
+    static var edgePath: CGMutablePathRef? = nil
+    static var lineWidth: CGFloat = 1.0
+    
     static func updateEdgePath(width: CGFloat, height: CGFloat, lineWidth: CGFloat) {
         self.lineWidth = lineWidth
         
@@ -33,9 +36,6 @@ class HexagonView: UIView {
         
         edgePath = edge
     }
-    
-    static var edgePath: CGMutablePathRef? = nil
-    static var lineWidth: CGFloat = 1.0
     
     var coordinate = Coordinate(row: NSNotFound, column: NSNotFound)
     var alive: Bool = true {
@@ -69,9 +69,6 @@ class HexagonView: UIView {
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
         
-        let height = rect.height
-        let width = rect.width
-
         let strokeColor = UIColor.darkAmberColor
         let backGroundColor = UIColor.blackColor()
         let hunnyColor = UIColor.lightAmberColor
@@ -80,12 +77,16 @@ class HexagonView: UIView {
         let lineWidth = HexagonView.lineWidth
         let edgePath = HexagonView.edgePath
         
-        // hunnyPath
-        let tx = (width / 2) - (width * hunnyScaleFactor) / 2
-        let ty = (height / 2) - (height * hunnyScaleFactor) / 2
+        // hunny transform
+        let height = rect.height
+        let width = rect.width
+        let tx = (width - (width * hunnyScaleFactor)) / 2
+        let ty = (height - (height * hunnyScaleFactor)) / 2
         let hunnyTranslate = CGAffineTransformMakeTranslation(tx, ty)
         let hunnyScale = CGAffineTransformMakeScale(hunnyScaleFactor, hunnyScaleFactor)
         var hunnyTransform = CGAffineTransformConcat(hunnyScale, hunnyTranslate)
+        
+        //hunny path
         let hunny = CGPathCreateCopyByTransformingPath(edgePath, &hunnyTransform)
 
         // backGroundColor
