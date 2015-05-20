@@ -23,34 +23,47 @@ private let sqrtƷ = CGFloat(sqrt(3.0))
 
 class HexagonView: UIView {
     
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.clearColor()
+    }
+    
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
+        
+        
         let path = CGPathCreateMutable()
         let height = rect.height
         let width = rect.width
 
-        let s = height/(sqrtƷ)
+        let s = height / 2.0
         let b = width / 2.0
-        let a = sqrt(s*s - b*b)
+        let a = (height - s) / 2.0
         
-        CGPathMoveToPoint(path, nil, b, 0)
-        CGPathAddLineToPoint(path, nil, width, a)
-        CGPathAddLineToPoint(path, nil, width, a + s)
-        CGPathAddLineToPoint(path, nil, b, height)
-        CGPathAddLineToPoint(path, nil, 0, a + s)
-        CGPathAddLineToPoint(path, nil, 0, a)
+        let lineWidth: CGFloat = 2.0
+        let halfLineWidth = lineWidth / 2.0
+        
+        CGPathMoveToPoint(path, nil, b, halfLineWidth)
+        CGPathAddLineToPoint(path, nil, width - halfLineWidth, a)
+        CGPathAddLineToPoint(path, nil, width - halfLineWidth, a + s)
+        CGPathAddLineToPoint(path, nil, b, height - halfLineWidth)
+        CGPathAddLineToPoint(path, nil, halfLineWidth, a + s)
+        CGPathAddLineToPoint(path, nil, halfLineWidth, a)
         CGContextAddPath(context, path)
         CGContextClosePath(context)
-        CGContextSetLineWidth(context, 2)
+        CGContextSetLineWidth(context, lineWidth)
         CGContextSetStrokeColorWithColor(context, UIColor.darkAmberColor.CGColor)
         CGContextSetFillColorWithColor(context, UIColor.lightAmberColor.CGColor)
 
-        CGContextDrawPath(context, kCGPathStroke)
+        CGContextDrawPath(context, kCGPathFillStroke)
     }
 }
 
 class HiveView: UIView {
-    override func drawRect(rect: CGRect) {
-        
-    }
+    static let width: CGFloat = 50
+    static var height: CGFloat = 2 * (sqrt(0.5 * (0.5 * width)))
 }
