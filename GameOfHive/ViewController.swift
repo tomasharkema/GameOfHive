@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     var cells: [HexagonView] = []
     var timer: NSTimer! = nil
     var grid: HexagonGrid! = nil
@@ -28,23 +28,17 @@ class ViewController: UIViewController {
         
         grid = HexagonGrid(rows: 50, columns: 50)
         
-        for row in 0..<grid.rows {
-            for column in 0..<grid.columns {
-                
-                let x = column & 1 == 0 ? (cellWidth * CGFloat(row)) : (cellWidth * CGFloat(row)) + (cellWidth * 0.5)
-                let y = (cellHeight - sideLength/2) * CGFloat(column)
-                
-                let location = Coordinate(row: row, column: column)
-                if let hex = grid.hexagon(atLocation: location) {
-                    let frame = CGRect(x: x, y: y, width: cellWidth, height: cellHeight)
-                    let cell = HexagonView(frame: frame)
-                    cell.coordinate = location
-                    cell.alive = hex.active
-                    
-                    cells.append(cell)
-                    view.addSubview(cell)
-                }
-            }
+        for hex in grid {
+            let row = hex.location.row
+            let column = hex.location.column
+            let x = column & 1 == 0 ? (cellWidth * CGFloat(row)) : (cellWidth * CGFloat(row)) + (cellWidth * 0.5)
+            let y = (cellHeight - sideLength/2) * CGFloat(column)
+            let frame = CGRect(x: x, y: y, width: cellWidth, height: cellHeight)
+            let cell = HexagonView(frame: frame)
+            cell.coordinate = hex.location
+            cell.alive = hex.active
+            cells.append(cell)
+            view.addSubview(cell)
         }
     }
     
@@ -61,7 +55,7 @@ class ViewController: UIViewController {
     func cellWithCoordinate(coordinate: Coordinate, frame: CGRect) -> HexagonView {
         let optionalCell = cells.filter { cell in
             cell.coordinate == coordinate
-        }.first
+            }.first
         
         if let cell = optionalCell {
             cell.setNeedsDisplay()
@@ -82,7 +76,7 @@ class ViewController: UIViewController {
         timer.invalidate()
         timer = nil
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
