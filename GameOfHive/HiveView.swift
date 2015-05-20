@@ -23,6 +23,8 @@ private let sqrtƷ = CGFloat(sqrt(3.0))
 
 class HexagonView: UIView {
     
+    var alive: Bool = true
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -39,6 +41,9 @@ class HexagonView: UIView {
         let path = CGPathCreateMutable()
         let height = rect.height
         let width = rect.width
+        
+        let strokeColor = UIColor.darkAmberColor
+        let fillColor = alive ? UIColor.lightAmberColor : UIColor.blackColor()
 
         let s = height / 2.0
         let b = width / 2.0
@@ -56,8 +61,8 @@ class HexagonView: UIView {
         CGContextAddPath(context, path)
         CGContextClosePath(context)
         CGContextSetLineWidth(context, lineWidth)
-        CGContextSetStrokeColorWithColor(context, UIColor.darkAmberColor.CGColor)
-        CGContextSetFillColorWithColor(context, UIColor.lightAmberColor.CGColor)
+        CGContextSetStrokeColorWithColor(context, strokeColor.CGColor)
+        CGContextSetFillColorWithColor(context, fillColor.CGColor)
 
         CGContextDrawPath(context, kCGPathFillStroke)
     }
