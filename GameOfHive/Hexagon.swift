@@ -17,8 +17,10 @@ public struct Coordinate {
     }
 }
 
-extension Coordinate: Equatable {
-    
+extension Coordinate: Printable, Equatable {
+  public var description: String {
+    return "\(row) : \(column)"
+  }
 }
 
 public func ==(lhs: Coordinate, rhs: Coordinate) -> Bool {

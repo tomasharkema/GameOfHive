@@ -43,7 +43,7 @@ class HexagonView: UIView {
       super.touchesBegan(touches, withEvent: event)
       self.alive = !self.alive
       self.setNeedsDisplay()
-      
+      println("TOUCH: \(coordinate) \(alive)")
       hexagonViewDelegate?.userDidUpateCellAtCoordinate(coordinate, alive: alive)
     }
       
