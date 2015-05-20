@@ -13,7 +13,30 @@ protocol HexagonViewDelegate {
 }
 
 class HexagonView: UIView {
-    var path: CGMutablePathRef?
+    static func updateEdgePath(width: CGFloat, height: CGFloat, lineWidth: CGFloat) {
+        self.lineWidth = lineWidth
+        
+        let s = height / 2.0
+        let b = width / 2.0
+        let a = (height - s) / 2.0
+        
+        let halfLineWidth = lineWidth / 2.0
+        
+        let edge = CGPathCreateMutable()
+        CGPathMoveToPoint(edge, nil, b, halfLineWidth)
+        CGPathAddLineToPoint(edge, nil, width - halfLineWidth, a)
+        CGPathAddLineToPoint(edge, nil, width - halfLineWidth, a + s)
+        CGPathAddLineToPoint(edge, nil, b, height - halfLineWidth)
+        CGPathAddLineToPoint(edge, nil, halfLineWidth, a + s)
+        CGPathAddLineToPoint(edge, nil, halfLineWidth, a)
+        CGPathAddLineToPoint(edge, nil, b, halfLineWidth)
+        
+        edgePath = edge
+    }
+    
+    static var edgePath: CGMutablePathRef? = nil
+    static var lineWidth: CGFloat = 1.0
+    
     var coordinate = Coordinate(row: NSNotFound, column: NSNotFound)
     var alive: Bool = true {
         didSet {
@@ -37,13 +60,12 @@ class HexagonView: UIView {
     }
   
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-      super.touchesBegan(touches, withEvent: event)
-      self.alive = !self.alive
-      self.setNeedsDisplay()
-      println("TOUCH: \(coordinate) \(alive)")
-      hexagonViewDelegate?.userDidUpateCellAtCoordinate(coordinate, alive: alive)
+        super.touchesBegan(touches, withEvent: event)
+        self.alive = !self.alive
+        self.setNeedsDisplay()
+        hexagonViewDelegate?.userDidUpateCellAtCoordinate(coordinate, alive: alive)
     }
-      
+    
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
         
@@ -54,38 +76,21 @@ class HexagonView: UIView {
         let backGroundColor = UIColor.blackColor()
         let hunnyColor = UIColor.lightAmberColor
 
-        let lineWidth: CGFloat = 1.0
-
-        if path == nil {
-
-
-            let s = height / 2.0
-            let b = width / 2.0
-            let a = (height - s) / 2.0
-            
-            let halfLineWidth: CGFloat = 0.0
+        // edge
+        let lineWidth = HexagonView.lineWidth
+        let edgePath = HexagonView.edgePath
         
-            let edge = CGPathCreateMutable()
-            CGPathMoveToPoint(edge, nil, b, halfLineWidth)
-            CGPathAddLineToPoint(edge, nil, width - halfLineWidth, a)
-            CGPathAddLineToPoint(edge, nil, width - halfLineWidth, a + s)
-            CGPathAddLineToPoint(edge, nil, b, height - halfLineWidth)
-            CGPathAddLineToPoint(edge, nil, halfLineWidth, a + s)
-            CGPathAddLineToPoint(edge, nil, halfLineWidth, a)
-            CGPathAddLineToPoint(edge, nil, b, halfLineWidth)
-            path = edge
-        }
-        
+        // hunnyPath
         let tx = (width / 2) - (width * hunnyScaleFactor) / 2
         let ty = (height / 2) - (height * hunnyScaleFactor) / 2
         let hunnyTranslate = CGAffineTransformMakeTranslation(tx, ty)
         let hunnyScale = CGAffineTransformMakeScale(hunnyScaleFactor, hunnyScaleFactor)
         var hunnyTransform = CGAffineTransformConcat(hunnyScale, hunnyTranslate)
-        let hunny = CGPathCreateCopyByTransformingPath(path, &hunnyTransform)
+        let hunny = CGPathCreateCopyByTransformingPath(edgePath, &hunnyTransform)
 
         // backGroundColor
         CGContextSaveGState(context)
-        CGContextAddPath(context, path)
+        CGContextAddPath(context, edgePath)
         CGContextSetFillColorWithColor(context, backGroundColor.CGColor)
         CGContextFillPath(context)
         CGContextRestoreGState(context)
@@ -100,7 +105,7 @@ class HexagonView: UIView {
         
         // edge
         CGContextSaveGState(context)
-        CGContextAddPath(context, path)
+        CGContextAddPath(context, edgePath)
         CGContextSetLineWidth(context, lineWidth)
         CGContextSetStrokeColorWithColor(context, strokeColor.CGColor)
         CGContextStrokePath(context)

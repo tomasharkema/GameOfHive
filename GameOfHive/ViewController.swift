@@ -38,6 +38,8 @@ class ViewController: UIViewController, HexagonViewDelegate {
         let cellHeight: CGFloat = 25
         let sideLength = cellHeight/2
         let cellWidth = CGFloat(sqrt(3.0)) * sideLength
+        
+        HexagonView.updateEdgePath(cellWidth, height: cellHeight, lineWidth: 2.0)
       
         grid = HexagonGrid(rows: 47, columns: 41, initialGridType: .Random)
         
