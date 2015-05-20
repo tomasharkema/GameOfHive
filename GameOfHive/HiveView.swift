@@ -47,7 +47,7 @@ class HexagonView: UIView {
         let b = width / 2.0
         let a = (height - s) / 2.0
         
-        let lineWidth: CGFloat = 2.0
+        let lineWidth: CGFloat = 1.0
         let halfLineWidth: CGFloat = 0.0
         
         CGPathMoveToPoint(path, nil, b, halfLineWidth)

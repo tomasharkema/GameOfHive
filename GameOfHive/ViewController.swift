@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         
-        let height: CGFloat = 50
+        let height: CGFloat = 25
         let s = height/2
         let width = CGFloat(sqrt(3.0)) * s
       
