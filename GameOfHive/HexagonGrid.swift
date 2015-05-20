@@ -13,6 +13,16 @@ typealias HexagonRow = [Hexagon]
 public struct HexagonGrid {
     private let grid: [HexagonRow]
     
+    public var rows: Int {
+        return grid.count
+    }
+    
+    public var columns: Int {
+        if rows == 0 {
+            return 0
+        }
+        return grid[0].count
+    }
     
     private init(grid: [HexagonRow]) {
         self.grid = grid
