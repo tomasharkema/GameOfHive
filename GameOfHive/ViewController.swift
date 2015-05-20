@@ -26,8 +26,11 @@ class ViewController: UIViewController {
             let x = column & 1 == 0 ? (width * CGFloat(row)) : (width * CGFloat(row)) + (width * 0.5)
             let y = (height - s/2) * CGFloat(column)
             
-            let hex = HexagonView(frame: CGRect(x: x, y: y, width: width, height: height))
-            view.addSubview(hex)
+            let hexView = HexagonView(frame: CGRect(x: x, y: y, width: width, height: height))
+            if let hex = hexagonGrid.hexagon(atLocation:Coordinate(row: row, column: column)) {
+                hexView.alive = hex.active
+            }
+            view.addSubview(hexView)
           }
         }
     }
