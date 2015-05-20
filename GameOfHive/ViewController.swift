@@ -8,7 +8,10 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+let X_OFFSET: CGFloat = -12.0
+let Y_OFFSET: CGFloat = -10.0
+
+class ViewController: UIViewController, HexagonViewDelegate {
     
     var cells: [HexagonView] = []
     var timer: NSTimer! = nil
@@ -18,44 +21,66 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         createGrid()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Selector("tick:"), userInfo: nil, repeats: true)
+        timer = createTimer()
+        let button: UIButton = UIButton.buttonWithType(.Custom) as! UIButton
+        button.addTarget(self, action: Selector("pause:"), forControlEvents: .TouchUpInside)
+		button.frame = CGRectMake(10, 10, 30, 30)
+		button.setImage(UIImage(named: "button_play"), forState: .Normal)
+
+        self.view.addSubview(button)
+    }
+    
+    func createTimer() -> NSTimer {
+        return NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Selector("tick:"), userInfo: nil, repeats: false)
     }
     
     func createGrid() {
         let cellHeight: CGFloat = 25
         let sideLength = cellHeight/2
         let cellWidth = CGFloat(sqrt(3.0)) * sideLength
-        
-        grid = HexagonGrid(rows: 50, columns: 50)
+      
+      
+        grid = HexagonGrid(rows: 36, columns: 55)
         
         for hex in grid {
             let row = hex.location.row
             let column = hex.location.column
-            let x = column & 1 == 0 ? (cellWidth * CGFloat(row)) : (cellWidth * CGFloat(row)) + (cellWidth * 0.5)
-            let y = (cellHeight - sideLength/2) * CGFloat(column)
+            let x = X_OFFSET + (column & 1 == 0 ? (cellWidth * CGFloat(row)) : (cellWidth * CGFloat(row)) + (cellWidth * 0.5))
+            let y = Y_OFFSET + ((cellHeight - sideLength/2) * CGFloat(column))
             let frame = CGRect(x: x, y: y, width: cellWidth, height: cellHeight)
             let cell = HexagonView(frame: frame)
             cell.coordinate = hex.location
             cell.alive = hex.active
+            cell.hexagonViewDelegate = self
             cells.append(cell)
             view.addSubview(cell)
         }
     }
     
     func updateGrid() {
-        grid = nextGrid(grid)
-        for cell in cells {
-            if let hexagon = grid.hexagon(atLocation: cell.coordinate) {
-                cell.alive = hexagon.active
-                cell.setNeedsDisplay()
+      
+      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        println("BACK")
+        self.grid = nextGrid(self.grid)
+        dispatch_async(dispatch_get_main_queue()) {
+          println("MAIN")
+          for cell in self.cells {
+            if let hexagon = self.grid.hexagon(atLocation: cell.coordinate) {
+              cell.alive = hexagon.active
+              cell.setNeedsDisplay()
             }
+          }
+          
+          self.timer = self.createTimer()
         }
+      }
     }
     
+  
     func cellWithCoordinate(coordinate: Coordinate, frame: CGRect) -> HexagonView {
         let optionalCell = cells.filter { cell in
             cell.coordinate == coordinate
-            }.first
+        }.first
         
         if let cell = optionalCell {
             cell.setNeedsDisplay()
@@ -67,9 +92,25 @@ class ViewController: UIViewController {
         view.addSubview(cell)
         return cell
     }
-    
+  
+    func userDidUpateCellAtCoordinate(coordinate: Coordinate, alive:Bool) {
+        grid = grid.setActive(alive, atLocation: coordinate)
+    }
+  
     func tick(timer: NSTimer) {
         updateGrid()
+    }
+    
+    func pause(button: UIButton) {
+
+        if let t = timer {
+            t.invalidate()
+            timer = nil
+			button.setImage(UIImage(named: "button_play"), forState: .Normal)
+        } else {
+            timer = createTimer()
+			button.setImage(UIImage(named: "button_stop"), forState: .Normal)
+        }
     }
     
     deinit {
@@ -81,5 +122,14 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+  
+    override func prefersStatusBarHidden() -> Bool {
+      return true;
+    }
+  
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+      return UIInterfaceOrientation.Portrait
+    }
+  
 }
 

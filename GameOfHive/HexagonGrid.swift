@@ -12,6 +12,7 @@ typealias HexagonRow = [Hexagon]
 
 public struct HexagonGrid {
     private let grid: [HexagonRow]
+    private let rules: Rules = Rules.defaultRules()
     
     public var rows: Int {
         return grid.count
@@ -60,16 +61,7 @@ public struct HexagonGrid {
     }
     
     public func nextIteration(cell: Hexagon) -> Hexagon {
-        let isActive: Bool
-        switch activeNeigbors(cell) {
-        case 2:
-            isActive = cell.active
-        case 3:
-            isActive = true
-        default:
-            isActive = false
-        }
-        return cell.setActive(isActive)
+        return rules.perform(cell, numberOfActiveNeighbors: activeNeigbors(cell))
     }
     
     func setActive(active: Bool, atLocation location: Coordinate) -> HexagonGrid
@@ -121,7 +113,7 @@ func initialGrid(rows: Int, columns: Int) -> [HexagonRow] {
     for r in 0...rows {
         var row: HexagonRow  = []
         for c in 0...columns {
-            let active = arc4random_uniform(2) == 1
+            let active = false //arc4random_uniform(2) == 1
             row.append(Hexagon(row: r, column: c, active: active))
         }
         grid.append(row)
