@@ -29,16 +29,8 @@ public struct HexagonGrid {
     }
     
     public init(rows: Int = 10, columns: Int = 10) {
-        var initalGrid: [HexagonRow] = []
-        for r in 0...rows {
-            var row = initalGrid[r] ?? []
-            for c in 0...columns {
-                let active = arc4random_uniform(1) == 1
-                row[c] = Hexagon(row: r, column: c, active: active)
-            }
-            initalGrid[r] = row
-        }
-        self.grid = initalGrid
+        let grid = initialGrid(rows,columns)
+        self.init(grid: grid)
     }
     
     public func hexagon(atLocation location: Coordinate) -> Hexagon? {
@@ -92,6 +84,19 @@ extension HexagonGrid: Printable {
         }
         return output
     }
+}
+
+func initialGrid(rows: Int, columns: Int) -> [HexagonRow] {
+    var grid: [HexagonRow] = []
+    for r in 0...rows {
+        var row: HexagonRow  = []
+        for c in 0...columns {
+            let active = arc4random_uniform(1) == 1
+            row[c] = Hexagon(row: r, column: c, active: active)
+        }
+        grid[r] = row
+    }
+    return grid
 }
 
 
