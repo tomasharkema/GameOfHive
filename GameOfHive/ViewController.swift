@@ -39,9 +39,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
         let sideLength = cellHeight/2
         let cellWidth = CGFloat(sqrt(3.0)) * sideLength
       
-      
-        grid = HexagonGrid(rows: 47, columns: 41)
-//            grid = HexagonGrid(rows: 0, columns: 0)
+        grid = HexagonGrid(rows: 47, columns: 41, initialGridType: .Random)
         
         for hex in grid {
             let row = hex.location.row
@@ -129,8 +127,21 @@ class ViewController: UIViewController, HexagonViewDelegate {
     }
   
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-      return UIInterfaceOrientation.Portrait
+      return .Portrait
     }
+  
+    /// pragma mark: Shake it baby
+  
+    override func canBecomeFirstResponder() -> Bool {
+      return true
+    }
+  
+  override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
+    if motion == .MotionShake {
+      grid = emptyGrid(grid)
+      updateGrid()
+    }
+  }
   
 }
 

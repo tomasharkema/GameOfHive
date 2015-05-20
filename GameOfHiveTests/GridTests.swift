@@ -12,7 +12,7 @@ import GameOfHive
 
 class GridTests: XCTestCase {
     func testGridLocation() {
-        let grid = HexagonGrid(rows: 10, columns: 10)
+        let grid = HexagonGrid(rows: 10, columns: 10, initialGridType: .Random)
         let hex: Hexagon! = grid.hexagon(atLocation: Coordinate(row: 4, column: 5))
         XCTAssert(hex != nil, "Hexagon should not be nil")
         XCTAssertEqual(hex.location,Coordinate(row: 4, column: 5))

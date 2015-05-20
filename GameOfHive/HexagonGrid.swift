@@ -10,6 +10,11 @@ import Foundation
 
 typealias HexagonRow = [Hexagon]
 
+public enum GridType {
+  case Empty
+  case Random
+}
+
 public struct HexagonGrid {
     private let grid: [HexagonRow]
     private let rules: Rules = Rules.defaultRules()
@@ -29,8 +34,8 @@ public struct HexagonGrid {
         self.grid = grid
     }
     
-    public init(rows: Int = 10, columns: Int = 10) {
-        let grid = initialGrid(rows,columns)
+    public init(rows: Int = 10, columns: Int = 10, initialGridType: GridType) {
+        let grid = initialGrid(rows,columns,initialGridType)
         self.init(grid: grid)
     }
     
@@ -108,12 +113,12 @@ extension HexagonGrid: SequenceType {
     }
 }
 
-func initialGrid(rows: Int, columns: Int) -> [HexagonRow] {
+func initialGrid(rows: Int, columns: Int, gridType: GridType) -> [HexagonRow] {
     var grid: [HexagonRow] = []
     for r in 0...rows {
         var row: HexagonRow  = []
         for c in 0...columns {
-            let active = arc4random_uniform(30) == 1
+            let active = gridType == .Empty ? false : arc4random_uniform(30) == 1
             row.append(Hexagon(row: r, column: c, active: active))
         }
         grid.append(row)
@@ -133,4 +138,8 @@ func nextGrid(grid: HexagonGrid) -> HexagonGrid {
         nextIteration.append(nextRow)
     }
     return HexagonGrid(grid: nextIteration)
+}
+
+func emptyGrid(grid: HexagonGrid) -> HexagonGrid {
+  return HexagonGrid(rows: grid.rows, columns: grid.columns, initialGridType: .Empty)
 }
