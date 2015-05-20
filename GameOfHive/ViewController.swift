@@ -21,6 +21,10 @@ class ViewController: UIViewController, HexagonViewDelegate {
         timer = NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Selector("tick:"), userInfo: nil, repeats: true)
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     func createGrid() {
         let cellHeight: CGFloat = 25
         let sideLength = cellHeight/2
