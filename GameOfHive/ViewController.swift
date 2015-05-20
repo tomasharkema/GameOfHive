@@ -8,15 +8,18 @@
 
 import UIKit
 
+let X_OFFSET: CGFloat = -12.0
+let Y_OFFSET: CGFloat = -10.0
+
 class ViewController: UIViewController, HexagonViewDelegate {
     
     var cells: [HexagonView] = []
     var timer: NSTimer! = nil
     var grid: HexagonGrid! = nil
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override func viewDidAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+      
         createGrid()
         timer = NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Selector("tick:"), userInfo: nil, repeats: true)
     }
@@ -25,14 +28,15 @@ class ViewController: UIViewController, HexagonViewDelegate {
         let cellHeight: CGFloat = 25
         let sideLength = cellHeight/2
         let cellWidth = CGFloat(sqrt(3.0)) * sideLength
-        
-        grid = HexagonGrid(rows: 50, columns: 50)
+      
+      
+        grid = HexagonGrid(rows: 36, columns: 55)
         
         for hex in grid {
             let row = hex.location.row
             let column = hex.location.column
-            let x = column & 1 == 0 ? (cellWidth * CGFloat(row)) : (cellWidth * CGFloat(row)) + (cellWidth * 0.5)
-            let y = (cellHeight - sideLength/2) * CGFloat(column)
+            let x = X_OFFSET + (column & 1 == 0 ? (cellWidth * CGFloat(row)) : (cellWidth * CGFloat(row)) + (cellWidth * 0.5))
+            let y = Y_OFFSET + ((cellHeight - sideLength/2) * CGFloat(column))
             let frame = CGRect(x: x, y: y, width: cellWidth, height: cellHeight)
             let cell = HexagonView(frame: frame)
             cell.coordinate = hex.location
@@ -57,7 +61,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
     func cellWithCoordinate(coordinate: Coordinate, frame: CGRect) -> HexagonView {
         let optionalCell = cells.filter { cell in
             cell.coordinate == coordinate
-            }.first
+        }.first
         
         if let cell = optionalCell {
             cell.setNeedsDisplay()
@@ -87,5 +91,14 @@ class ViewController: UIViewController, HexagonViewDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+  
+    override func prefersStatusBarHidden() -> Bool {
+      return true;
+    }
+  
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+      return UIInterfaceOrientation.Portrait
+    }
+  
 }
 
