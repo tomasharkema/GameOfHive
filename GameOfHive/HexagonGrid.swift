@@ -86,6 +86,21 @@ extension HexagonGrid: Printable {
     }
 }
 
+extension HexagonGrid: SequenceType {
+    public func generate() -> GeneratorOf<Hexagon> {
+        var rowGenerator = self.grid.generate()
+        var columnGenerator = rowGenerator.next()?.generate()
+        return GeneratorOf<Hexagon> {
+            if let column = columnGenerator?.next()
+            {
+                return column
+            }
+            columnGenerator = rowGenerator.next()?.generate()
+            return columnGenerator?.next()
+        }
+    }
+}
+
 func initialGrid(rows: Int, columns: Int) -> [HexagonRow] {
     var grid: [HexagonRow] = []
     for r in 0...rows {
