@@ -1,0 +1,426 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1CE620491B0C8E350072BBF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE620481B0C8E350072BBF9 /* AppDelegate.swift */; };
+		1CE6204B1B0C8E350072BBF9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE6204A1B0C8E350072BBF9 /* ViewController.swift */; };
+		1CE6204E1B0C8E350072BBF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CE6204C1B0C8E350072BBF9 /* Main.storyboard */; };
+		1CE620501B0C8E350072BBF9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CE6204F1B0C8E350072BBF9 /* Images.xcassets */; };
+		1CE620531B0C8E350072BBF9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CE620511B0C8E350072BBF9 /* LaunchScreen.xib */; };
+		1CE6205F1B0C8E350072BBF9 /* GameOfHiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE6205E1B0C8E350072BBF9 /* GameOfHiveTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1CE620591B0C8E350072BBF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1CE6203B1B0C8E350072BBF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1CE620421B0C8E350072BBF9;
+			remoteInfo = GameOfHive;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1CE620431B0C8E350072BBF9 /* GameOfHive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameOfHive.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CE620471B0C8E350072BBF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1CE620481B0C8E350072BBF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1CE6204A1B0C8E350072BBF9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1CE6204D1B0C8E350072BBF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1CE6204F1B0C8E350072BBF9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1CE620521B0C8E350072BBF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		1CE620581B0C8E350072BBF9 /* GameOfHiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GameOfHiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CE6205D1B0C8E350072BBF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1CE6205E1B0C8E350072BBF9 /* GameOfHiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOfHiveTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1CE620401B0C8E350072BBF9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1CE620551B0C8E350072BBF9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1CE6203A1B0C8E350072BBF9 = {
+			isa = PBXGroup;
+			children = (
+				1CE620451B0C8E350072BBF9 /* GameOfHive */,
+				1CE6205B1B0C8E350072BBF9 /* GameOfHiveTests */,
+				1CE620441B0C8E350072BBF9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1CE620441B0C8E350072BBF9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1CE620431B0C8E350072BBF9 /* GameOfHive.app */,
+				1CE620581B0C8E350072BBF9 /* GameOfHiveTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1CE620451B0C8E350072BBF9 /* GameOfHive */ = {
+			isa = PBXGroup;
+			children = (
+				1CE620481B0C8E350072BBF9 /* AppDelegate.swift */,
+				1CE6204A1B0C8E350072BBF9 /* ViewController.swift */,
+				1CE6204C1B0C8E350072BBF9 /* Main.storyboard */,
+				1CE6204F1B0C8E350072BBF9 /* Images.xcassets */,
+				1CE620511B0C8E350072BBF9 /* LaunchScreen.xib */,
+				1CE620461B0C8E350072BBF9 /* Supporting Files */,
+			);
+			path = GameOfHive;
+			sourceTree = "<group>";
+		};
+		1CE620461B0C8E350072BBF9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1CE620471B0C8E350072BBF9 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1CE6205B1B0C8E350072BBF9 /* GameOfHiveTests */ = {
+			isa = PBXGroup;
+			children = (
+				1CE6205E1B0C8E350072BBF9 /* GameOfHiveTests.swift */,
+				1CE6205C1B0C8E350072BBF9 /* Supporting Files */,
+			);
+			path = GameOfHiveTests;
+			sourceTree = "<group>";
+		};
+		1CE6205C1B0C8E350072BBF9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1CE6205D1B0C8E350072BBF9 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1CE620421B0C8E350072BBF9 /* GameOfHive */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CE620621B0C8E350072BBF9 /* Build configuration list for PBXNativeTarget "GameOfHive" */;
+			buildPhases = (
+				1CE6203F1B0C8E350072BBF9 /* Sources */,
+				1CE620401B0C8E350072BBF9 /* Frameworks */,
+				1CE620411B0C8E350072BBF9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GameOfHive;
+			productName = GameOfHive;
+			productReference = 1CE620431B0C8E350072BBF9 /* GameOfHive.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1CE620571B0C8E350072BBF9 /* GameOfHiveTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CE620651B0C8E350072BBF9 /* Build configuration list for PBXNativeTarget "GameOfHiveTests" */;
+			buildPhases = (
+				1CE620541B0C8E350072BBF9 /* Sources */,
+				1CE620551B0C8E350072BBF9 /* Frameworks */,
+				1CE620561B0C8E350072BBF9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1CE6205A1B0C8E350072BBF9 /* PBXTargetDependency */,
+			);
+			name = GameOfHiveTests;
+			productName = GameOfHiveTests;
+			productReference = 1CE620581B0C8E350072BBF9 /* GameOfHiveTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1CE6203B1B0C8E350072BBF9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = Beetles;
+				TargetAttributes = {
+					1CE620421B0C8E350072BBF9 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+					1CE620571B0C8E350072BBF9 = {
+						CreatedOnToolsVersion = 6.3;
+						TestTargetID = 1CE620421B0C8E350072BBF9;
+					};
+				};
+			};
+			buildConfigurationList = 1CE6203E1B0C8E350072BBF9 /* Build configuration list for PBXProject "GameOfHive" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1CE6203A1B0C8E350072BBF9;
+			productRefGroup = 1CE620441B0C8E350072BBF9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1CE620421B0C8E350072BBF9 /* GameOfHive */,
+				1CE620571B0C8E350072BBF9 /* GameOfHiveTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1CE620411B0C8E350072BBF9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CE6204E1B0C8E350072BBF9 /* Main.storyboard in Resources */,
+				1CE620531B0C8E350072BBF9 /* LaunchScreen.xib in Resources */,
+				1CE620501B0C8E350072BBF9 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1CE620561B0C8E350072BBF9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1CE6203F1B0C8E350072BBF9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CE6204B1B0C8E350072BBF9 /* ViewController.swift in Sources */,
+				1CE620491B0C8E350072BBF9 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1CE620541B0C8E350072BBF9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CE6205F1B0C8E350072BBF9 /* GameOfHiveTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1CE6205A1B0C8E350072BBF9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1CE620421B0C8E350072BBF9 /* GameOfHive */;
+			targetProxy = 1CE620591B0C8E350072BBF9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1CE6204C1B0C8E350072BBF9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1CE6204D1B0C8E350072BBF9 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1CE620511B0C8E350072BBF9 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1CE620521B0C8E350072BBF9 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1CE620601B0C8E350072BBF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1CE620611B0C8E350072BBF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1CE620631B0C8E350072BBF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = GameOfHive/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1CE620641B0C8E350072BBF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = GameOfHive/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		1CE620661B0C8E350072BBF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = GameOfHiveTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GameOfHive.app/GameOfHive";
+			};
+			name = Debug;
+		};
+		1CE620671B0C8E350072BBF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = GameOfHiveTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GameOfHive.app/GameOfHive";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1CE6203E1B0C8E350072BBF9 /* Build configuration list for PBXProject "GameOfHive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CE620601B0C8E350072BBF9 /* Debug */,
+				1CE620611B0C8E350072BBF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1CE620621B0C8E350072BBF9 /* Build configuration list for PBXNativeTarget "GameOfHive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CE620631B0C8E350072BBF9 /* Debug */,
+				1CE620641B0C8E350072BBF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1CE620651B0C8E350072BBF9 /* Build configuration list for PBXNativeTarget "GameOfHiveTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CE620661B0C8E350072BBF9 /* Debug */,
+				1CE620671B0C8E350072BBF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1CE6203B1B0C8E350072BBF9 /* Project object */;
+}
