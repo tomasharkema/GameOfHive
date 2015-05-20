@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, HexagonViewDelegate {
 
     var cells: [HexagonView] = []
     var timer: NSTimer! = nil
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
                     let cell = HexagonView(frame: frame)
                     cell.coordinate = location
                     cell.alive = hex.active
-                    
+                    cell.hexagonViewDelegate = self
                     cells.append(cell)
                     view.addSubview(cell)
                 }
@@ -58,6 +58,7 @@ class ViewController: UIViewController {
         }
     }
     
+  
     func cellWithCoordinate(coordinate: Coordinate, frame: CGRect) -> HexagonView {
         let optionalCell = cells.filter { cell in
             cell.coordinate == coordinate
@@ -73,7 +74,11 @@ class ViewController: UIViewController {
         view.addSubview(cell)
         return cell
     }
-    
+  
+    func userDidUpateCellAtCoordinate(coordinate: Coordinate, alive:Bool) {
+        grid = grid.setActive(alive, atLocation: coordinate)
+    }
+  
     func tick(timer: NSTimer) {
         updateGrid()
     }

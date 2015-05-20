@@ -41,7 +41,7 @@ class HexagonView: UIView {
   
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
       super.touchesBegan(touches, withEvent: event)
-      alive = !alive
+      self.alive = !self.alive
       self.setNeedsDisplay()
       
       hexagonViewDelegate?.userDidUpateCellAtCoordinate(coordinate, alive: alive)
