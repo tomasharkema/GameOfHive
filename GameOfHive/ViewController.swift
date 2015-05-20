@@ -22,8 +22,11 @@ class ViewController: UIViewController, HexagonViewDelegate {
         
         createGrid()
         timer = createTimer()
-        let button: UIButton = UIButton.buttonWithType(.InfoLight) as! UIButton
+        let button: UIButton = UIButton.buttonWithType(.Custom) as! UIButton
         button.addTarget(self, action: Selector("pause:"), forControlEvents: .TouchUpInside)
+		button.frame = CGRectMake(10, 10, 30, 30)
+		button.setImage(UIImage(named: "button_play"), forState: .Normal)
+
         self.view.addSubview(button)
     }
     
@@ -91,11 +94,14 @@ class ViewController: UIViewController, HexagonViewDelegate {
     }
     
     func pause(button: UIButton) {
+
         if let t = timer {
             t.invalidate()
             timer = nil
+			button.setImage(UIImage(named: "button_play"), forState: .Normal)
         } else {
             timer = createTimer()
+			button.setImage(UIImage(named: "button_stop"), forState: .Normal)
         }
     }
     
