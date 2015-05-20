@@ -8,6 +8,7 @@
 
 import UIKit
 import XCTest
+import GameOfHive
 
 class GameOfHiveTests: XCTestCase {
     
@@ -21,16 +22,26 @@ class GameOfHiveTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
+    func testHexagonCoordinate() {
+        var hexagons: [Hexagon] = []
+        for row in 0...10 {
+            for column in 0...10 {
+                let hex = Hexagon(row: row, column: column)
+                hexagons.append(hex)
+                
+            }
         }
     }
     
+    func testNeighbors() {
+        var input = Coordinate(row: 1, column: 1)
+        var coordinates = neighbors(input)
+        XCTAssert(coordinates.count == 6, "has six values")
+        XCTAssert(contains(coordinates,Coordinate(row: 0, column: 1)), "")
+        XCTAssert(contains(coordinates,Coordinate(row: 0, column: 1)), "")
+        XCTAssert(contains(coordinates,Coordinate(row: 1, column: 0)), "")
+        XCTAssert(contains(coordinates,Coordinate(row: 1, column: 2)), "")
+        XCTAssert(contains(coordinates,Coordinate(row: 2, column: 1)), "")
+        XCTAssert(contains(coordinates,Coordinate(row: 2, column: 2)), "")
+    }
 }
