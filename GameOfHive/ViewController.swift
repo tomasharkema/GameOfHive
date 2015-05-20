@@ -18,7 +18,14 @@ class ViewController: UIViewController, HexagonViewDelegate {
         super.viewDidLoad()
         
         createGrid()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Selector("tick:"), userInfo: nil, repeats: true)
+        timer = createTimer()
+        let button: UIButton = UIButton.buttonWithType(.InfoLight) as! UIButton
+        button.addTarget(self, action: Selector("pause:"), forControlEvents: .TouchUpInside)
+        self.view.addSubview(button)
+    }
+    
+    func createTimer() -> NSTimer {
+        return NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Selector("tick:"), userInfo: nil, repeats: true)
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -81,6 +88,15 @@ class ViewController: UIViewController, HexagonViewDelegate {
   
     func tick(timer: NSTimer) {
         updateGrid()
+    }
+    
+    func pause(button: UIButton) {
+        if let t = timer {
+            t.invalidate()
+            timer = nil
+        } else {
+            timer = createTimer()
+        }
     }
     
     deinit {
