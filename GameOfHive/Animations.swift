@@ -42,7 +42,6 @@ class ScaleAnimation: Equatable {
         let factor = CGFloat(currentTime / self.time)
         let scale = start + delta * factor
         
-        //        println("scale \(scale) factor \(factor)")
         view.hunnyScaleFactor = scale
         view.setNeedsDisplay()
         
