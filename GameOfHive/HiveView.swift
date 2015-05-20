@@ -29,6 +29,7 @@ class HexagonView: UIView {
     var alive: Bool = true
   
     var hexagonViewDelegate: HexagonViewDelegate?
+    var hunnyScaleFactor: CGFloat = 1.0
   
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -50,13 +51,12 @@ class HexagonView: UIView {
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
         
-      
-        let path = CGPathCreateMutable()
         let height = rect.height
         let width = rect.width
         
         let strokeColor = UIColor.darkAmberColor
-        let fillColor = alive ? UIColor.lightAmberColor : UIColor.blackColor()
+        let backGroundColor = UIColor.blackColor()
+        let hunnyColor = UIColor.lightAmberColor
 
         let s = height / 2.0
         let b = width / 2.0
@@ -65,19 +65,45 @@ class HexagonView: UIView {
         let lineWidth: CGFloat = 1.0
         let halfLineWidth: CGFloat = 0.0
         
-        CGPathMoveToPoint(path, nil, b, halfLineWidth)
-        CGPathAddLineToPoint(path, nil, width - halfLineWidth, a)
-        CGPathAddLineToPoint(path, nil, width - halfLineWidth, a + s)
-        CGPathAddLineToPoint(path, nil, b, height - halfLineWidth)
-        CGPathAddLineToPoint(path, nil, halfLineWidth, a + s)
-        CGPathAddLineToPoint(path, nil, halfLineWidth, a)
-        CGContextAddPath(context, path)
-        CGContextClosePath(context)
+        let edge = CGPathCreateMutable()
+        CGPathMoveToPoint(edge, nil, b, halfLineWidth)
+        CGPathAddLineToPoint(edge, nil, width - halfLineWidth, a)
+        CGPathAddLineToPoint(edge, nil, width - halfLineWidth, a + s)
+        CGPathAddLineToPoint(edge, nil, b, height - halfLineWidth)
+        CGPathAddLineToPoint(edge, nil, halfLineWidth, a + s)
+        CGPathAddLineToPoint(edge, nil, halfLineWidth, a)
+        CGPathAddLineToPoint(edge, nil, b, halfLineWidth)
+        
+        let tx = (width / 2) - (width * hunnyScaleFactor) / 2
+        let ty = (height / 2) - (height * hunnyScaleFactor) / 2
+        let hunnyTranslate = CGAffineTransformMakeTranslation(tx, ty)
+        let hunnyScale = CGAffineTransformMakeScale(hunnyScaleFactor, hunnyScaleFactor)
+        var hunnyTransform = CGAffineTransformConcat(hunnyScale, hunnyTranslate)
+        let hunny = CGPathCreateCopyByTransformingPath(edge, &hunnyTransform)
+
+        // backGroundColor
+        CGContextSaveGState(context)
+        CGContextAddPath(context, edge)
+        CGContextSetFillColorWithColor(context, backGroundColor.CGColor)
+        CGContextFillPath(context)
+        CGContextRestoreGState(context)
+        
+        // hunny
+        CGContextSaveGState(context)
+        CGContextSetLineWidth(context, lineWidth)
+        CGContextSetFillColorWithColor(context, hunnyColor.CGColor)
+        CGContextAddPath(context, hunny)
+        CGContextFillPath(context)
+        CGContextRestoreGState(context)
+        
+        // edge
+        CGContextSaveGState(context)
+        CGContextAddPath(context, edge)
         CGContextSetLineWidth(context, lineWidth)
         CGContextSetStrokeColorWithColor(context, strokeColor.CGColor)
-        CGContextSetFillColorWithColor(context, fillColor.CGColor)
-
-        CGContextDrawPath(context, kCGPathFillStroke)
+        CGContextStrokePath(context)
+        CGContextRestoreGState(context)
+        
     }
 }
 
