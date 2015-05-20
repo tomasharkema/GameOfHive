@@ -16,10 +16,17 @@ class ViewController: UIViewController {
         let height: CGFloat = 50
         let s = height/2
         let width = CGFloat(sqrt(3.0)) * s
-        
-        
-        let hex = HexagonView(frame: CGRect(x: 200, y: 200, width: width, height: height))
-        view.addSubview(hex)
+      
+      
+        let hexagonGrid = HexagonGrid()
+      
+      
+        for row in 0..<hexagonGrid.rows {
+          for column in 0..<hexagonGrid.columns {
+            let hex = HexagonView(frame: CGRect(x: 25.0 * CGFloat(row), y: 25.0 * CGFloat(column), width: width, height: height))
+            view.addSubview(hex)
+          }
+        }
     }
 
     override func didReceiveMemoryWarning() {
