@@ -13,6 +13,7 @@
 		1CE620501B0C8E350072BBF9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CE6204F1B0C8E350072BBF9 /* Images.xcassets */; };
 		1CE620531B0C8E350072BBF9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CE620511B0C8E350072BBF9 /* LaunchScreen.xib */; };
 		1CE6205F1B0C8E350072BBF9 /* GameOfHiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE6205E1B0C8E350072BBF9 /* GameOfHiveTests.swift */; };
+		B38DD5E71B0C9BB30064E7E4 /* Hexagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38DD5E61B0C9BB30064E7E4 /* Hexagon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		1CE620581B0C8E350072BBF9 /* GameOfHiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GameOfHiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE6205D1B0C8E350072BBF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1CE6205E1B0C8E350072BBF9 /* GameOfHiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOfHiveTests.swift; sourceTree = "<group>"; };
+		B38DD5E61B0C9BB30064E7E4 /* Hexagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hexagon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				1CE6204F1B0C8E350072BBF9 /* Images.xcassets */,
 				1CE620511B0C8E350072BBF9 /* LaunchScreen.xib */,
 				1CE620461B0C8E350072BBF9 /* Supporting Files */,
+				B38DD5E61B0C9BB30064E7E4 /* Hexagon.swift */,
 			);
 			path = GameOfHive;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 			files = (
 				1CE6204B1B0C8E350072BBF9 /* ViewController.swift in Sources */,
 				1CE620491B0C8E350072BBF9 /* AppDelegate.swift in Sources */,
+				B38DD5E71B0C9BB30064E7E4 /* Hexagon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +415,7 @@
 				1CE620641B0C8E350072BBF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1CE620651B0C8E350072BBF9 /* Build configuration list for PBXNativeTarget "GameOfHiveTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +424,7 @@
 				1CE620671B0C8E350072BBF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
