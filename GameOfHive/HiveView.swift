@@ -19,8 +19,6 @@ extension UIColor {
     }
 }
 
-private let sqrtƷ = CGFloat(sqrt(3.0))
-
 class HexagonView: UIView {
     
     var alive: Bool = true
