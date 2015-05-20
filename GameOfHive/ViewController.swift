@@ -33,10 +33,11 @@ class ViewController: UIViewController, HexagonViewDelegate {
         grid = HexagonGrid(rows: 50, columns: 50)
         
         for hex in grid {
+            println(hex.location)
             let row = hex.location.row
             let column = hex.location.column
-            let x = column & 1 == 0 ? (cellWidth * CGFloat(row)) : (cellWidth * CGFloat(row)) + (cellWidth * 0.5)
-            let y = (cellHeight - sideLength/2) * CGFloat(column)
+            let x = row & 1 == 0 ? (cellWidth * CGFloat(column)) : (cellWidth * CGFloat(column)) + (cellWidth * 0.5)
+            let y = (cellHeight - sideLength/2) * CGFloat(row)
             let frame = CGRect(x: x, y: y, width: cellWidth, height: cellHeight)
             let cell = HexagonView(frame: frame)
             cell.coordinate = hex.location
