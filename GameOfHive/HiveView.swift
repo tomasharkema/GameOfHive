@@ -50,7 +50,7 @@ class HexagonView: UIView {
         let a = (height - s) / 2.0
         
         let lineWidth: CGFloat = 2.0
-        let halfLineWidth = lineWidth / 2.0
+        let halfLineWidth: CGFloat = 0.0
         
         CGPathMoveToPoint(path, nil, b, halfLineWidth)
         CGPathAddLineToPoint(path, nil, width - halfLineWidth, a)

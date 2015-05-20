@@ -18,12 +18,15 @@ class ViewController: UIViewController {
         let width = CGFloat(sqrt(3.0)) * s
       
       
-        let hexagonGrid = HexagonGrid()
-      
+        let hexagonGrid = HexagonGrid(rows: 50, columns: 50)
       
         for row in 0..<hexagonGrid.rows {
           for column in 0..<hexagonGrid.columns {
-            let hex = HexagonView(frame: CGRect(x: 25.0 * CGFloat(row), y: 25.0 * CGFloat(column), width: width, height: height))
+            
+            let x = column & 1 == 0 ? (width * CGFloat(row)) : (width * CGFloat(row)) + (width * 0.5)
+            let y = (height - s/2) * CGFloat(column)
+            
+            let hex = HexagonView(frame: CGRect(x: x, y: y, width: width, height: height))
             view.addSubview(hex)
           }
         }
