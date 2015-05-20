@@ -51,31 +51,12 @@ extension Hexagon: Printable {
 }
 
 
-func above(location: Coordinate) -> (Coordinate,Coordinate) {
-    return (Coordinate(row: location.row - 1, column: location.column),
-    Coordinate(row: location.row - 1, column: location.column + 1))
-}
-
-func sameRow(location: Coordinate) -> (Coordinate,Coordinate) {
-    return (Coordinate(row: location.row, column: location.column - 1),
-        Coordinate(row: location.row, column: location.column + 1))
-}
-
-func below(location: Coordinate) -> (Coordinate,Coordinate) {
-    return (Coordinate(row: location.row + 1, column: location.column),
-        Coordinate(row: location.row + 1, column: location.column + 1))
-}
-
-func appendTuple(var array: [Coordinate], tuple:(Coordinate,Coordinate)) -> [Coordinate] {
-    array.append(tuple.0)
-    array.append(tuple.1)
-    return array
-}
-
-public func neighboringLocations(hex: Coordinate) -> [Coordinate] {
-    var result: [Coordinate] = []
-    result = appendTuple(result, above(hex))
-    result = appendTuple(result, sameRow(hex))
-    result = appendTuple(result, below(hex))
-    return result
+public func neighboringLocations(location: Coordinate) -> [Coordinate] {
+    return [Coordinate(row: location.row - 1, column: location.column)
+        ,Coordinate(row: location.row - 1, column: location.column + 1)
+        ,Coordinate(row: location.row, column: location.column - 1)
+        ,Coordinate(row: location.row, column: location.column + 1)
+        ,Coordinate(row: location.row + 1, column: location.column)
+        ,Coordinate(row: location.row + 1, column: location.column + 1)
+    ]
 }
