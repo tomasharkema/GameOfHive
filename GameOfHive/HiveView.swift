@@ -21,6 +21,7 @@ extension UIColor {
 
 class HexagonView: UIView {
     
+    var coordinate = Coordinate(row: NSNotFound, column: NSNotFound)
     var alive: Bool = true
     
     required init(coder aDecoder: NSCoder) {
