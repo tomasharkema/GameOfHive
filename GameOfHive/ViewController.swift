@@ -12,23 +12,22 @@ class ViewController: UIViewController {
 
     var cells: [HexagonView] = []
     var timer: NSTimer! = nil
+    var grid: HexagonGrid! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        let height: CGFloat = 25
-        let s = height/2
-        let width = CGFloat(sqrt(3.0)) * s
-      
-        let grid = HexagonGrid(rows: 50, columns: 50)
-        updateGrid(grid, cellWidth: width, cellHeight: height, sideLength: s)
-      
-        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("tick:"), userInfo: nil, repeats: true)
-        timer.fire()
+        createGrid()
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Selector("tick:"), userInfo: nil, repeats: true)
     }
     
-    func updateGrid(grid: HexagonGrid, cellWidth: CGFloat, cellHeight: CGFloat, sideLength: CGFloat) {
+    func createGrid() {
+        let cellHeight: CGFloat = 25
+        let sideLength = cellHeight/2
+        let cellWidth = CGFloat(sqrt(3.0)) * sideLength
+        
+        grid = HexagonGrid(rows: 50, columns: 50)
+        
         for row in 0..<grid.rows {
             for column in 0..<grid.columns {
                 
@@ -38,10 +37,23 @@ class ViewController: UIViewController {
                 let location = Coordinate(row: row, column: column)
                 if let hex = grid.hexagon(atLocation: location) {
                     let frame = CGRect(x: x, y: y, width: cellWidth, height: cellHeight)
-                    let hexView = cellWithCoordinate(location, frame: frame)
-                    hexView.coordinate = location
-                    hexView.alive = hex.active
+                    let cell = HexagonView(frame: frame)
+                    cell.coordinate = location
+                    cell.alive = hex.active
+                    
+                    cells.append(cell)
+                    view.addSubview(cell)
                 }
+            }
+        }
+    }
+    
+    func updateGrid() {
+        grid = nextGrid(grid)
+        for cell in cells {
+            if let hexagon = grid.hexagon(atLocation: cell.coordinate) {
+                cell.alive = hexagon.active
+                cell.setNeedsDisplay()
             }
         }
     }
@@ -52,6 +64,7 @@ class ViewController: UIViewController {
         }.first
         
         if let cell = optionalCell {
+            cell.setNeedsDisplay()
             return cell
         }
         
@@ -61,8 +74,8 @@ class ViewController: UIViewController {
         return cell
     }
     
-    
     func tick(timer: NSTimer) {
+        updateGrid()
     }
     
     deinit {
