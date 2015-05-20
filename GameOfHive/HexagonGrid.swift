@@ -91,7 +91,7 @@ func initialGrid(rows: Int, columns: Int) -> [HexagonRow] {
     for r in 0...rows {
         var row: HexagonRow  = []
         for c in 0...columns {
-            let active = arc4random_uniform(1) == 1
+            let active = arc4random_uniform(2) == 1
             row.append(Hexagon(row: r, column: c, active: active))
         }
         grid.append(row)
@@ -100,7 +100,7 @@ func initialGrid(rows: Int, columns: Int) -> [HexagonRow] {
 }
 
 
-func iterate(grid: HexagonGrid) -> HexagonGrid {
+func nextGrid(grid: HexagonGrid) -> HexagonGrid {
     var nextIteration: [HexagonRow] = []
     for row in grid.grid {
         var nextRow: HexagonRow = []
