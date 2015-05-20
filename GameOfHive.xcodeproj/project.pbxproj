@@ -14,6 +14,7 @@
 		1CE620531B0C8E350072BBF9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CE620511B0C8E350072BBF9 /* LaunchScreen.xib */; };
 		1CE6205F1B0C8E350072BBF9 /* GameOfHiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE6205E1B0C8E350072BBF9 /* GameOfHiveTests.swift */; };
 		B38DD5E71B0C9BB30064E7E4 /* Hexagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38DD5E61B0C9BB30064E7E4 /* Hexagon.swift */; };
+		1CE620691B0C91CD0072BBF9 /* HiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE620681B0C91CD0072BBF9 /* HiveView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		1CE6205D1B0C8E350072BBF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1CE6205E1B0C8E350072BBF9 /* GameOfHiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOfHiveTests.swift; sourceTree = "<group>"; };
 		B38DD5E61B0C9BB30064E7E4 /* Hexagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hexagon.swift; sourceTree = "<group>"; };
+		1CE620681B0C91CD0072BBF9 /* HiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HiveView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				1CE620481B0C8E350072BBF9 /* AppDelegate.swift */,
 				1CE6204A1B0C8E350072BBF9 /* ViewController.swift */,
 				1CE6204C1B0C8E350072BBF9 /* Main.storyboard */,
+				1CE620681B0C91CD0072BBF9 /* HiveView.swift */,
 				1CE6204F1B0C8E350072BBF9 /* Images.xcassets */,
 				1CE620511B0C8E350072BBF9 /* LaunchScreen.xib */,
 				1CE620461B0C8E350072BBF9 /* Supporting Files */,
@@ -216,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CE6204B1B0C8E350072BBF9 /* ViewController.swift in Sources */,
+				1CE620691B0C91CD0072BBF9 /* HiveView.swift in Sources */,
 				1CE620491B0C8E350072BBF9 /* AppDelegate.swift in Sources */,
 				B38DD5E71B0C9BB30064E7E4 /* Hexagon.swift in Sources */,
 			);
