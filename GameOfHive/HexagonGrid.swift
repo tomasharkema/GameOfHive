@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias HexagonRow = [Hexagon]
+typealias HexagonRow = [Int: Hexagon]
 
 public enum GridType {
   case Empty
@@ -16,22 +16,14 @@ public enum GridType {
 }
 
 public struct HexagonGrid {
-    private let grid: [HexagonRow]
+    private var count = 0
+    private let grid: [Int: HexagonRow]
+    
     private let rules: Rules = Rules.defaultRules()
     
-    public var rows: Int {
-        return grid.count
-    }
-    
-    public var columns: Int {
-        if rows == 0 {
-            return 0
-        }
-        return grid[0].count
-    }
-    
-    private init(grid: [HexagonRow]) {
+    private init(grid: [Int: HexagonRow]) {
         self.grid = grid
+        self.count = grid.count
     }
     
     public init(rows: Int = 10, columns: Int = 10, initialGridType: GridType) {
@@ -40,29 +32,18 @@ public struct HexagonGrid {
     }
     
     public func hexagon(atLocation location: Coordinate) -> Hexagon? {
-        if location.row < 0 || location.row >= self.grid.count {
-            return nil
-        }
-        let row = self.grid[location.row]
-        if location.column < 0 || location.column >= row.count {
-            return nil
-        }
-        return row[location.column]
-    }
-    
-    func neighbors(cell: Hexagon) -> [Hexagon] {
-        let ns = neighboringLocations(cell.location)
-        var cells: [Hexagon] = []
-        for n in ns {
-            if let hex = hexagon(atLocation:n) {
-                cells.append(hex)
-            }
-        }
-        return cells
+        return grid[location.row]?[location.column]
     }
     
     func activeNeigbors(cell: Hexagon) -> Int {
-        return neighbors(cell).filter({ $0.active }).count
+        let ns = neighboringLocations(cell.location).reduce(0) { (value, location: Coordinate) in
+            if let hex = hexagon(atLocation: location) where hex.active {
+                return value+1
+            }
+            return value
+            
+        }
+        return ns
     }
     
     public func nextIteration(cell: Hexagon) -> Hexagon {
@@ -72,14 +53,15 @@ public struct HexagonGrid {
     func setActive(active: Bool, atLocation location: Coordinate) -> HexagonGrid
     {
         var newGrid = grid
-        if newGrid.count < location.row {
+        var row: HexagonRow! = newGrid[location.row]
+        if row == nil {
             return self
         }
-        var row = newGrid[location.row]
-        if row.count < location.column {
+        let hex: Hexagon! = row[location.column]
+        if hex == nil {
             return self
         }
-        row[location.column] = row[location.column].setActive(active)
+        row[location.column] = hex.setActive(active)
         newGrid[location.row] = row
         return HexagonGrid(grid: newGrid)
     }
@@ -88,8 +70,8 @@ public struct HexagonGrid {
 extension HexagonGrid: Printable {
     public var description: String {
         var output = ""
-        for row in self.grid {
-            for hex in row {
+        for (rowNumber,row) in self.grid {
+            for (columnNumber,hex) in row {
                 output += hex.description
             }
             output += "\n"
@@ -101,45 +83,45 @@ extension HexagonGrid: Printable {
 extension HexagonGrid: SequenceType {
     public func generate() -> GeneratorOf<Hexagon> {
         var rowGenerator = self.grid.generate()
-        var columnGenerator = rowGenerator.next()?.generate()
+        var columnGenerator = rowGenerator.next()?.1.generate()
         return GeneratorOf<Hexagon> {
             if let column = columnGenerator?.next()
             {
-                return column
+                return column.1
             }
-            columnGenerator = rowGenerator.next()?.generate()
-            return columnGenerator?.next()
+            columnGenerator = rowGenerator.next()?.1.generate()
+            return columnGenerator?.next()?.1
         }
     }
 }
 
-func initialGrid(rows: Int, columns: Int, gridType: GridType) -> [HexagonRow] {
-    var grid: [HexagonRow] = []
+func initialGrid(rows: Int, columns: Int, gridType: GridType) -> [Int: HexagonRow] {
+    var grid: [Int:HexagonRow] = [:]
     for r in 0...rows {
-        var row: HexagonRow  = []
+        var row: HexagonRow = [:]
         for c in 0...columns {
             let active = gridType == .Empty ? false : arc4random_uniform(30) == 1
-            row.append(Hexagon(row: r, column: c, active: active))
+            row[c] = Hexagon(row: r, column: c, active: active)
         }
-        grid.append(row)
+        grid[r] = row
     }
     return grid
 }
 
 
 func nextGrid(grid: HexagonGrid) -> HexagonGrid {
-    var nextIteration: [HexagonRow] = []
-    for row in grid.grid {
-        var nextRow: HexagonRow = []
-        for hex in row {
+    var nextIteration: [Int:HexagonRow] = [:]
+    for (rowNumber,row) in grid.grid {
+        var nextRow: HexagonRow = [:]
+        for (columnNumber,hex) in row {
             let nextHex = grid.nextIteration(hex)
-            nextRow.append(nextHex)
+            nextRow[columnNumber] = nextHex
         }
-        nextIteration.append(nextRow)
+        nextIteration[rowNumber] = nextRow
     }
     return HexagonGrid(grid: nextIteration)
 }
 
-func emptyGrid(grid: HexagonGrid) -> HexagonGrid {
-  return HexagonGrid(rows: grid.rows, columns: grid.columns, initialGridType: .Empty)
+func emptyGrid(rows: Int, columns: Int) -> HexagonGrid {
+  return HexagonGrid(rows: rows, columns: columns, initialGridType: .Empty)
 }

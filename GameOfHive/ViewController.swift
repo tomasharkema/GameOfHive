@@ -12,7 +12,8 @@ let X_OFFSET: CGFloat = -12.0
 let Y_OFFSET: CGFloat = -10.0
 
 class ViewController: UIViewController, HexagonViewDelegate {
-    
+    let numberOfRows = 47
+    let numberOfColumns = 41
     var cells: [HexagonView] = []
     var timer: NSTimer! = nil
     var grid: HexagonGrid! = nil
@@ -41,7 +42,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
         
         HexagonView.updateEdgePath(cellWidth, height: cellHeight, lineWidth: 2.0)
       
-        grid = HexagonGrid(rows: 47, columns: 41, initialGridType: .Random)
+        grid = HexagonGrid(rows: numberOfRows, columns: numberOfColumns, initialGridType: .Random)
         
         for hex in grid {
             let row = hex.location.row
@@ -140,7 +141,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
   
   override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
     if motion == .MotionShake {
-      grid = emptyGrid(grid)
+      grid = emptyGrid(numberOfRows,numberOfColumns)
       updateGrid()
     }
   }
