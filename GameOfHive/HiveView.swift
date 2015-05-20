@@ -100,7 +100,7 @@ class ScaleAnimation: Equatable {
 }
 
 class HexagonView: UIView {
-    
+    var path: CGMutablePathRef?
     var coordinate = Coordinate(row: NSNotFound, column: NSNotFound)
     var alive: Bool = true {
         didSet {
@@ -136,37 +136,43 @@ class HexagonView: UIView {
         
         let height = rect.height
         let width = rect.width
-        
+
         let strokeColor = UIColor.darkAmberColor
         let backGroundColor = UIColor.blackColor()
         let hunnyColor = UIColor.lightAmberColor
 
-        let s = height / 2.0
-        let b = width / 2.0
-        let a = (height - s) / 2.0
-        
         let lineWidth: CGFloat = 1.0
-        let halfLineWidth: CGFloat = 0.0
+
+        if path == nil {
+
+
+            let s = height / 2.0
+            let b = width / 2.0
+            let a = (height - s) / 2.0
+            
+            let halfLineWidth: CGFloat = 0.0
         
-        let edge = CGPathCreateMutable()
-        CGPathMoveToPoint(edge, nil, b, halfLineWidth)
-        CGPathAddLineToPoint(edge, nil, width - halfLineWidth, a)
-        CGPathAddLineToPoint(edge, nil, width - halfLineWidth, a + s)
-        CGPathAddLineToPoint(edge, nil, b, height - halfLineWidth)
-        CGPathAddLineToPoint(edge, nil, halfLineWidth, a + s)
-        CGPathAddLineToPoint(edge, nil, halfLineWidth, a)
-        CGPathAddLineToPoint(edge, nil, b, halfLineWidth)
+            let edge = CGPathCreateMutable()
+            CGPathMoveToPoint(edge, nil, b, halfLineWidth)
+            CGPathAddLineToPoint(edge, nil, width - halfLineWidth, a)
+            CGPathAddLineToPoint(edge, nil, width - halfLineWidth, a + s)
+            CGPathAddLineToPoint(edge, nil, b, height - halfLineWidth)
+            CGPathAddLineToPoint(edge, nil, halfLineWidth, a + s)
+            CGPathAddLineToPoint(edge, nil, halfLineWidth, a)
+            CGPathAddLineToPoint(edge, nil, b, halfLineWidth)
+            path = edge
+        }
         
         let tx = (width / 2) - (width * hunnyScaleFactor) / 2
         let ty = (height / 2) - (height * hunnyScaleFactor) / 2
         let hunnyTranslate = CGAffineTransformMakeTranslation(tx, ty)
         let hunnyScale = CGAffineTransformMakeScale(hunnyScaleFactor, hunnyScaleFactor)
         var hunnyTransform = CGAffineTransformConcat(hunnyScale, hunnyTranslate)
-        let hunny = CGPathCreateCopyByTransformingPath(edge, &hunnyTransform)
+        let hunny = CGPathCreateCopyByTransformingPath(path, &hunnyTransform)
 
         // backGroundColor
         CGContextSaveGState(context)
-        CGContextAddPath(context, edge)
+        CGContextAddPath(context, path)
         CGContextSetFillColorWithColor(context, backGroundColor.CGColor)
         CGContextFillPath(context)
         CGContextRestoreGState(context)
@@ -181,7 +187,7 @@ class HexagonView: UIView {
         
         // edge
         CGContextSaveGState(context)
-        CGContextAddPath(context, edge)
+        CGContextAddPath(context, path)
         CGContextSetLineWidth(context, lineWidth)
         CGContextSetStrokeColorWithColor(context, strokeColor.CGColor)
         CGContextStrokePath(context)
