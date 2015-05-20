@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C366C321B0D39BC001B2B53 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C366C311B0D39BC001B2B53 /* Animations.swift */; };
+		1C366C341B0D3A1B001B2B53 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C366C331B0D3A1B001B2B53 /* UIColor.swift */; };
 		1CE620491B0C8E350072BBF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE620481B0C8E350072BBF9 /* AppDelegate.swift */; };
 		1CE6204B1B0C8E350072BBF9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE6204A1B0C8E350072BBF9 /* ViewController.swift */; };
 		1CE6204E1B0C8E350072BBF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CE6204C1B0C8E350072BBF9 /* Main.storyboard */; };
@@ -31,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C366C311B0D39BC001B2B53 /* Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
+		1C366C331B0D3A1B001B2B53 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		1CE620431B0C8E350072BBF9 /* GameOfHive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameOfHive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE620471B0C8E350072BBF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1CE620481B0C8E350072BBF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,12 +95,14 @@
 				1CE6204A1B0C8E350072BBF9 /* ViewController.swift */,
 				1CE6204C1B0C8E350072BBF9 /* Main.storyboard */,
 				1CE620681B0C91CD0072BBF9 /* HiveView.swift */,
+				1C366C331B0D3A1B001B2B53 /* UIColor.swift */,
 				1CE6204F1B0C8E350072BBF9 /* Images.xcassets */,
 				1CE620511B0C8E350072BBF9 /* LaunchScreen.xib */,
 				1CE620461B0C8E350072BBF9 /* Supporting Files */,
 				B38DD5E61B0C9BB30064E7E4 /* Hexagon.swift */,
 				B38DD5E81B0CA52D0064E7E4 /* HexagonGrid.swift */,
 				B3BD1C981B0CD3EF00331176 /* Rules.swift */,
+				1C366C311B0D39BC001B2B53 /* Animations.swift */,
 			);
 			path = GameOfHive;
 			sourceTree = "<group>";
@@ -233,7 +239,9 @@
 				1CE620691B0C91CD0072BBF9 /* HiveView.swift in Sources */,
 				B3BD1C991B0CD3EF00331176 /* Rules.swift in Sources */,
 				1CE620491B0C8E350072BBF9 /* AppDelegate.swift in Sources */,
+				1C366C341B0D3A1B001B2B53 /* UIColor.swift in Sources */,
 				B38DD5E71B0C9BB30064E7E4 /* Hexagon.swift in Sources */,
+				1C366C321B0D39BC001B2B53 /* Animations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
