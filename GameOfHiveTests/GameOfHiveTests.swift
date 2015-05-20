@@ -35,7 +35,7 @@ class GameOfHiveTests: XCTestCase {
     
     func testNeighbors() {
         var input = Coordinate(row: 1, column: 1)
-        var coordinates = neighbors(input)
+        var coordinates = neighboringLocations(input)
         XCTAssert(coordinates.count == 6, "has six values")
         XCTAssert(contains(coordinates,Coordinate(row: 0, column: 1)), "")
         XCTAssert(contains(coordinates,Coordinate(row: 0, column: 1)), "")
@@ -43,5 +43,15 @@ class GameOfHiveTests: XCTestCase {
         XCTAssert(contains(coordinates,Coordinate(row: 1, column: 2)), "")
         XCTAssert(contains(coordinates,Coordinate(row: 2, column: 1)), "")
         XCTAssert(contains(coordinates,Coordinate(row: 2, column: 2)), "")
-    }
+
+        input = Coordinate(row: 1, column: 2)
+        coordinates = neighboringLocations(input)
+        XCTAssert(coordinates.count == 6, "has six values")
+        XCTAssert(contains(coordinates,Coordinate(row: 0, column: 2)), "")
+        XCTAssert(contains(coordinates,Coordinate(row: 0, column: 3)), "")
+        XCTAssert(contains(coordinates,Coordinate(row: 1, column: 1)), "")
+        XCTAssert(contains(coordinates,Coordinate(row: 1, column: 3)), "")
+        XCTAssert(contains(coordinates,Coordinate(row: 2, column: 2)), "")
+        XCTAssert(contains(coordinates,Coordinate(row: 2, column: 3)), "")
+}
 }

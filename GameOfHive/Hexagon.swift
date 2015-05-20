@@ -26,10 +26,25 @@ public func ==(lhs: Coordinate, rhs: Coordinate) -> Bool {
 }
 
 public struct Hexagon {
-    let location: Coordinate
+    public let active: Bool
+    public let location: Coordinate
+    public init(location: Coordinate, active: Bool = false) {
+        self.location = location
+        self.active = active
+    }
 
-    public init(row: Int, column: Int) {
-        self.location = Coordinate(row: row, column: column)
+    public init(row: Int, column: Int, active: Bool = false) {
+        self.init(location: Coordinate(row: row, column: column),active: active)
+    }
+    
+    public func activate() -> Hexagon {
+        return Hexagon(row: location.row, column: location.column, active: true)
+    }
+}
+
+extension Hexagon: Printable {
+    public var description: String {
+        return active ? "+" : "-"
     }
 }
 
@@ -55,7 +70,7 @@ func appendTuple(var array: [Coordinate], tuple:(Coordinate,Coordinate)) -> [Coo
     return array
 }
 
-public func neighbors(hex: Coordinate) -> [Coordinate] {
+public func neighboringLocations(hex: Coordinate) -> [Coordinate] {
     var result: [Coordinate] = []
     result = appendTuple(result, above(hex))
     result = appendTuple(result, sameRow(hex))
