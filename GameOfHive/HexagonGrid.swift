@@ -12,6 +12,7 @@ typealias HexagonRow = [Hexagon]
 
 public struct HexagonGrid {
     private let grid: [HexagonRow]
+    private let rules: Rules = Rules.defaultRules()
     
     public var rows: Int {
         return grid.count
@@ -60,16 +61,7 @@ public struct HexagonGrid {
     }
     
     public func nextIteration(cell: Hexagon) -> Hexagon {
-        let isActive: Bool
-        switch activeNeigbors(cell) {
-        case 2:
-            isActive = cell.active
-        case 3:
-            isActive = true
-        default:
-            isActive = false
-        }
-        return cell.setActive(isActive)
+        return rules.perform(cell, numberOfActiveNeighbors: activeNeigbors(cell))
     }
     
     func setActive(active: Bool, atLocation location: Coordinate) -> HexagonGrid

@@ -1,0 +1,28 @@
+//
+//  Ruls.swift
+//  GameOfHive
+//
+//  Created by Niels van Hoorn on 20/05/15.
+//  Copyright (c) 2015 Beetles. All rights reserved.
+//
+
+import Foundation
+
+struct Rules {
+    let environment: [Int]
+    let fertility: [Int]
+    
+    static func defaultRules() -> Rules {
+        return Rules(environment: [3,5], fertility: [2])
+    }
+    
+    func perform(hexagon: Hexagon, numberOfActiveNeighbors: Int) -> Hexagon {
+        if contains(fertility, numberOfActiveNeighbors) {
+            return hexagon.setActive(true)
+        } else if contains(environment, numberOfActiveNeighbors) {
+            return hexagon
+        }
+        return hexagon.setActive(false)
+    }
+    
+}

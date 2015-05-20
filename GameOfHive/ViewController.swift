@@ -17,11 +17,18 @@ class ViewController: UIViewController, HexagonViewDelegate {
     var timer: NSTimer! = nil
     var grid: HexagonGrid! = nil
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-      
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         createGrid()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Selector("tick:"), userInfo: nil, repeats: true)
+        timer = createTimer()
+        let button: UIButton = UIButton.buttonWithType(.InfoLight) as! UIButton
+        button.addTarget(self, action: Selector("pause:"), forControlEvents: .TouchUpInside)
+        self.view.addSubview(button)
+    }
+    
+    func createTimer() -> NSTimer {
+        return NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Selector("tick:"), userInfo: nil, repeats: true)
     }
     
     func createGrid() {
@@ -33,6 +40,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
         grid = HexagonGrid(rows: 36, columns: 55)
         
         for hex in grid {
+            println(hex.location)
             let row = hex.location.row
             let column = hex.location.column
             let x = X_OFFSET + (column & 1 == 0 ? (cellWidth * CGFloat(row)) : (cellWidth * CGFloat(row)) + (cellWidth * 0.5))
@@ -80,6 +88,15 @@ class ViewController: UIViewController, HexagonViewDelegate {
   
     func tick(timer: NSTimer) {
         updateGrid()
+    }
+    
+    func pause(button: UIButton) {
+        if let t = timer {
+            t.invalidate()
+            timer = nil
+        } else {
+            timer = createTimer()
+        }
     }
     
     deinit {
