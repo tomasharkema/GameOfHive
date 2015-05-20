@@ -37,8 +37,8 @@ public struct Hexagon {
         self.init(location: Coordinate(row: row, column: column),active: active)
     }
     
-    public func activate() -> Hexagon {
-        return Hexagon(row: location.row, column: location.column, active: true)
+    public func setActive(active: Bool) -> Hexagon {
+        return Hexagon(row: location.row, column: location.column, active: active)
     }
 }
 
