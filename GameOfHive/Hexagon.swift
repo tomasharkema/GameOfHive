@@ -17,8 +17,10 @@ public struct Coordinate {
     }
 }
 
-extension Coordinate: Equatable {
-    
+extension Coordinate: Printable, Equatable {
+  public var description: String {
+    return "\(row) : \(column)"
+  }
 }
 
 public func ==(lhs: Coordinate, rhs: Coordinate) -> Bool {
@@ -37,8 +39,8 @@ public struct Hexagon {
         self.init(location: Coordinate(row: row, column: column),active: active)
     }
     
-    public func activate() -> Hexagon {
-        return Hexagon(row: location.row, column: location.column, active: true)
+    public func setActive(active: Bool) -> Hexagon {
+        return Hexagon(row: location.row, column: location.column, active: active)
     }
 }
 

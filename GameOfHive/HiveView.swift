@@ -19,11 +19,17 @@ extension UIColor {
     }
 }
 
+protocol HexagonViewDelegate {
+  func userDidUpateCellAtCoordinate(coordinate: Coordinate, alive:Bool)
+}
+
 class HexagonView: UIView {
     
     var coordinate = Coordinate(row: NSNotFound, column: NSNotFound)
     var alive: Bool = true
-    
+  
+    var hexagonViewDelegate: HexagonViewDelegate?
+  
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -32,11 +38,19 @@ class HexagonView: UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
     }
-    
+  
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+      super.touchesBegan(touches, withEvent: event)
+      self.alive = !self.alive
+      self.setNeedsDisplay()
+      println("TOUCH: \(coordinate) \(alive)")
+      hexagonViewDelegate?.userDidUpateCellAtCoordinate(coordinate, alive: alive)
+    }
+      
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
         
-        
+      
         let path = CGPathCreateMutable()
         let height = rect.height
         let width = rect.width
