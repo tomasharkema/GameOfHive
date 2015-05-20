@@ -13,7 +13,8 @@ struct Rules {
     let fertility: [Int]
     
     static func defaultRules() -> Rules {
-        return Rules(environment: [3,5], fertility: [2])
+//        return Rules(environment: [3,5], fertility: [2])
+        return Rules(environment: [1], fertility: [2,3,4])
     }
     
     func perform(hexagon: Hexagon, numberOfActiveNeighbors: Int) -> Hexagon {

@@ -113,7 +113,7 @@ func initialGrid(rows: Int, columns: Int) -> [HexagonRow] {
     for r in 0...rows {
         var row: HexagonRow  = []
         for c in 0...columns {
-            let active = false //arc4random_uniform(2) == 1
+            let active = arc4random_uniform(30) == 1
             row.append(Hexagon(row: r, column: c, active: active))
         }
         grid.append(row)

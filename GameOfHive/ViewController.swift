@@ -21,7 +21,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
         super.viewDidLoad()
         
         createGrid()
-        timer = createTimer()
+//        timer = createTimer()
         let button: UIButton = UIButton.buttonWithType(.Custom) as! UIButton
         button.addTarget(self, action: Selector("pause:"), forControlEvents: .TouchUpInside)
 		button.frame = CGRectMake(10, 10, 30, 30)
@@ -31,7 +31,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
     }
     
     func createTimer() -> NSTimer {
-        return NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Selector("tick:"), userInfo: nil, repeats: false)
+        return NSTimer.scheduledTimerWithTimeInterval(0.75, target: self, selector: Selector("tick:"), userInfo: nil, repeats: false)
     }
     
     func createGrid() {
@@ -40,7 +40,8 @@ class ViewController: UIViewController, HexagonViewDelegate {
         let cellWidth = CGFloat(sqrt(3.0)) * sideLength
       
       
-        grid = HexagonGrid(rows: 36, columns: 55)
+        grid = HexagonGrid(rows: 47, columns: 41)
+//            grid = HexagonGrid(rows: 0, columns: 0)
         
         for hex in grid {
             let row = hex.location.row
@@ -60,10 +61,10 @@ class ViewController: UIViewController, HexagonViewDelegate {
     func updateGrid() {
       
       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-        println("BACK")
+//        println("BACK")
         self.grid = nextGrid(self.grid)
         dispatch_async(dispatch_get_main_queue()) {
-          println("MAIN")
+//          println("MAIN")
           for cell in self.cells {
             if let hexagon = self.grid.hexagon(atLocation: cell.coordinate) {
               cell.alive = hexagon.active
