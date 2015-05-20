@@ -17,6 +17,7 @@
 		B38DD5E71B0C9BB30064E7E4 /* Hexagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38DD5E61B0C9BB30064E7E4 /* Hexagon.swift */; };
 		B38DD5E91B0CA52D0064E7E4 /* HexagonGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38DD5E81B0CA52D0064E7E4 /* HexagonGrid.swift */; };
 		B38DD5EB1B0CA7A60064E7E4 /* GridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38DD5EA1B0CA7A60064E7E4 /* GridTests.swift */; };
+		B3BD1C991B0CD3EF00331176 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BD1C981B0CD3EF00331176 /* Rules.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		B38DD5E61B0C9BB30064E7E4 /* Hexagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hexagon.swift; sourceTree = "<group>"; };
 		B38DD5E81B0CA52D0064E7E4 /* HexagonGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexagonGrid.swift; sourceTree = "<group>"; };
 		B38DD5EA1B0CA7A60064E7E4 /* GridTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridTests.swift; sourceTree = "<group>"; };
+		B3BD1C981B0CD3EF00331176 /* Rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				1CE620461B0C8E350072BBF9 /* Supporting Files */,
 				B38DD5E61B0C9BB30064E7E4 /* Hexagon.swift */,
 				B38DD5E81B0CA52D0064E7E4 /* HexagonGrid.swift */,
+				B3BD1C981B0CD3EF00331176 /* Rules.swift */,
 			);
 			path = GameOfHive;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				B38DD5E91B0CA52D0064E7E4 /* HexagonGrid.swift in Sources */,
 				1CE6204B1B0C8E350072BBF9 /* ViewController.swift in Sources */,
 				1CE620691B0C91CD0072BBF9 /* HiveView.swift in Sources */,
+				B3BD1C991B0CD3EF00331176 /* Rules.swift in Sources */,
 				1CE620491B0C8E350072BBF9 /* AppDelegate.swift in Sources */,
 				B38DD5E71B0C9BB30064E7E4 /* Hexagon.swift in Sources */,
 			);
