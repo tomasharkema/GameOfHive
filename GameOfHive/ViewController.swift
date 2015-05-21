@@ -8,15 +8,12 @@
 
 import UIKit
 
-let X_OFFSET: CGFloat = -12.0
-let Y_OFFSET: CGFloat = -10.0
-
 class ViewController: UIViewController, HexagonViewDelegate {
-    let numberOfRows = 47
-    let numberOfColumns = 41
+    var numberOfRows = 15
+    var numberOfColumns: Int!
     var cells: [HexagonView] = []
-    var timer: NSTimer! = nil
-    var grid: HexagonGrid! = nil
+    var timer: NSTimer!
+    var grid: HexagonGrid!
     var button: UIButton!
     
     override func viewDidLoad() {
@@ -31,13 +28,16 @@ class ViewController: UIViewController, HexagonViewDelegate {
     }
     
     func createTimer() -> NSTimer {
-        return NSTimer.scheduledTimerWithTimeInterval(0.75, target: self, selector: Selector("tick:"), userInfo: nil, repeats: false)
+        return NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("tick:"), userInfo: nil, repeats: true)
     }
     
     func createGrid() {
-        let cellHeight: CGFloat = 25
+        var cellHeight: CGFloat = (view.bounds.height / (CGFloat(numberOfRows-1)) * 1.5)
         let sideLength = cellHeight/2
         let cellWidth = CGFloat(sqrt(3.0)) * sideLength
+        numberOfColumns = Int(ceil(view.bounds.width / cellWidth))
+        let xOffset: CGFloat = -cellWidth/2
+        let yOffset = -(cellHeight/4 + sideLength)
         
         HexagonView.updateEdgePath(cellWidth, height: cellHeight, lineWidth: 2.0)
       
@@ -46,8 +46,8 @@ class ViewController: UIViewController, HexagonViewDelegate {
         for hex in grid {
             let row = hex.location.row
             let column = hex.location.column
-            let x = X_OFFSET + (column & 1 == 0 ? (cellWidth * CGFloat(row)) : (cellWidth * CGFloat(row)) + (cellWidth * 0.5))
-            let y = Y_OFFSET + ((cellHeight - sideLength/2) * CGFloat(column))
+            let x = xOffset + (row & 1 == 0 ? (cellWidth * CGFloat(column)) : (cellWidth * CGFloat(column)) + (cellWidth * 0.5))
+            let y = yOffset + ((cellHeight - sideLength/2) * CGFloat(row))
             let frame = CGRect(x: x, y: y, width: cellWidth, height: cellHeight)
             let cell = HexagonView(frame: frame)
             cell.coordinate = hex.location
