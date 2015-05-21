@@ -95,6 +95,26 @@ class HexagonView: UIView {
         CGContextAddPath(context, hunny)
         CGContextFillPath(context)
         CGContextRestoreGState(context)
+
+//        CGContextSaveGState(context)
+//
+//        let path = CGPathCreateMutable()
+//        var bounds = self.bounds
+//        bounds.origin.x = bounds.midY
+//        bounds.origin.y = -bounds.midY
+//        CGPathAddRect(path, nil,  bounds)
+//        
+//        let attString:NSAttributedString = NSAttributedString(string: "\(coordinate)", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
+//        CGContextSetTextMatrix(context, CGAffineTransformIdentity);
+//        CGContextTranslateCTM(context, 0, self.bounds.size.height);
+//        CGContextScaleCTM(context, 1.0, -1.0);
+//        
+//        let framesetter = CTFramesetterCreateWithAttributedString(attString)
+//        var frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, attString.length), path, nil)
+//        CTFrameDraw(frame, context)
+//        
+//        CGContextRestoreGState(context)
+
         
 //        // edge
 //        CGContextSaveGState(context)
