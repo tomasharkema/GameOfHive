@@ -19,7 +19,7 @@ public struct Coordinate {
 
 extension Coordinate: Printable, Equatable {
   public var description: String {
-    return "\(row) : \(column)"
+    return "(\(row),\(column))"
   }
 }
 
