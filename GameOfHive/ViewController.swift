@@ -17,14 +17,13 @@ class ViewController: UIViewController, HexagonViewDelegate {
     var cells: [HexagonView] = []
     var timer: NSTimer! = nil
     var grid: HexagonGrid! = nil
+    var button: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         createGrid()
-//        timer = createTimer()
-        let button: UIButton = UIButton.buttonWithType(.Custom) as! UIButton
-        button.addTarget(self, action: Selector("pause:"), forControlEvents: .TouchUpInside)
+        button = UIButton.buttonWithType(.Custom) as! UIButton
+        button.addTarget(self, action: Selector("toggle:"), forControlEvents: .TouchUpInside)
 		button.frame = CGRectMake(10, 10, 30, 30)
 		button.setImage(UIImage(named: "button_play"), forState: .Normal)
 
@@ -62,18 +61,14 @@ class ViewController: UIViewController, HexagonViewDelegate {
     func updateGrid() {
       
       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-//        println("BACK")
         self.grid = nextGrid(self.grid)
         dispatch_async(dispatch_get_main_queue()) {
-//          println("MAIN")
           for cell in self.cells {
             if let hexagon = self.grid.hexagon(atLocation: cell.coordinate) {
               cell.alive = hexagon.active
               cell.setNeedsDisplay()
             }
           }
-          
-          self.timer = self.createTimer()
         }
       }
     }
@@ -103,21 +98,28 @@ class ViewController: UIViewController, HexagonViewDelegate {
         updateGrid()
     }
     
-    func pause(button: UIButton) {
-
-        if let t = timer {
-            t.invalidate()
-            timer = nil
-			button.setImage(UIImage(named: "button_play"), forState: .Normal)
+    func toggle(button: UIButton) {
+        if timer == nil {
+            start()
         } else {
-            timer = createTimer()
-			button.setImage(UIImage(named: "button_stop"), forState: .Normal)
+            stop()
         }
     }
     
     deinit {
-        timer.invalidate()
+        stop()
+    }
+    
+    func start() {
+        timer?.invalidate()
+        timer = createTimer()
+        button.setImage(UIImage(named: "button_stop"), forState: .Normal)
+    }
+    
+    func stop() {
+        timer?.invalidate()
         timer = nil
+        button.setImage(UIImage(named: "button_play"), forState: .Normal)
     }
     
     override func didReceiveMemoryWarning() {
@@ -143,6 +145,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
     if motion == .MotionShake {
       grid = emptyGrid(numberOfRows,numberOfColumns)
       updateGrid()
+      stop()
     }
   }
   
