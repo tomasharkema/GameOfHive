@@ -12,7 +12,7 @@ import UIKit
 let gridQueue = dispatch_queue_create("grid_queue", DISPATCH_QUEUE_SERIAL)
 
 class ViewController: UIViewController, HexagonViewDelegate {
-    var numberOfRows = 50
+    var numberOfRows = 25
     var numberOfColumns: Int!
     var cells: [HexagonView] = []
     var timer: NSTimer!
