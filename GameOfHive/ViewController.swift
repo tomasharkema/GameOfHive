@@ -18,7 +18,8 @@ class ViewController: UIViewController {
     var timer: NSTimer!
     var grid: HexagonGrid!
     var button: UIButton!
-        
+    var menuView: MenuView? = nil
+    
     // MARK: UIViewController
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -42,6 +43,8 @@ class ViewController: UIViewController {
 		button.frame = CGRectMake(10, 10, 30, 30)
 		button.setImage(UIImage(named: "button_play"), forState: .Normal)
         self.view.addSubview(button)
+      
+        showMenu()
     }
     
     // MARK: Grid
@@ -175,10 +178,7 @@ extension ViewController: HexagonViewDelegate {
             }
         }
     }
-}
 
-// MARK: Shake
-extension ViewController {
     override func canBecomeFirstResponder() -> Bool {
         return true
     }
@@ -195,5 +195,21 @@ extension ViewController {
             }
         }
     }
+
+    func showMenu() {
+        // menu
+        let menuView = MenuView(frame: view.frame)
+        view.addSubview(menuView)
+        self.menuView = menuView
+    }
+
+//    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
+//      if motion == .MotionShake {
+//        grid = emptyGrid(numberOfRows,numberOfColumns)
+//        updateGrid()
+//      }
+//    }
+  
+  
 }
 
