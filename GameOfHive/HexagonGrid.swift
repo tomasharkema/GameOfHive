@@ -97,10 +97,10 @@ extension HexagonGrid: SequenceType {
 
 func initialGrid(rows: Int, columns: Int, gridType: GridType) -> [Int: HexagonRow] {
     var grid: [Int:HexagonRow] = [:]
-    for r in 0...rows {
+    for r in 0..<rows {
         var row: HexagonRow = [:]
-        for c in 0...columns {
-            let active = gridType == .Empty ? false : arc4random_uniform(30) == 1
+        for c in 0..<columns {
+            let active = gridType == .Empty ? false : arc4random_uniform(10) == 1
             row[c] = Hexagon(row: r, column: c, active: active)
         }
         grid[r] = row
