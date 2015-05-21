@@ -23,29 +23,29 @@ class ScaleAnimation: Equatable {
     let start: CGFloat
     let delta: CGFloat
     
-    let time: CFTimeInterval
+    let endTime: CFTimeInterval
     var currentTime: CFTimeInterval = 0.0
     
     init (view: HexagonView, end: CGFloat, time: CFTimeInterval) {
         self.view = view
         start = view.hunnyScaleFactor
         delta = end - start
-        self.time = time
+        self.endTime = time
     }
     
     func increaseTime(time: CFTimeInterval) {
         currentTime += time
-        if currentTime > self.time {
-            currentTime = self.time
+        if currentTime > self.endTime {
+            currentTime = self.endTime
         }
         
-        let factor = CGFloat(currentTime / self.time)
+        let factor = CGFloat(currentTime / self.endTime)
         let scale = start + delta * factor
         
         view.hunnyScaleFactor = scale
         view.setNeedsDisplay()
         
-        if currentTime >= self.time {
+        if currentTime >= self.endTime {
             delegate?.animationDidFinish(self)
         }
     }
@@ -57,6 +57,7 @@ class ScaleAnimation: Equatable {
     
     var displayLink: CADisplayLink! = nil
     var animations: [ScaleAnimation] = []
+    var lastDrawTime: CFTimeInterval = 0
     
     init () {
         displayLink = UIScreen.mainScreen().displayLinkWithTarget(self, selector: Selector("tick:"))
@@ -64,16 +65,20 @@ class ScaleAnimation: Equatable {
     }
     
     func addAnimationForView(view: HexagonView, end: CGFloat) {
-        var animation = ScaleAnimation(view: view, end: end, time: 0.08)
+        var animation = ScaleAnimation(view: view, end: end, time: 0.4)
         animation.delegate = self
         animations.append(animation)
     }
     
     func tick(displayLink: CADisplayLink) {
-        let duration = displayLink.duration
+        if lastDrawTime == 0 {
+            lastDrawTime = displayLink.timestamp
+        }
+        let duration = displayLink.timestamp - lastDrawTime
         for animation in animations {
             animation.increaseTime(duration)
         }
+        lastDrawTime = displayLink.timestamp
     }
     
     func animationDidFinish(animation: ScaleAnimation) {
