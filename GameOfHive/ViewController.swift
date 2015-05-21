@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, HexagonViewDelegate {
-    var numberOfRows = 15
+    var numberOfRows = 25
     var numberOfColumns: Int!
     var cells: [HexagonView] = []
     var timer: NSTimer!
