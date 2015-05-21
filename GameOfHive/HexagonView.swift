@@ -70,7 +70,6 @@ class HexagonView: UIView {
         let context = UIGraphicsGetCurrentContext()
         
         let strokeColor = UIColor.darkAmberColor
-        let backGroundColor = UIColor.blackColor()
         let hunnyColor = UIColor.lightAmberColor
 
         // edge
@@ -89,13 +88,6 @@ class HexagonView: UIView {
         //hunny path
         let hunny = CGPathCreateCopyByTransformingPath(edgePath, &hunnyTransform)
 
-        // backGroundColor
-        CGContextSaveGState(context)
-        CGContextAddPath(context, edgePath)
-        CGContextSetFillColorWithColor(context, backGroundColor.CGColor)
-        CGContextFillPath(context)
-        CGContextRestoreGState(context)
-        
         // hunny
         CGContextSaveGState(context)
         CGContextSetLineWidth(context, lineWidth)
@@ -104,13 +96,13 @@ class HexagonView: UIView {
         CGContextFillPath(context)
         CGContextRestoreGState(context)
         
-        // edge
-        CGContextSaveGState(context)
-        CGContextAddPath(context, edgePath)
-        CGContextSetLineWidth(context, lineWidth)
-        CGContextSetStrokeColorWithColor(context, strokeColor.CGColor)
-        CGContextStrokePath(context)
-        CGContextRestoreGState(context)
-        
+//        // edge
+//        CGContextSaveGState(context)
+//        CGContextAddPath(context, edgePath)
+//        CGContextSetLineWidth(context, lineWidth)
+//        CGContextSetStrokeColorWithColor(context, strokeColor.CGColor)
+//        CGContextStrokePath(context)
+//        CGContextRestoreGState(context)
+//        
     }
 }
