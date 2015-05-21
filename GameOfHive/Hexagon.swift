@@ -52,11 +52,18 @@ extension Hexagon: Printable {
 
 
 public func neighboringLocations(location: Coordinate) -> [Coordinate] {
-    return [Coordinate(row: location.row - 1, column: location.column)
-        ,Coordinate(row: location.row - 1, column: location.column + 1)
+    let evenRow = location.row & 1 == 0
+    let baseAdjustment = evenRow ? -1 : 0
+    let leftColumn = location.column + baseAdjustment
+    let rightColumn = leftColumn + 1
+    let previousRow = location.row - 1
+    let nextRow = location.row + 1
+    
+    return [Coordinate(row: previousRow, column: leftColumn)
+        ,Coordinate(row: previousRow, column: rightColumn)
         ,Coordinate(row: location.row, column: location.column - 1)
         ,Coordinate(row: location.row, column: location.column + 1)
-        ,Coordinate(row: location.row + 1, column: location.column)
-        ,Coordinate(row: location.row + 1, column: location.column + 1)
+        ,Coordinate(row: nextRow, column: leftColumn)
+        ,Coordinate(row: nextRow, column: rightColumn)
     ]
 }

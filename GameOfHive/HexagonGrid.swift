@@ -50,7 +50,7 @@ public struct HexagonGrid {
         return rules.perform(cell, numberOfActiveNeighbors: activeNeigbors(cell))
     }
     
-    func setActive(active: Bool, atLocation location: Coordinate) -> HexagonGrid
+    public func setActive(active: Bool, atLocation location: Coordinate) -> HexagonGrid
     {
         var newGrid = grid
         var row: HexagonRow! = newGrid[location.row]
@@ -109,7 +109,7 @@ func initialGrid(rows: Int, columns: Int, gridType: GridType) -> [Int: HexagonRo
 }
 
 
-func nextGrid(grid: HexagonGrid) -> HexagonGrid {
+public func nextGrid(grid: HexagonGrid) -> HexagonGrid {
     var nextIteration: [Int:HexagonRow] = [:]
     for (rowNumber,row) in grid.grid {
         var nextRow: HexagonRow = [:]
