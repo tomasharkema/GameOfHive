@@ -15,6 +15,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
     var timer: NSTimer!
     var grid: HexagonGrid!
     var button: UIButton!
+    var cellSize: CGSize!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,10 @@ class ViewController: UIViewController, HexagonViewDelegate {
         var cellHeight: CGFloat = (view.bounds.height / (CGFloat(numberOfRows-1)) * 1.5)
         let sideLength = cellHeight/2
         let cellWidth = CGFloat(sqrt(3.0)) * sideLength
+        
+        cellSize = CGSize(width: cellWidth, height: cellHeight)
+        HexagonView.updateEdgePath(cellSize, lineWidth: 3)
+
         numberOfColumns = Int(ceil(view.bounds.width / cellWidth))
         let xOffset: CGFloat = -cellWidth/2
         let yOffset = -(cellHeight/4 + sideLength)
