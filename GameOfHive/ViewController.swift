@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, HexagonViewDelegate {
-    var numberOfRows = 15
+    var numberOfRows = 25
     var numberOfColumns: Int!
     var cells: [HexagonView] = []
     var timer: NSTimer!
@@ -63,12 +63,20 @@ class ViewController: UIViewController, HexagonViewDelegate {
       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
         self.grid = nextGrid(self.grid)
         dispatch_async(dispatch_get_main_queue()) {
+			var isCompletelyDead = 0
           for cell in self.cells {
             if let hexagon = self.grid.hexagon(atLocation: cell.coordinate) {
               cell.alive = hexagon.active
               cell.setNeedsDisplay()
+				
+				if isCompletelyDead == 0 {
+					isCompletelyDead = max(isCompletelyDead, (hexagon.active ? 1 : 0))
+				}
             }
           }
+			if isCompletelyDead == 0 {
+				self.stop()
+			}
         }
       }
     }

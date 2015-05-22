@@ -13,12 +13,12 @@ struct Rules {
     let fertility: [Int]
     
     static func defaultRules() -> Rules {
-        return Rules(environment: [3,5], fertility: [2])
-//        return Rules(environment: [1], fertility: [2,3,4])
+//        return Rules(environment: [3,5], fertility: [2])
+        return Rules(environment: [3], fertility: [2,4,5])
     }
     
     func perform(hexagon: Hexagon, numberOfActiveNeighbors: Int) -> Hexagon {
-        if contains(fertility, numberOfActiveNeighbors) {
+        if contains(fertility, numberOfActiveNeighbors) && !hexagon.active {
             return hexagon.setActive(true)
         } else if contains(environment, numberOfActiveNeighbors) {
             return hexagon
