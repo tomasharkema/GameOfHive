@@ -177,9 +177,14 @@ extension ViewController {
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
         if motion == .MotionShake {
-            grid = emptyGrid(numberOfRows,numberOfColumns)
-            updateGrid()
             stop()
+            dispatch_async(gridQueue) {
+                let grid = emptyGrid(self.numberOfRows,self.numberOfColumns)
+                self.grid = grid
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.drawGrid(grid)
+                }
+            }
         }
     }
 }
