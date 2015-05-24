@@ -15,15 +15,6 @@ private protocol AnimationDelegate: class {
 enum AnimationState {
     case Ready
     case Animating(identifier: Int)
-    
-    var identifier: Int? {
-        switch self {
-        case .Ready:
-            return nil
-        case .Animating(let identifier):
-            return identifier
-        }
-    }
 }
 
 struct AnimationConfiguration {
@@ -125,7 +116,20 @@ private class ScaleAnimation {
             case .Ready:
                 ready.append(view)
             case .Animating(let identifier):
-                animating.append(view)
+                // pick up from current animation value when already .Animating. creates separate animations per view
+                if let existingAnimation = animator.animations[identifier] {
+                    // remove view from old animation, if old animation becomes empty remove it entirely
+                    existingAnimation.views.remove(view)
+                    if existingAnimation.views.count == 0 {
+                        animator.animations[identifier] = nil
+                    }
+                    
+                    // add to new animation starting from current value
+                    let config = AnimationConfiguration(startValue: existingAnimation.currentValue, endValue: configuration.endValue, duration: configuration.duration)
+                    let newAnimation = ScaleAnimation(views: [view], configuration: config)
+                    newAnimation.delegate = animator
+                    animator.animations[newAnimation.identifier] = newAnimation
+                }
             }
         }
         
@@ -134,23 +138,6 @@ private class ScaleAnimation {
             let animation = ScaleAnimation(views: ready, configuration: configuration)
             animation.delegate = animator
             animator.animations[animation.identifier] = animation
-        }
-        
-        // pick up from animation value when already .Animating. create separate animations
-        for view in animating {
-            if let identifier = view.animationState.identifier, let existingAnimation = animator.animations[identifier] {
-                // remove view from old animation, if old animation becomes empty remove it entirely
-                existingAnimation.views.remove(view)
-                if existingAnimation.views.count == 0 {
-                    animator.animations[identifier] = nil
-                }
-                
-                // add to new animation starting from current value
-                let config = AnimationConfiguration(startValue: existingAnimation.currentValue, endValue: configuration.endValue, duration: configuration.duration)
-                let newAnimation = ScaleAnimation(views: [view], configuration: config)
-                newAnimation.delegate = animator
-                animator.animations[newAnimation.identifier] = newAnimation
-            }
         }
     }
     
