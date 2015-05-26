@@ -30,20 +30,20 @@ class ViewController: UIViewController, HexagonViewDelegate {
         self.view.addSubview(button)
     }
     
+    // MARK: Grid
     func createGrid() {
+        assert(grid == nil, "Expect grid does not exist")
+        
         let cellHeight: CGFloat = (view.bounds.height / (CGFloat(numberOfRows-1)) * 1.5)
         let sideLength = cellHeight/2
         let cellWidth = CGFloat(sqrt(3.0)) * sideLength
         let cellSize = CGSize(width: cellWidth, height: cellHeight)
         HexagonView.updateEdgePath(cellSize, lineWidth: 3)
-
+        
         numberOfColumns = Int(ceil(view.bounds.width / cellWidth))
-        
-        dispatch_sync(gridQueue) {
-            self.grid = HexagonGrid(rows: self.numberOfRows, columns: self.numberOfColumns, initialGridType: .Random)
-        }
-        
-        let xOffset: CGFloat = -cellWidth/2
+        grid = HexagonGrid(rows: numberOfRows, columns: numberOfColumns, initialGridType: .Random)
+
+        let xOffset = -cellWidth/2
         let yOffset = -(cellHeight/4 + sideLength)
         
         for hexagon in grid {
@@ -105,7 +105,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
     }
 
     
-    // Timer
+    // MARK: Timer
     func createTimer() -> NSTimer {
         return NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("tick:"), userInfo: nil, repeats: true)
     }
@@ -114,7 +114,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
         updateGrid()
     }
     
-    // Button
+    // MARK: Button
     func toggle(button: UIButton) {
         if timer == nil {
             start()
@@ -150,7 +150,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
     }
 }
 
-// HexagonView Delegate
+// MARK: HexagonView Delegate
 extension ViewController: HexagonViewDelegate {
     func userDidUpateCell(cell: HexagonView) {
         dispatch_async(gridQueue) {
@@ -169,7 +169,7 @@ extension ViewController: HexagonViewDelegate {
     }
 }
 
-// Shake
+// MARK: Shake
 extension ViewController {
     override func canBecomeFirstResponder() -> Bool {
         return true

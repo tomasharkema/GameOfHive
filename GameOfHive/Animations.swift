@@ -27,6 +27,7 @@ struct AnimationConfiguration {
     }
 }
 
+// MARK: Animation
 private class ScaleAnimation {
     static var identifier : Int = 0
     let identifier: Int
@@ -102,6 +103,7 @@ private class ScaleAnimation {
     }
 }
 
+// MARK: Animator
 @objc class Animator {
     private static let animator = Animator()
     private var displayLink: CADisplayLink!
@@ -112,7 +114,8 @@ private class ScaleAnimation {
         displayLink = UIScreen.mainScreen().displayLinkWithTarget(self, selector: Selector("tick:"))
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
     }
-        
+    
+    // MARK: Add
     static func addAnimationForViews(views: [HexagonView], configuration: AnimationConfiguration) {
         // split by animation state
         var ready: [HexagonView] = []
@@ -136,7 +139,7 @@ private class ScaleAnimation {
             }
         }
         
-        // start animating the .Ready views together in one animation
+        // Start animating the views with animation state ready together in a single animation
         if ready.count > 0 {
             let animation = ScaleAnimation(views: ready, configuration: configuration)
             animation.delegate = animator
@@ -144,7 +147,7 @@ private class ScaleAnimation {
         }
     }
     
-    // display link
+    // MARK: Display link
     func tick(displayLink: CADisplayLink) {
         if lastDrawTime == 0 {
             lastDrawTime = displayLink.timestamp
@@ -160,6 +163,7 @@ private class ScaleAnimation {
     }
 }
 
+// MARK: AnimationDelegate
 extension Animator: AnimationDelegate {
     private func animationDidFinish(animation: ScaleAnimation) {
         animations[animation.identifier] = nil
