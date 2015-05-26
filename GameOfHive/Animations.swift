@@ -53,6 +53,13 @@ private class ScaleAnimation {
         views.map { $0.animationState = .Animating(identifier: self.identifier) }
     }
     
+    func removeView(view: HexagonView) {
+        views.remove(view)
+        if views.count == 0 {
+           delegate?.animationDidFinish(self)
+        }
+    }
+    
     private func increaseTime(increment: CFTimeInterval) {
         currentTime += increment
         
@@ -118,12 +125,8 @@ private class ScaleAnimation {
             case .Animating(let identifier):
                 // pick up from current animation value when already .Animating. creates separate animations per view
                 if let existingAnimation = animator.animations[identifier] {
-                    // remove view from old animation, if old animation becomes empty remove it entirely
-                    existingAnimation.views.remove(view)
-                    if existingAnimation.views.count == 0 {
-                        animator.animations[identifier] = nil
-                    }
-                    
+                    // remove view from old animation
+                    existingAnimation.removeView(view)
                     // add to new animation starting from current value
                     let config = AnimationConfiguration(startValue: existingAnimation.currentValue, endValue: configuration.endValue, duration: configuration.duration)
                     let newAnimation = ScaleAnimation(views: [view], configuration: config)
