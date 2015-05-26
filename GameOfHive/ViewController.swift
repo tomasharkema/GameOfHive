@@ -32,6 +32,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
     
     // MARK: Grid
     func createGrid() {
+        assert(timer == nil, "Expect not running")
         assert(grid == nil, "Expect grid does not exist")
         
         let cellHeight: CGFloat = (view.bounds.height / (CGFloat(numberOfRows-1)) * 1.5)
