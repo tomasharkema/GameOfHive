@@ -117,10 +117,8 @@ private class ScaleAnimation {
     
     // MARK: Add
     static func addAnimationForViews(views: [HexagonView], configuration: AnimationConfiguration) {
-        // split by animation state
+        // collect views ready for animation
         var ready: [HexagonView] = []
-        var animating: [HexagonView] = []
-        
         for view in views {
             switch view.animationState {
             case .Ready:
