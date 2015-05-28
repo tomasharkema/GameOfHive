@@ -55,6 +55,7 @@ private class ScaleAnimation {
     }
     
     func removeView(view: HexagonView) {
+        view.animationState = .Ready
         views.remove(view)
         if views.count == 0 {
            delegate?.animationDidFinish(self)
