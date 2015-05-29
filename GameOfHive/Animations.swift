@@ -137,8 +137,7 @@ private class ScaleAnimation {
                     // add to new animation starting from current value
                     let config = AnimationConfiguration(startValue: existingAnimation.currentValue, endValue: configuration.endValue, duration: configuration.duration)
                     let newAnimation = ScaleAnimation(views: [view], configuration: config)
-                    newAnimation.delegate = animator
-                    animator.animations[newAnimation.identifier] = newAnimation
+                    animator.addAnimation(newAnimation)
                 }
             }
         }
@@ -146,9 +145,13 @@ private class ScaleAnimation {
         // Start animating the views with animation state ready together in a single animation
         if ready.count > 0 {
             let animation = ScaleAnimation(views: ready, configuration: configuration)
-            animation.delegate = animator
-            animator.animations[animation.identifier] = animation
+            animator.addAnimation(animation)
         }
+    }
+    
+    private func addAnimation(animation: ScaleAnimation) {
+        animation.delegate = self
+        animations[animation.identifier] = animation
     }
     
     // MARK: Display link
