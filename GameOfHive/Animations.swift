@@ -14,7 +14,7 @@ private protocol AnimationDelegate: class {
 
 enum AnimationState {
     case Ready
-    case Animating(identifier: Int)
+    case Animating(identifier: UInt32)
 }
 
 struct AnimationConfiguration {
@@ -29,8 +29,13 @@ struct AnimationConfiguration {
 
 // MARK: Animation
 private class ScaleAnimation {
-    static var identifier : Int = 0
-    let identifier: Int
+    static var identifier : UInt32 = 0
+    static func nextIdentifier() -> UInt32 {
+        identifier = (identifier % UINT32_MAX) + 1
+        return identifier
+    }
+    
+    let identifier: UInt32
     var views = Set<HexagonView>()
     weak var delegate: AnimationDelegate?
     
@@ -44,7 +49,7 @@ private class ScaleAnimation {
     var currentTime: CFTimeInterval = 0
     
     init (views: [HexagonView], configuration:AnimationConfiguration) {
-        self.identifier = ++ScaleAnimation.identifier
+        self.identifier = ScaleAnimation.nextIdentifier()
         self.views = Set(views)
         self.start = configuration.startValue
         self.delta = configuration.delta
@@ -108,7 +113,7 @@ private class ScaleAnimation {
 @objc class Animator {
     private static let animator = Animator()
     private var displayLink: CADisplayLink!
-    private var animations: [Int : ScaleAnimation] = [:]
+    private var animations: [UInt32 : ScaleAnimation] = [:]
     private var lastDrawTime: CFTimeInterval = 0
     
     init () {
