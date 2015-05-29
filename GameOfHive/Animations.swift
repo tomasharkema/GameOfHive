@@ -139,6 +139,11 @@ private class ScaleAnimation {
                     let newAnimation = ScaleAnimation(views: [view], configuration: config)
                     animator.addAnimation(newAnimation)
                 }
+                else {
+                    assert(false, "Should not occur")
+                    view.animationState = .Ready
+                    ready.append(view)
+                }
             }
         }
         
