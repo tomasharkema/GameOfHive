@@ -67,7 +67,7 @@ private class ScaleAnimation {
         }
     }
     
-    private func increaseTime(increment: CFTimeInterval) {
+    func increaseTime(increment: CFTimeInterval) {
         currentTime += increment
         
         // clip to endtime
