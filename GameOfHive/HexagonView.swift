@@ -8,47 +8,46 @@
 
 import UIKit
 
-protocol HexagonViewDelegate {
-    func userDidUpateCellAtCoordinate(coordinate: Coordinate, alive:Bool)
+protocol HexagonViewDelegate: class {
+    func userDidUpateCell(cell: HexagonView)
 }
 
 class HexagonView: UIView {
-    static var edgePath: CGMutablePathRef? = nil
+    static var pathPrototype: CGMutablePathRef!
+    static var size: CGSize!
     static var lineWidth: CGFloat = 1.0
+    static let fillColor = UIColor.lightAmberColor
     
-    static func updateEdgePath(width: CGFloat, height: CGFloat, lineWidth: CGFloat) {
+    static func updateEdgePath(size: CGSize, lineWidth: CGFloat) {
         self.lineWidth = lineWidth
+        self.size = size
         
+        let height = size.height
+        let width = size.width
         let s = height / 2.0
         let b = width / 2.0
         let a = (height - s) / 2.0
         
         let halfLineWidth = lineWidth / 2.0
         
-        let edge = CGPathCreateMutable()
-        CGPathMoveToPoint(edge, nil, b, halfLineWidth)
-        CGPathAddLineToPoint(edge, nil, width - halfLineWidth, a)
-        CGPathAddLineToPoint(edge, nil, width - halfLineWidth, a + s)
-        CGPathAddLineToPoint(edge, nil, b, height - halfLineWidth)
-        CGPathAddLineToPoint(edge, nil, halfLineWidth, a + s)
-        CGPathAddLineToPoint(edge, nil, halfLineWidth, a)
-        CGPathAddLineToPoint(edge, nil, b, halfLineWidth)
-        
-        edgePath = edge
+        let path = CGPathCreateMutable()
+        CGPathMoveToPoint(path, nil, b, halfLineWidth)
+        CGPathAddLineToPoint(path, nil, width - halfLineWidth, a)
+        CGPathAddLineToPoint(path, nil, width - halfLineWidth, a + s)
+        CGPathAddLineToPoint(path, nil, b, height - halfLineWidth)
+        CGPathAddLineToPoint(path, nil, halfLineWidth, a + s)
+        CGPathAddLineToPoint(path, nil, halfLineWidth, a)
+        CGPathAddLineToPoint(path, nil, b, halfLineWidth)
+        pathPrototype = path
     }
     
     var coordinate = Coordinate(row: NSNotFound, column: NSNotFound)
-    var alive: Bool = true {
-        didSet {
-            if alive != oldValue {
-                let end: CGFloat = alive ? 1.0 : 0.0
-                Animator.animator.addAnimationForView(self, end: end)
-            }
-        }
-    }
+    var alive: Bool = false
+
+    var animationState: AnimationState = .Ready
+    var fillPath: CGPathRef!
   
-    var hexagonViewDelegate: HexagonViewDelegate?
-    var hunnyScaleFactor: CGFloat = 1.0
+    weak var hexagonViewDelegate: HexagonViewDelegate?
   
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -62,47 +61,19 @@ class HexagonView: UIView {
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
         self.alive = !self.alive
-        self.setNeedsDisplay()
-        hexagonViewDelegate?.userDidUpateCellAtCoordinate(coordinate, alive: alive)
+        // inform delegate
+        hexagonViewDelegate?.userDidUpateCell(self)
     }
     
     override func drawRect(rect: CGRect) {
+        if fillPath == nil {
+            return;
+        }
+        
         let context = UIGraphicsGetCurrentContext()
-        
-        let strokeColor = UIColor.darkAmberColor
-        let hunnyColor = UIColor.lightAmberColor
-
-        // edge
-        let lineWidth = HexagonView.lineWidth
-        let edgePath = HexagonView.edgePath
-        
-        // hunny transform
-        let height = rect.height
-        let width = rect.width
-        let tx = (width - (width * hunnyScaleFactor)) / 2
-        let ty = (height - (height * hunnyScaleFactor)) / 2
-        let hunnyTranslate = CGAffineTransformMakeTranslation(tx, ty)
-        let hunnyScale = CGAffineTransformMakeScale(hunnyScaleFactor, hunnyScaleFactor)
-        var hunnyTransform = CGAffineTransformConcat(hunnyScale, hunnyTranslate)
-        
-        //hunny path
-        let hunny = CGPathCreateCopyByTransformingPath(edgePath, &hunnyTransform)
-
-        // hunny
-        CGContextSaveGState(context)
-        CGContextSetLineWidth(context, lineWidth)
-        CGContextSetFillColorWithColor(context, hunnyColor.CGColor)
-        CGContextAddPath(context, hunny)
+        CGContextSetLineWidth(context, HexagonView.lineWidth)
+        CGContextSetFillColorWithColor(context, HexagonView.fillColor.CGColor)
+        CGContextAddPath(context, fillPath)
         CGContextFillPath(context)
-        CGContextRestoreGState(context)
-        
-//        // edge
-//        CGContextSaveGState(context)
-//        CGContextAddPath(context, edgePath)
-//        CGContextSetLineWidth(context, lineWidth)
-//        CGContextSetStrokeColorWithColor(context, strokeColor.CGColor)
-//        CGContextStrokePath(context)
-//        CGContextRestoreGState(context)
-//        
     }
 }
