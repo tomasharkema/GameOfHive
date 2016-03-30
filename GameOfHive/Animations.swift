@@ -110,14 +110,14 @@ private class ScaleAnimation {
 }
 
 // MARK: Animator
-@objc class Animator {
+class Animator {
     private static let animator = Animator()
     private var displayLink: CADisplayLink!
     private var animations: [UInt32 : ScaleAnimation] = [:]
     private var lastDrawTime: CFTimeInterval = 0
     
     init () {
-        displayLink = UIScreen.mainScreen().displayLinkWithTarget(self, selector: Selector("tick:"))
+      displayLink = UIScreen.mainScreen().displayLinkWithTarget(self, selector: #selector(tick))
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
     }
     
@@ -160,7 +160,7 @@ private class ScaleAnimation {
     }
     
     // MARK: Display link
-    func tick(displayLink: CADisplayLink) {
+    @objc func tick(displayLink: CADisplayLink) {
         if lastDrawTime == 0 {
             lastDrawTime = displayLink.timestamp
         }

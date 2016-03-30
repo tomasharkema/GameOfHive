@@ -11,7 +11,7 @@ import UIKit
 // queue enforcing serial grid creation
 let gridQueue = dispatch_queue_create("grid_queue", DISPATCH_QUEUE_SERIAL)
 
-class ViewController: UIViewController, HexagonViewDelegate {
+class ViewController: UIViewController {
     var numberOfRows = 50
     var numberOfColumns: Int!
     var cells: [HexagonView] = []
@@ -37,8 +37,8 @@ class ViewController: UIViewController, HexagonViewDelegate {
         super.viewDidLoad()
         createGrid()
         
-        button = UIButton.buttonWithType(.Custom) as! UIButton
-        button.addTarget(self, action: Selector("toggle:"), forControlEvents: .TouchUpInside)
+        button = UIButton(type: .Custom)
+        button.addTarget(self, action: #selector(toggle(_:)), forControlEvents: .TouchUpInside)
 		button.frame = CGRectMake(10, 10, 30, 30)
 		button.setImage(UIImage(named: "button_play"), forState: .Normal)
         self.view.addSubview(button)
@@ -122,7 +122,7 @@ class ViewController: UIViewController, HexagonViewDelegate {
     
     // MARK: Timer
     func createTimer() -> NSTimer {
-        return NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("tick:"), userInfo: nil, repeats: true)
+        return NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
     }
     
     func tick(timer: NSTimer) {
@@ -177,11 +177,11 @@ extension ViewController {
         return true
     }
     
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if motion == .MotionShake {
             stop()
             dispatch_async(gridQueue) {
-                let grid = emptyGrid(self.numberOfRows,self.numberOfColumns)
+                let grid = emptyGrid(self.numberOfRows,columns: self.numberOfColumns)
                 self.grid = grid
                 dispatch_async(dispatch_get_main_queue()) {
                     self.drawGrid(grid)

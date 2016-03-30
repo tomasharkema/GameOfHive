@@ -49,7 +49,7 @@ class HexagonView: UIView {
   
     weak var hexagonViewDelegate: HexagonViewDelegate?
   
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -58,7 +58,7 @@ class HexagonView: UIView {
         self.backgroundColor = UIColor.clearColor()
     }
   
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
         self.alive = !self.alive
         // inform delegate

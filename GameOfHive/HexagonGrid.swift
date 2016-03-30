@@ -27,7 +27,7 @@ public struct HexagonGrid {
     }
     
     public init(rows: Int = 10, columns: Int = 10, initialGridType: GridType) {
-        let grid = initialGrid(rows,columns,initialGridType)
+        let grid = initialGrid(rows,columns: columns,gridType: initialGridType)
         self.init(grid: grid)
     }
     
@@ -67,7 +67,7 @@ public struct HexagonGrid {
     }
 }
 
-extension HexagonGrid: Printable {
+extension HexagonGrid: CustomStringConvertible {
     public var description: String {
         var output = ""
         for (rowNumber,row) in self.grid {
@@ -81,10 +81,10 @@ extension HexagonGrid: Printable {
 }
 
 extension HexagonGrid: SequenceType {
-    public func generate() -> GeneratorOf<Hexagon> {
+    public func generate() -> AnyGenerator<Hexagon> {
         var rowGenerator = self.grid.generate()
         var columnGenerator = rowGenerator.next()?.1.generate()
-        return GeneratorOf<Hexagon> {
+        return anyGenerator {
             if let column = columnGenerator?.next()
             {
                 return column.1
