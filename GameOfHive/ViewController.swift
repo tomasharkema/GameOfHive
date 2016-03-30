@@ -102,7 +102,6 @@ class ViewController: UIViewController {
                     isCompletelyDead = false
                     cellsToActivate.append(cell)
                 case (true, false):
-                    isCompletelyDead = false
                     cellsToDeactivate.append(cell)
                 case (true, true):
                     isCompletelyDead = false
@@ -111,11 +110,6 @@ class ViewController: UIViewController {
                 cell.alive = hexagon.active
             }
         }
-        if isCompletelyDead {
-            self.stop()
-            return
-        }
-        
         // animate changes
         if cellsToActivate.count > 0 {
             let config = AnimationConfiguration(startValue: 0, endValue: 1, duration: 0.4)
@@ -124,6 +118,10 @@ class ViewController: UIViewController {
         if cellsToDeactivate.count > 0 {
             let config = AnimationConfiguration(startValue: 1, endValue: 0, duration: 0.2)
             Animator.addAnimationForViews(cellsToDeactivate, configuration: config)
+        }
+        if isCompletelyDead {
+            self.stop()
+            return
         }
     }
 

@@ -75,7 +75,6 @@ class HexagonView: UIView {
         CGContextSetFillColorWithColor(context, HexagonView.fillColor.CGColor)
         CGContextAddPath(context, fillPath)
         CGContextFillPath(context)
-        CGContextRestoreGState(context)
         
         //        CGContextSaveGState(context)
         //
