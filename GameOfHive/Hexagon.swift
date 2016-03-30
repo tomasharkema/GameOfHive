@@ -17,7 +17,7 @@ public struct Coordinate {
     }
 }
 
-extension Coordinate: Printable, Equatable {
+extension Coordinate: CustomStringConvertible, Equatable {
   public var description: String {
     return "(\(row),\(column))"
   }
@@ -44,7 +44,7 @@ public struct Hexagon {
     }
 }
 
-extension Hexagon: Printable {
+extension Hexagon: CustomStringConvertible {
     public var description: String {
         return active ? "+" : "-"
     }

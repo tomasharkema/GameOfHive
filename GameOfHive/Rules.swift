@@ -18,9 +18,9 @@ struct Rules {
     }
     
     func perform(hexagon: Hexagon, numberOfActiveNeighbors: Int) -> Hexagon {
-        if contains(fertility, numberOfActiveNeighbors) && !hexagon.active {
+        if fertility.contains(numberOfActiveNeighbors) && !hexagon.active {
             return hexagon.setActive(true)
-        } else if contains(environment, numberOfActiveNeighbors) {
+        } else if environment.contains(numberOfActiveNeighbors) {
             return hexagon
         }
         return hexagon.setActive(false)
