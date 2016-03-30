@@ -56,7 +56,7 @@ private class ScaleAnimation {
         self.endTime = configuration.duration
         
         // set state to animating
-        views.map { $0.animationState = .Animating(identifier: self.identifier) }
+        views.forEach { $0.animationState = .Animating(identifier: self.identifier) }
     }
     
     func removeView(view: HexagonView) {

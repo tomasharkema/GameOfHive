@@ -69,14 +69,13 @@ public struct HexagonGrid {
 
 extension HexagonGrid: CustomStringConvertible {
     public var description: String {
-        var output = ""
-        for (rowNumber,row) in self.grid {
-            for (columnNumber,hex) in row {
-                output += hex.description
+        return grid.reduce("") { (prev, el) in
+            let (_, row) = el
+            return prev + row.reduce("") { (prev, el) in
+                let (_, hex) = el
+                return prev + hex.description
             }
-            output += "\n"
         }
-        return output
     }
 }
 
@@ -84,7 +83,7 @@ extension HexagonGrid: SequenceType {
     public func generate() -> AnyGenerator<Hexagon> {
         var rowGenerator = self.grid.generate()
         var columnGenerator = rowGenerator.next()?.1.generate()
-        return anyGenerator {
+        return AnyGenerator {
             if let column = columnGenerator?.next()
             {
                 return column.1
