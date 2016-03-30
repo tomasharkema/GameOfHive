@@ -77,7 +77,10 @@
 				1CE6205B1B0C8E350072BBF9 /* GameOfHiveTests */,
 				1CE620441B0C8E350072BBF9 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
+			usesTabs = 0;
 		};
 		1CE620441B0C8E350072BBF9 /* Products */ = {
 			isa = PBXGroup;
