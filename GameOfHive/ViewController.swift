@@ -12,7 +12,7 @@ import UIKit
 let gridQueue = dispatch_queue_create("grid_queue", DISPATCH_QUEUE_SERIAL)
 
 class ViewController: UIViewController, HexagonViewDelegate {
-    var numberOfRows = 50
+    var numberOfRows = 25
     var numberOfColumns: Int!
     var cells: [HexagonView] = []
     var timer: NSTimer!
@@ -94,18 +94,26 @@ class ViewController: UIViewController, HexagonViewDelegate {
         var cellsToActivate: [HexagonView] = []
         var cellsToDeactivate: [HexagonView] = []
         
+        var isCompletelyDead = true
         for cell in cells {
             if let hexagon = grid.hexagon(atLocation: cell.coordinate) {
                 switch (cell.alive, hexagon.active) {
                 case (false, true):
+                    isCompletelyDead = false
                     cellsToActivate.append(cell)
                 case (true, false):
+                    isCompletelyDead = false
                     cellsToDeactivate.append(cell)
+                case (true, true):
+                    isCompletelyDead = false
                 default:()
                 }
-                
                 cell.alive = hexagon.active
             }
+        }
+        if isCompletelyDead {
+            self.stop()
+            return
         }
         
         // animate changes

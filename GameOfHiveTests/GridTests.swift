@@ -17,4 +17,25 @@ class GridTests: XCTestCase {
         XCTAssert(hex != nil, "Hexagon should not be nil")
         XCTAssertEqual(hex.location,Coordinate(row: 4, column: 5))
     }
+    
+    func testNextGrid() {
+        var grid = HexagonGrid(rows: 5, columns: 5, initialGridType: .Empty)
+        grid = grid.setActive(true, atLocation: Coordinate(row: 1, column: 2))
+        grid = grid.setActive(true, atLocation: Coordinate(row: 3, column: 2))
+        grid = nextGrid(grid)
+        let hex1 = grid.hexagon(atLocation: Coordinate(row: 2, column: 2))
+        let hex2 = grid.hexagon(atLocation: Coordinate(row: 2, column: 3))
+        XCTAssertTrue(hex1!.active, "Hex 1 should be active")
+        XCTAssertTrue(hex2!.active, "Hex 2 should be active")
+
+        grid = HexagonGrid(rows: 5, columns: 5, initialGridType: .Empty)
+        grid = grid.setActive(true, atLocation: Coordinate(row: 2, column: 3))
+        grid = grid.setActive(true, atLocation: Coordinate(row: 4, column: 3))
+        grid = nextGrid(grid)
+        let hex3 = grid.hexagon(atLocation: Coordinate(row: 3, column: 2))
+        let hex4 = grid.hexagon(atLocation: Coordinate(row: 3, column: 3))
+        XCTAssertTrue(hex3!.active, "Hex 3 should be active")
+        XCTAssertTrue(hex4!.active, "Hex 4 should be active")
+
+    }
 }
