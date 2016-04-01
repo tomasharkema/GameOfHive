@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var cells: [HexagonView] = []
     var timer: NSTimer!
     var grid: HexagonGrid!
+    let rules = Rules.randomRules()
     var button: UIButton!
     var menuView: MenuView? = nil
     
@@ -36,6 +37,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(rules)
         createGrid()
         
         button = UIButton(type: .Custom)
@@ -80,7 +82,7 @@ class ViewController: UIViewController {
     
     func updateGrid() {
         dispatch_async(gridQueue) {
-            let grid = nextGrid(self.grid)
+            let grid = self.rules.perform(self.grid)
             self.grid = grid
             dispatch_async(dispatch_get_main_queue()) {
                 self.drawGrid(grid)

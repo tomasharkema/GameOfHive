@@ -18,18 +18,15 @@ public enum GridType {
 public struct HexagonGrid {
     private var count = 0
     private let grid: [Int: HexagonRow]
-    private let rules: Rules
     
-    private init(grid: [Int: HexagonRow], rules: Rules) {
+    private init(grid: [Int: HexagonRow]) {
         self.grid = grid
         self.count = grid.count
-        self.rules = rules
     }
     
     public init(rows: Int = 10, columns: Int = 10, initialGridType: GridType) {
         let grid = initialGrid(rows,columns: columns,gridType: initialGridType)
-        self.init(grid: grid, rules: Rules.randomRules())
-        print(rules)
+        self.init(grid: grid)
     }
     
     public func hexagon(atLocation location: Coordinate) -> Hexagon? {
@@ -47,8 +44,8 @@ public struct HexagonGrid {
         return ns
     }
     
-    public func nextIteration(cell: Hexagon) -> Hexagon {
-        return rules.perform(cell, numberOfActiveNeighbors: activeNeigbors(cell))
+    func update(hexagon: Hexagon, forRules rules: Rules) -> Hexagon {
+        return rules.update(hexagon, numberOfActiveNeighbors: activeNeigbors(hexagon))
     }
     
     public func setActive(active: Bool, atLocation location: Coordinate) -> HexagonGrid
@@ -64,7 +61,21 @@ public struct HexagonGrid {
         }
         row[location.column] = hex.setActive(active)
         newGrid[location.row] = row
-        return HexagonGrid(grid: newGrid, rules: rules)
+        return HexagonGrid(grid: newGrid)
+    }
+    
+    func nextIteration(rules: Rules) -> HexagonGrid {
+        var nextIteration: [Int:HexagonRow] = [:]
+        for (rowNumber,row) in grid {
+            var nextRow: HexagonRow = [:]
+            for (columnNumber,hex) in row {
+                let nextHex = update(hex, forRules: rules)
+                nextRow[columnNumber] = nextHex
+            }
+            nextIteration[rowNumber] = nextRow
+        }
+        return HexagonGrid(grid: nextIteration)
+        
     }
 }
 
@@ -109,18 +120,6 @@ func initialGrid(rows: Int, columns: Int, gridType: GridType) -> [Int: HexagonRo
 }
 
 
-public func nextGrid(grid: HexagonGrid) -> HexagonGrid {
-    var nextIteration: [Int:HexagonRow] = [:]
-    for (rowNumber,row) in grid.grid {
-        var nextRow: HexagonRow = [:]
-        for (columnNumber,hex) in row {
-            let nextHex = grid.nextIteration(hex)
-            nextRow[columnNumber] = nextHex
-        }
-        nextIteration[rowNumber] = nextRow
-    }
-    return HexagonGrid(grid: nextIteration, rules: grid.rules)
-}
 
 func emptyGrid(rows: Int, columns: Int) -> HexagonGrid {
   return HexagonGrid(rows: rows, columns: columns, initialGridType: .Empty)

@@ -33,7 +33,7 @@ struct Rules {
         return Rules(environment: environment, fertility: fertility)
     }
     
-    func perform(hexagon: Hexagon, numberOfActiveNeighbors: Int) -> Hexagon {
+    func update(hexagon: Hexagon, numberOfActiveNeighbors: Int) -> Hexagon {
         if fertility.contains(numberOfActiveNeighbors) && !hexagon.active {
             return hexagon.setActive(true)
         } else if environment.contains(numberOfActiveNeighbors) {
@@ -41,6 +41,11 @@ struct Rules {
         }
         return hexagon.setActive(false)
     }
+    
+    func perform(grid: HexagonGrid) -> HexagonGrid {
+        return grid.nextIteration(self)
+    }
+    
 }
 
 extension Rules: CustomStringConvertible {
