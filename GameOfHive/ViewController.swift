@@ -18,7 +18,8 @@ class ViewController: UIViewController {
     var timer: NSTimer!
     var grid: HexagonGrid!
     var button: UIButton!
-        
+    var menuView: MenuView? = nil
+    
     // MARK: UIViewController
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -177,7 +178,8 @@ extension ViewController: HexagonViewDelegate {
     }
 }
 
-// MARK: Shake
+
+//MARK: Shake!
 extension ViewController {
     override func canBecomeFirstResponder() -> Bool {
         return true
@@ -194,6 +196,16 @@ extension ViewController {
                 }
             }
         }
+    }
+}
+
+
+//MARK: Menu
+extension ViewController {
+    func showMenu() {
+        let menuView = MenuView(frame: view.frame)
+        view.addSubview(menuView)
+        self.menuView = menuView
     }
 }
 
