@@ -176,7 +176,11 @@ extension ViewController: HexagonViewDelegate {
             }
         }
     }
+}
 
+
+//MARK: Shake!
+extension ViewController {
     override func canBecomeFirstResponder() -> Bool {
         return true
     }
@@ -193,9 +197,12 @@ extension ViewController: HexagonViewDelegate {
             }
         }
     }
+}
 
+
+//MARK: Menu
+extension ViewController {
     func showMenu() {
-        // menu
         let menuView = MenuView(frame: view.frame)
         view.addSubview(menuView)
         self.menuView = menuView
