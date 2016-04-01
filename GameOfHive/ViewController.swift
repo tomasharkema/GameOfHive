@@ -43,8 +43,6 @@ class ViewController: UIViewController {
 		button.frame = CGRectMake(10, 10, 30, 30)
 		button.setImage(UIImage(named: "button_play"), forState: .Normal)
         self.view.addSubview(button)
-      
-        showMenu()
     }
     
     // MARK: Grid
