@@ -41,5 +41,12 @@ struct Rules {
         }
         return hexagon.setActive(false)
     }
-    
+}
+
+extension Rules: CustomStringConvertible {
+    var description: String {
+        let envString = (environment.map{$0.description}).joinWithSeparator(",")
+        let fertString = (fertility.map{$0.description}).joinWithSeparator(",")
+        return "\(envString)/\(fertString)"
+    }
 }
