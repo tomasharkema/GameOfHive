@@ -200,14 +200,5 @@ extension ViewController: HexagonViewDelegate {
         view.addSubview(menuView)
         self.menuView = menuView
     }
-
-//    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
-//      if motion == .MotionShake {
-//        grid = emptyGrid(numberOfRows,numberOfColumns)
-//        updateGrid()
-//      }
-//    }
-  
-  
 }
 
