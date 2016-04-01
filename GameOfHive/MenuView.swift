@@ -30,7 +30,7 @@ class MenuView: UIView {
     
     animateMenuState(.Hide, animated: false)
     
-    let tgr = UILongPressGestureRecognizer(target: self, action: Selector("tap:"))
+    let tgr = UILongPressGestureRecognizer(target: self, action: #selector(tap(_:)))
     addGestureRecognizer(tgr)
   }
   
