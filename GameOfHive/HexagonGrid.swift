@@ -18,17 +18,18 @@ public enum GridType {
 public struct HexagonGrid {
     private var count = 0
     private let grid: [Int: HexagonRow]
+    private let rules: Rules
     
-    private let rules: Rules = Rules.defaultRules()
-    
-    private init(grid: [Int: HexagonRow]) {
+    private init(grid: [Int: HexagonRow], rules: Rules) {
         self.grid = grid
         self.count = grid.count
+        self.rules = rules
     }
     
     public init(rows: Int = 10, columns: Int = 10, initialGridType: GridType) {
         let grid = initialGrid(rows,columns: columns,gridType: initialGridType)
-        self.init(grid: grid)
+        self.init(grid: grid, rules: Rules.randomRules())
+        print(rules)
     }
     
     public func hexagon(atLocation location: Coordinate) -> Hexagon? {
@@ -63,7 +64,7 @@ public struct HexagonGrid {
         }
         row[location.column] = hex.setActive(active)
         newGrid[location.row] = row
-        return HexagonGrid(grid: newGrid)
+        return HexagonGrid(grid: newGrid, rules: rules)
     }
 }
 
@@ -118,7 +119,7 @@ public func nextGrid(grid: HexagonGrid) -> HexagonGrid {
         }
         nextIteration[rowNumber] = nextRow
     }
-    return HexagonGrid(grid: nextIteration)
+    return HexagonGrid(grid: nextIteration, rules: grid.rules)
 }
 
 func emptyGrid(rows: Int, columns: Int) -> HexagonGrid {
