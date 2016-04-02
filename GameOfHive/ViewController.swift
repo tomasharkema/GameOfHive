@@ -109,9 +109,7 @@ class ViewController: UIViewController {
         let messageView = UILabel()
 
         messageHUD.contentView.addSubview(messageView)
-        
-        
-        
+
         messageView.numberOfLines = 0
         messageView.adjustsFontSizeToFitWidth = true
         messageView.textAlignment = .Center
@@ -139,7 +137,7 @@ class ViewController: UIViewController {
         return "\(documentsPath)/save.json"
     }
     
-    func saveGrid() {
+    @IBAction func saveGrid() {
         do { try grid.save() } catch let error {
             print("Error saving grid",error)
         }
@@ -262,7 +260,7 @@ class ViewController: UIViewController {
     }
     
     // MARK: Button
-    func togglePlayback(button: UIButton) {
+    @IBAction func togglePlayback() {
         if playing {
             stop()
         } else {
@@ -270,14 +268,14 @@ class ViewController: UIViewController {
         }
     }
     
-    func start() {
+    private func start() {
         timer?.invalidate()
         timer = createTimer()
         timer.fire()
         playButton.setImage(UIImage(named: "button_stop"), forState: .Normal)
     }
     
-    func stop() {
+    private func stop() {
         guard playing else {
             return
         }
@@ -287,7 +285,7 @@ class ViewController: UIViewController {
         playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
     }
     
-    func nextStep(button: UIButton) {
+    @IBAction func nextStep() {
         stop()
         drawGrid(grid, animationDuration: 0.4)
     }
