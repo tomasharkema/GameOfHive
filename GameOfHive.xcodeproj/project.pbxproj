@@ -22,6 +22,7 @@
 		B38DD5EB1B0CA7A60064E7E4 /* GridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38DD5EA1B0CA7A60064E7E4 /* GridTests.swift */; };
 		B3938BB11CB003D200C75813 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3938BB01CB003D200C75813 /* Dictionary.swift */; };
 		B3938BB31CB003FE00C75813 /* Argo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3938BB21CB003FE00C75813 /* Argo.swift */; };
+		B3938BB51CB024BC00C75813 /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3938BB41CB024BC00C75813 /* Foundation.swift */; };
 		B399C6D11CB0029F002C57A4 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B399C6D01CB0029F002C57A4 /* Encodable.swift */; };
 		B3BD1C991B0CD3EF00331176 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BD1C981B0CD3EF00331176 /* Rules.swift */; };
 		C3881F921B0D4915006D9CF0 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3881F911B0D4915006D9CF0 /* MenuView.swift */; };
@@ -58,6 +59,7 @@
 		B38DD5EA1B0CA7A60064E7E4 /* GridTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridTests.swift; sourceTree = "<group>"; };
 		B3938BB01CB003D200C75813 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		B3938BB21CB003FE00C75813 /* Argo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Argo.swift; sourceTree = "<group>"; };
+		B3938BB41CB024BC00C75813 /* Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
 		B399C6D01CB0029F002C57A4 /* Encodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		B3BD1C981B0CD3EF00331176 /* Rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 		C3881F911B0D4915006D9CF0 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			children = (
 				B3938BB01CB003D200C75813 /* Dictionary.swift */,
 				B3938BB21CB003FE00C75813 /* Argo.swift */,
+				B3938BB41CB024BC00C75813 /* Foundation.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				B38DD5E71B0C9BB30064E7E4 /* Hexagon.swift in Sources */,
 				B3938BB31CB003FE00C75813 /* Argo.swift in Sources */,
 				1C366C321B0D39BC001B2B53 /* Animations.swift in Sources */,
+				B3938BB51CB024BC00C75813 /* Foundation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
