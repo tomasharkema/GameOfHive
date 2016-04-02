@@ -125,6 +125,9 @@ func gridFromViewDimensions(gridSize: CGSize, cellSize: CGSize, gridType: GridTy
     let colums = Int(ceil(gridSize.width / cellSize.width))
     let rows = Int(ceil((gridSize.height / cellSize.height) * 1.5))
     let cellSize = CGSize(width: cellSize.width, height: cellSize.height)
+
+//TODO: Leave this sideeffect for Taco's scale meuk
     HexagonView.updateEdgePath(cellSize, lineWidth: 3)
+    
     return HexagonGrid(rows: rows, columns: colums, initialGridType: gridType)
 }
