@@ -18,7 +18,7 @@ class GridTests: XCTestCase {
         XCTAssertEqual(hex.location,Coordinate(row: 4, column: 5))
     }
     
-    func testNextGrid() {
+    func testPerformRules() {
         let rules = Rules.defaultRules
         var grid = HexagonGrid(rows: 5, columns: 5, initialGridType: .Empty)
         grid = grid.setActive(true, atLocation: Coordinate(row: 1, column: 2))
