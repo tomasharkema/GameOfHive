@@ -71,8 +71,6 @@ class ViewController: UIViewController {
         
         saveButton.setTitle("save", forState: .Normal)
         loadButton.setTitle("load", forState: .Normal)
-        view.addSubview(saveButton)
-        view.addSubview(loadButton)
         saveButton.frame.size = CGSize(width: 50, height: 50)
         loadButton.frame.size = CGSize(width: 50, height: 50)
         saveButton.frame.origin = CGPoint(x: 10, y: button.frame.maxY)
