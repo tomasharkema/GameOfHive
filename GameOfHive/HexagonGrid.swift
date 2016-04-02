@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Beetles. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 typealias HexagonRow = [Int: Hexagon]
 
@@ -121,6 +121,13 @@ func initialGrid(rows: Int, columns: Int, gridType: GridType) -> [Int: HexagonRo
 
 
 
-func emptyGrid(rows: Int, columns: Int) -> HexagonGrid {
-  return HexagonGrid(rows: rows, columns: columns, initialGridType: .Empty)
+func gridFromViewDimensions(gridSize: CGSize, cellSize: CGSize, gridType: GridType = .Empty) -> HexagonGrid {
+    let colums = Int(ceil(gridSize.width / cellSize.width))
+    let rows = Int(ceil((gridSize.height / cellSize.height) * 1.5))
+    let cellSize = CGSize(width: cellSize.width, height: cellSize.height)
+
+//TODO: Leave this sideeffect for Taco's scale meuk
+    HexagonView.updateEdgePath(cellSize, lineWidth: 3)
+    
+    return HexagonGrid(rows: rows, columns: colums, initialGridType: gridType)
 }

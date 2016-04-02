@@ -11,9 +11,10 @@ import UIKit
 // queue enforcing serial grid creation
 let gridQueue = dispatch_queue_create("grid_queue", DISPATCH_QUEUE_SERIAL)
 
+let cellSize = CGSize(width: 22, height: 25)
+let sideLength = cellSize.height/2
+
 class ViewController: UIViewController {
-    var numberOfRows = 50
-    var numberOfColumns: Int!
     var cells: [HexagonView] = []
     var timer: NSTimer!
     var grid: HexagonGrid!
@@ -28,7 +29,7 @@ class ViewController: UIViewController {
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true;
+        return true
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
@@ -51,25 +52,18 @@ class ViewController: UIViewController {
     func createGrid() {
         assert(timer == nil, "Expect not running")
         assert(grid == nil, "Expect grid does not exist")
-        
-        let cellHeight: CGFloat = (view.bounds.height / (CGFloat(numberOfRows-1)) * 1.5)
-        let sideLength = cellHeight/2
-        let cellWidth = CGFloat(sqrt(3.0)) * sideLength
-        let cellSize = CGSize(width: cellWidth, height: cellHeight)
-        HexagonView.updateEdgePath(cellSize, lineWidth: 3)
-        
-        numberOfColumns = Int(ceil(view.bounds.width / cellWidth))
-        grid = HexagonGrid(rows: numberOfRows, columns: numberOfColumns, initialGridType: .Random)
 
-        let xOffset = -cellWidth/2
-        let yOffset = -(cellHeight/4 + sideLength)
+        grid = gridFromViewDimensions(view.bounds.size, cellSize: cellSize, gridType: .Random)
+
+        let xOffset = -cellSize.width/2
+        let yOffset = -(cellSize.height/4 + sideLength)
         
         for hexagon in grid {
             let row = hexagon.location.row
             let column = hexagon.location.column
-            let x = xOffset + (row & 1 == 0 ? (cellWidth * CGFloat(column)) : (cellWidth * CGFloat(column)) + (cellWidth * 0.5))
-            let y = yOffset + ((cellHeight - sideLength/2) * CGFloat(row))
-            let frame = CGRect(x: x, y: y, width: cellWidth, height: cellHeight)
+            let x = xOffset + (row & 1 == 0 ? (cellSize.width * CGFloat(column)) : (cellSize.width * CGFloat(column)) + (cellSize.width * 0.5))
+            let y = yOffset + ((cellSize.height - sideLength/2) * CGFloat(row))
+            let frame = CGRect(x: x, y: y, width: cellSize.width, height: cellSize.height)
             let cell = HexagonView(frame: frame)
             cell.coordinate = hexagon.location
             cell.alive = hexagon.active
@@ -191,7 +185,7 @@ extension ViewController {
         if motion == .MotionShake {
             stop()
             dispatch_async(gridQueue) {
-                let grid = emptyGrid(self.numberOfRows,columns: self.numberOfColumns)
+                let grid = gridFromViewDimensions(self.view.bounds.size, cellSize: cellSize, gridType: .Empty)
                 self.grid = grid
                 dispatch_async(dispatch_get_main_queue()) {
                     self.drawGrid(grid)

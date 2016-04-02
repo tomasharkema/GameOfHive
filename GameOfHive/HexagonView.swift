@@ -75,34 +75,5 @@ class HexagonView: UIView {
         CGContextSetFillColorWithColor(context, HexagonView.fillColor.CGColor)
         CGContextAddPath(context, fillPath)
         CGContextFillPath(context)
-        
-        //        CGContextSaveGState(context)
-        //
-        //        let path = CGPathCreateMutable()
-        //        var bounds = self.bounds
-        //        bounds.origin.x = bounds.midY
-        //        bounds.origin.y = -bounds.midY
-        //        CGPathAddRect(path, nil,  bounds)
-        //
-        //        let attString:NSAttributedString = NSAttributedString(string: "\(coordinate)", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
-        //        CGContextSetTextMatrix(context, CGAffineTransformIdentity);
-        //        CGContextTranslateCTM(context, 0, self.bounds.size.height);
-        //        CGContextScaleCTM(context, 1.0, -1.0);
-        //
-        //        let framesetter = CTFramesetterCreateWithAttributedString(attString)
-        //        var frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, attString.length), path, nil)
-        //        CTFrameDraw(frame, context)
-        //
-        //        CGContextRestoreGState(context)
-        
-        
-        //        // edge
-        //        CGContextSaveGState(context)
-        //        CGContextAddPath(context, edgePath)
-        //        CGContextSetLineWidth(context, lineWidth)
-        //        CGContextSetStrokeColorWithColor(context, strokeColor.CGColor)
-        //        CGContextStrokePath(context)
-        //        CGContextRestoreGState(context)
-        //        
     }
 }
