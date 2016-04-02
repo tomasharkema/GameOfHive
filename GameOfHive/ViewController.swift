@@ -29,8 +29,8 @@ class ViewController: UIViewController {
     var buttonsVisibleConstraint: NSLayoutConstraint?
     var buttonsHiddenConstraint: NSLayoutConstraint?
     let playButton: UIButton = UIButton(type: .Custom)
-    let saveButton = UIButton(type: UIButtonType.RoundedRect)
-    let loadButton = UIButton(type: UIButtonType.RoundedRect)
+    let saveButton = UIButton(type: .Custom)
+    let menuButton = UIButton(type: .Custom)
     
     let messageOverlay = UIControl()
     let messageHUD = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
@@ -76,16 +76,14 @@ class ViewController: UIViewController {
         playButton.addTarget(self, action: #selector(toggle(_:)), forControlEvents: .TouchUpInside)
 		playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
         
-        saveButton.setTitle("save", forState: .Normal)
-        loadButton.setTitle("load", forState: .Normal)
+        saveButton.setImage(UIImage(named: "button_save"), forState: .Normal)
+        menuButton.setImage(UIImage(named: "button_menu"), forState: .Normal)
         saveButton.addTarget(self, action: #selector(saveGrid), forControlEvents: .TouchUpInside)
-        loadButton.addTarget(self, action: #selector(loadGrid), forControlEvents: .TouchUpInside)
-        saveButton.setTitleColor(UIColor.darkAmberColor, forState: .Normal)
-        loadButton.setTitleColor(UIColor.darkAmberColor, forState: .Normal)
+        menuButton.addTarget(self, action: #selector(openMenu), forControlEvents: .TouchUpInside)
         
         buttonContainer.addArrangedSubview(playButton)
         buttonContainer.addArrangedSubview(saveButton)
-        buttonContainer.addArrangedSubview(loadButton)
+        buttonContainer.addArrangedSubview(menuButton)
         
         let threeFingerTap = UITapGestureRecognizer(target: self, action: #selector(toggleButtons(_:)))
         threeFingerTap.numberOfTouchesRequired = 3
@@ -150,6 +148,10 @@ class ViewController: UIViewController {
         stop()
         grid = g
         drawGrid(grid, animationDuration: 0.2)
+    }
+    
+    func openMenu() {
+        print("Open menu")
     }
     
     func toggleButtons(gestureRecognizer: UIGestureRecognizer) {
