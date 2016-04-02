@@ -66,15 +66,10 @@ class ViewController: UIViewController {
         buttonContainer.axis = .Vertical
         
         playButton.addTarget(self, action: #selector(toggle(_:)), forControlEvents: .TouchUpInside)
-		playButton.frame = CGRectMake(10, 10, 50, 50)
 		playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
         
         saveButton.setTitle("save", forState: .Normal)
         loadButton.setTitle("load", forState: .Normal)
-        saveButton.frame.size = CGSize(width: 50, height: 50)
-        loadButton.frame.size = CGSize(width: 50, height: 50)
-        saveButton.frame.origin = CGPoint(x: 10, y: button.frame.maxY)
-        loadButton.frame.origin = CGPoint(x: 10, y: saveButton.frame.maxY)
         saveButton.addTarget(self, action: #selector(saveGrid), forControlEvents: .TouchUpInside)
         loadButton.addTarget(self, action: #selector(loadGrid), forControlEvents: .TouchUpInside)
         saveButton.setTitleColor(UIColor.darkAmberColor, forState: .Normal)
