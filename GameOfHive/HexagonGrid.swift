@@ -124,6 +124,7 @@ extension HexagonGrid: Encodable {
                 if let hex = self.grid[rowIndex]?[columnIndex] {
                     rowString += hex.active ? "1" : "0"
                 } else {
+                    assertionFailure("Error encoding grid")
                     rowString += "x"
                 }
             }
