@@ -19,6 +19,7 @@ class MenuController: UIViewController {
     @IBOutlet weak var centerButton: HiveButton!
 
     var menuState = false
+    var buttons = [HiveButton]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,24 +49,31 @@ class MenuController: UIViewController {
             return CGPoint(x: xOff, y: yOff)
         }
 
-        let buttons = ["About", "Credits", "Video", "Templates", "Dingen", "Foo"]
+        let buttonNames = ["About", "Credits", "Video", "Templates", "Dingen", "Foo"]
 
-        let buttonsAndCoordinates: [(String, CGPoint)] = buttons.enumerate().map { (idx, el) in
+        let buttonsAndCoordinates: [(String, CGPoint)] = buttonNames.enumerate().map { (idx, el) in
             let offsetDegrees = (CGFloat(idx - 90) * 60.0) + degrees
             let point = pointForDegrees(distance, degrees: offsetDegrees - 90)
             return (el, point)
         }
 
-        buttonsAndCoordinates.forEach { (string, point) in
+        let buttons = buttonsAndCoordinates.map { (string, point) -> HiveButton in
             let center = CGPoint(x: point.x + (self.view.frame.width / 2), y: point.y + (self.view.frame.height / 2))
             let rect = CGRect(x: center.x, y: center.y, width: height/2 * sqrt(3.0) / 2.0, height: height/2)
 
-            let button = HiveButton(type: .System)
+            let button = HiveButton(type: .Custom)
             button.frame = rect
-            self.view.addSubview(button)
             button.setTitle(string, forState: .Normal)
+            button.titleLabel?.textColor = UIColor.blackColor()
             button.center = center
+            return button
         }
+
+        buttons.forEach { button in
+            self.view.addSubview(button)
+        }
+
+        self.buttons = buttons
     }
 
   func showMenu() {
@@ -82,9 +90,12 @@ class MenuController: UIViewController {
 
     switch pressedState {
     case .Show:
+        self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0)
         centerButton.transform = CGAffineTransformScale(CGAffineTransformMakeRotation(CGFloat(M_PI / 2)), CGFloat.min, CGFloat.min)
+        self.buttons.forEach { $0.transform = CGAffineTransformScale(CGAffineTransformMakeRotation(CGFloat(M_PI / 2)), CGFloat.min, CGFloat.min) }
     case .Hide:
         centerButton.transform = CGAffineTransformIdentity
+        self.buttons.forEach { $0.transform = CGAffineTransformIdentity }
     default:
         break
     }
@@ -93,14 +104,19 @@ class MenuController: UIViewController {
       
       switch pressedState {
       case .Show:
-         self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0.9)
-        self.centerButton.transform = CGAffineTransformIdentity
+         self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0.7)
+         self.centerButton.transform = CGAffineTransformIdentity
+         self.buttons.forEach { $0.transform = CGAffineTransformIdentity }
+
       case .HalfPressed:
         self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0.2)
         self.centerButton.transform = CGAffineTransformMakeScale(0.50, 0.50)
+        self.buttons.forEach { $0.transform = CGAffineTransformMakeScale(0.50, 0.50) }
+
       case .Hide:
         self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0)
         self.centerButton.transform = CGAffineTransformMakeScale(0.0000001, 0.0000001)
+        self.buttons.forEach { $0.transform = CGAffineTransformMakeScale(0.0000001, 0.0000001) }
       }
 
       self.view.setNeedsDisplay()
@@ -121,14 +137,13 @@ class MenuController: UIViewController {
   }
 
     func animateIn() {
-        addButtons()
         animateMenuState(.Show, animated: true)
     }
 
     func animateOut() {
         animateMenuState(.Hide, animated: true) { completed in
             if completed {
-//                self.removeFromSuperview()
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
     }

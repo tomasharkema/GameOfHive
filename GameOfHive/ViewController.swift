@@ -79,11 +79,6 @@ class ViewController: UIViewController {
             print("Error saving grid",error)
         }
     }
-
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        showMenu()
-    }
     
     func loadGrid() {
         guard let g = HexagonGrid.load() else {
@@ -185,6 +180,7 @@ class ViewController: UIViewController {
             start()
         } else {
             stop()
+            showMenu()
         }
     }
     
@@ -253,13 +249,6 @@ extension ViewController {
 extension ViewController {
     func showMenu() {
         performSegueWithIdentifier("presentMenu", sender: self)
-//        let menuView = NSBundle.mainBundle().loadNibNamed("MenuView", owner: nil, options: nil).first as! MenuView
-//        menuView.translatesAutoresizingMaskIntoConstraints = true
-//        menuView.frame = view.frame
-//        view.addSubview(menuView)
-//        self.menuView = menuView
-//        menuView.animateIn()
-        
         stop()
     }
 }

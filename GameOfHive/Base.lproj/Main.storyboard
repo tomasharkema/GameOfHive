@@ -21,7 +21,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <segue destination="IvH-pj-GKi" kind="show" identifier="presentMenu" id="ogs-3S-5fk"/>
+                        <segue destination="IvH-pj-GKi" kind="show" identifier="presentMenu" animates="NO" id="ogs-3S-5fk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -42,6 +42,9 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUg-en-1Jk" userLabel="DismissButton">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <action selector="dismissButtonPressed:" destination="IvH-pj-GKi" eventType="touchUpInside" id="6q1-KZ-lxv"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TO-0y-wot" customClass="HiveButton" customModule="GameOfHive" customModuleProvider="target">
                                 <rect key="frame" x="200" y="200" width="200" height="200"/>

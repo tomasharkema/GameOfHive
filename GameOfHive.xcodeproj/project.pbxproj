@@ -26,6 +26,7 @@
 		B399C6D11CB0029F002C57A4 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B399C6D01CB0029F002C57A4 /* Encodable.swift */; };
 		B3BD1C991B0CD3EF00331176 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BD1C981B0CD3EF00331176 /* Rules.swift */; };
 		C35B19101CB0092D003DF56C /* HiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B190F1CB0092D003DF56C /* HiveButton.swift */; };
+		C35B19121CB06ACF003DF56C /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C35B19111CB06ACF003DF56C /* Raleway-Medium.ttf */; };
 		C3881F921B0D4915006D9CF0 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3881F911B0D4915006D9CF0 /* MenuController.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 		B399C6D01CB0029F002C57A4 /* Encodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		B3BD1C981B0CD3EF00331176 /* Rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 		C35B190F1CB0092D003DF56C /* HiveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HiveButton.swift; sourceTree = "<group>"; };
+		C35B19111CB06ACF003DF56C /* Raleway-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium.ttf"; sourceTree = "<group>"; };
 		C3881F911B0D4915006D9CF0 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		CF2FA7DC67DF597D0AD3E8B0 /* Pods_GameOfHive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameOfHive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -135,6 +137,7 @@
 		1CE620461B0C8E350072BBF9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C35B19111CB06ACF003DF56C /* Raleway-Medium.ttf */,
 				1CE620471B0C8E350072BBF9 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -281,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CE6204E1B0C8E350072BBF9 /* Main.storyboard in Resources */,
+				C35B19121CB06ACF003DF56C /* Raleway-Medium.ttf in Resources */,
 				1CE620531B0C8E350072BBF9 /* LaunchScreen.xib in Resources */,
 				1CE620501B0C8E350072BBF9 /* Images.xcassets in Resources */,
 			);
