@@ -17,6 +17,10 @@ default_platform :ios
 
 platform :ios do
   before_all do
+
+    ENV["PROJECT_DIR"] = "../../"
+    ENV["PROJECT_LOC"] = "../../GameOfHive.xcodeproj"
+
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
     
     
@@ -32,14 +36,14 @@ platform :ios do
   lane :beta do
 
     ensure_git_status_clean
-    increment_build_number
+    increment_build_number(xcodeproj: ENV["PROJECT_DIR"])
 
     # match(type: "appstore") # more information: https://codesigning.guide
     gym # Build your app - more options available
 
     pilot(changelog: File.open("ChangeLog").read, distribute_external: true)
 
-    commit_version_bump
+    commit_version_bump(xcodeproj:  ENV["PROJECT_LOC"])
     # sh "your_script.sh"
     # You can also use other beta testing services here (run `fastlane actions`)
   end
