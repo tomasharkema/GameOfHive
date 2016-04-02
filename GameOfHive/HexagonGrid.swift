@@ -115,6 +115,28 @@ extension HexagonGrid: SequenceType {
     }
 }
 
+extension HexagonGrid: Encodable {
+    public func encode() -> JSON {
+        var data: [JSON] = []
+        for rowIndex in 0..<rows {
+            var rowString: String = ""
+            for columnIndex in 0..<columns {
+                if let hex = self.grid[rowIndex]?[columnIndex] {
+                    rowString += hex.active ? "1" : "0"
+                } else {
+                    rowString += "x"
+                }
+            }
+            data.append(.String(rowString))
+        }
+        let size: JSON = ["rows":rows,"colums":columns]
+        let grid: JSON = ["data":data,"size":size]
+        return ["grid":grid]
+    }
+}
+
+
+
 func initialGrid(rows: Int, columns: Int, gridType: GridType) -> [Int: HexagonRow] {
     var grid: [Int:HexagonRow] = [:]
     for r in 0..<rows {
