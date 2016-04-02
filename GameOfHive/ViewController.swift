@@ -152,13 +152,14 @@ class ViewController: UIViewController {
     }
     
     func openMenu() {
-        print("Open menu")
+        performSegueWithIdentifier("presentMenu", sender: self)
+        stop()
     }
     
     func toggleButtons(gestureRecognizer: UIGestureRecognizer) {
         buttonsVisibleConstraint?.active = !(buttonsVisibleConstraint?.active ?? false)
         buttonsHiddenConstraint?.active = !(buttonsHiddenConstraint?.active ?? false)
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .BeginFromCurrentState, animations: {
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: .BeginFromCurrentState, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
@@ -263,7 +264,6 @@ class ViewController: UIViewController {
             start()
         } else {
             stop()
-            showMenu()
         }
     }
     
@@ -278,10 +278,6 @@ class ViewController: UIViewController {
         timer?.invalidate()
         timer = nil
         playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
-    }
-
-    @IBAction func menuButtonPressed(sender: AnyObject) {
-        showMenu()
     }
 
 }
@@ -324,15 +320,6 @@ extension ViewController {
                 }
             }
         }
-    }
-}
-
-
-//MARK: Menu
-extension ViewController {
-    func showMenu() {
-        performSegueWithIdentifier("presentMenu", sender: self)
-        stop()
     }
 }
 
