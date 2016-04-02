@@ -140,7 +140,7 @@ class Animator {
                     animator.addAnimation(newAnimation)
                 }
                 else {
-                    assert(false, "Should not occur")
+                    assertionFailure("Should not occur")
                     view.animationState = .Ready
                     ready.append(view)
                 }
