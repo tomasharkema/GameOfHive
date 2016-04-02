@@ -88,7 +88,7 @@ class ViewController: UIViewController {
         }
         stop()
         grid = g
-        drawGrid(grid, animationDuration: 0.25)
+        drawGrid(grid, animationDuration: 0.2)
     }
     
     
