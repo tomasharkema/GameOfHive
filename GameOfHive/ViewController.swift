@@ -172,7 +172,7 @@ extension ViewController: HexagonViewDelegate {
                 let alive = cell.alive
                 let start: CGFloat = alive ? HexagonView.deadAlpha : HexagonView.aliveAlpha
                 let end: CGFloat = alive ? HexagonView.aliveAlpha : HexagonView.deadAlpha
-                let duration: CFTimeInterval = alive ? 0.2 : 0.2
+                let duration: CFTimeInterval = 0.2
                 let config = AnimationConfiguration(startValue: start, endValue: end, duration: duration)
                 Animator.addAnimationForViews([cell], configuration: config)
             }
