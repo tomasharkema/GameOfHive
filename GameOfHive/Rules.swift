@@ -13,8 +13,8 @@ struct Rules {
     let fertility: [Int]
     
     static func defaultRules() -> Rules {
-        return Rules(environment: [3,5], fertility: [2])
-//        return Rules(environment: [3], fertility: [2,4,5])
+//        return Rules(environment: [3,5], fertility: [2])
+        return Rules(environment: [3], fertility: [2,4,5])
     }
     
     private static func randomArray(from: Int = 1, to: Int = 6) -> [Int] {

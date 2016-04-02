@@ -12,12 +12,12 @@ import UIKit
 let gridQueue = dispatch_queue_create("grid_queue", DISPATCH_QUEUE_SERIAL)
 
 class ViewController: UIViewController {
-    var numberOfRows = 25
+    var numberOfRows = 50
     var numberOfColumns: Int!
     var cells: [HexagonView] = []
     var timer: NSTimer!
     var grid: HexagonGrid!
-    let rules = Rules.randomRules()
+    let rules = Rules.defaultRules()
     var button: UIButton!
     var menuView: MenuView? = nil
     
