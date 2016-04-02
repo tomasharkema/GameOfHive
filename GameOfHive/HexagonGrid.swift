@@ -129,9 +129,57 @@ extension HexagonGrid: Encodable {
             }
             data.append(.String(rowString))
         }
-        let size: JSON = ["rows":rows,"colums":columns]
+        let size: JSON = ["rows":rows,"columns":columns]
         let grid: JSON = ["data":data,"size":size]
         return ["grid":grid]
+    }
+}
+
+extension HexagonGrid: Decodable {
+    static var curriedInit: Int -> Int -> GridType -> HexagonGrid = { rows in
+        return { columns in
+            return { type in
+                return HexagonGrid(rows: rows, columns: columns, initialGridType: type)
+            }
+        }
+    }
+    
+    
+    
+    public static func decode(json: JSON) -> Decoded<HexagonGrid> {
+        let data: Decoded<[String]> = json <|| ["grid","data"]
+        let grid: Decoded<HexagonGrid> = curriedInit <^> json <| ["grid","size","rows"]
+                                                     <*> json <| ["grid","size","columns"]
+                                                     <*> pure(.Empty)
+        return grid.map { g in
+            var newGrid = g
+            data.map { rows in
+                rows.enumerate().forEach { (rowIndex,row) in
+                    row.characters.enumerate().forEach { (columnIndex,character) in
+                        let active = String(character) == "1"
+                        newGrid = newGrid.setActive(active, atLocation: Coordinate(row: rowIndex, column: columnIndex))
+                    }
+                }
+            }
+            return newGrid
+        }
+    }
+}
+
+//MARK: Loading and saving
+extension HexagonGrid {
+    func save(filename: String = "grid.json") throws {
+        let file = documentsDirectory.stringByAppendingPathComponent(filename)
+        try self.encode().toJSONString.writeToFile(file, atomically: true, encoding: NSUTF8StringEncoding)
+    }
+    
+    static func load(filename: String = "grid.json") -> HexagonGrid? {
+        let file = documentsDirectory.stringByAppendingPathComponent(filename)
+        guard let data = NSData(contentsOfFile: file), object = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) else {
+            return nil
+        }
+        let decodedGrid: Decoded<HexagonGrid> = Argo.decode(object)
+        return decodedGrid.value
     }
 }
 
