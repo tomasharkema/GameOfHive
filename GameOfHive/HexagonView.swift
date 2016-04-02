@@ -24,21 +24,20 @@ class HexagonView: UIView {
         //  5    3
         //	  4
         
+        let halfLineWidth = lineWidth / 2.0
+        let topBottomOffset = (sqrt((3 * lineWidth * lineWidth) / 4))
         
-        let midX = width / 2.0
-        
-        let p1 = CGPointMake(midX, 0)
+        let p1 = CGPointMake(width / 2.0, topBottomOffset)
         let p2 = CGPointMake(width - (lineWidth / 2), height / 4)
         let p3 = CGPointMake(p2.x, p2.y * 3)
-        let p4 = CGPointMake(midX, height)
-        let p5 = CGPointMake((lineWidth / 2), p3.y)
+        let p4 = CGPointMake(p1.x, height - topBottomOffset)
+        let p5 = CGPointMake(lineWidth / 2, p3.y)
         let p6 = CGPointMake(p5.x, p2.y)
         
         
         let s = height / 2.0
         let a = (height - s) / 2.0
         
-        let halfLineWidth = lineWidth / 2.0
         
         let path = CGPathCreateMutable()
         CGPathMoveToPoint(path, nil, p1.x, p1.y)

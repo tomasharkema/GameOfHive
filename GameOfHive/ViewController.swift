@@ -22,7 +22,7 @@ func ourCeil(input:CGFloat) -> CGFloat {
 
 
 let cellSize: CGSize = {
-    let cellHeight: CGFloat = 26// must be even!!!!
+    let cellHeight: CGFloat = 26 // must be even!!!! We use half height and half width for drawing
     
     var cellWidth = (sqrt((3 * cellHeight * cellHeight) / 16)) * 2
     cellWidth = ceil(cellWidth) % 2 == 1 ? floor(cellWidth) : ceil(cellWidth)
@@ -32,7 +32,7 @@ let cellSize: CGSize = {
 
 let sideLength = cellSize.height/2
 
-let lineWidth: CGFloat = 2.0
+let lineWidth: CGFloat = 1.0
 
 class ViewController: UIViewController {
     var cells: [HexagonView] = []
@@ -119,9 +119,6 @@ class ViewController: UIViewController {
             let y = yOffset + ((cellSize.height - sideLength/2) * CGFloat(row))
             let frame = CGRect(x: x, y: y, width: cellSize.width, height: cellSize.height)
             let cell = HexagonView(frame: frame)
-            
-            print(frame)
-            
             cell.coordinate = hexagon.location
             cell.alive = hexagon.active
             cell.alpha = cell.alive ? HexagonView.aliveAlpha : HexagonView.deadAlpha
