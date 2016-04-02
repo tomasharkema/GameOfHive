@@ -66,9 +66,9 @@ public struct HexagonGrid {
     
     func nextIteration(rules: Rules) -> HexagonGrid {
         var nextIteration: [Int:HexagonRow] = [:]
-        for (rowNumber,row) in grid {
+        grid.forEach{ (rowNumber,row) in
             var nextRow: HexagonRow = [:]
-            for (columnNumber,hex) in row {
+            row.forEach { (columnNumber,hex) in
                 let nextHex = update(hex, forRules: rules)
                 nextRow[columnNumber] = nextHex
             }

@@ -58,7 +58,7 @@ class ViewController: UIViewController {
         let xOffset = -cellSize.width/2
         let yOffset = -(cellSize.height/4 + sideLength)
         
-        for hexagon in grid {
+        grid.forEach { hexagon in
             let row = hexagon.location.row
             let column = hexagon.location.column
             let x = xOffset + (row & 1 == 0 ? (cellSize.width * CGFloat(column)) : (cellSize.width * CGFloat(column)) + (cellSize.width * 0.5))
@@ -92,7 +92,7 @@ class ViewController: UIViewController {
         var cellsToDeactivate: [HexagonView] = []
         
         var isCompletelyDead = true
-        for cell in cells {
+        cells.forEach { cell in
             if let hexagon = grid.hexagon(atLocation: cell.coordinate) {
                 switch (cell.alive, hexagon.active) {
                 case (false, true):

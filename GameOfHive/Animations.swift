@@ -125,7 +125,7 @@ class Animator {
     static func addAnimationForViews(views: [HexagonView], configuration: AnimationConfiguration) {
         // collect views ready for animation
         var ready: [HexagonView] = []
-        for view in views {
+        views.forEach { view in
             switch view.animationState {
             case .Ready:
                 ready.append(view)
@@ -167,7 +167,7 @@ class Animator {
         
         let duration = displayLink.timestamp - lastDrawTime
         
-        for (_, animation) in animations {
+        animations.forEach { (_, animation) in
             animation.increaseTime(duration)
         }
         
