@@ -49,8 +49,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentView = UIView(frame: view.bounds)
         view.addSubview(contentView)
+        view.addSubview(buttonContainer)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
+        contentView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
+        contentView.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
+        contentView.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = true
         createGrid()
         
         buttonContainer.translatesAutoresizingMaskIntoConstraints = false
