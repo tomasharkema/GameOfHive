@@ -12,27 +12,32 @@ protocol HexagonViewDelegate: class {
     func userDidUpateCell(cell: HexagonView)
 }
 
+func hexagonPath(size: CGSize, lineWidth: CGFloat = 0) -> CGPath {
+    let height = size.height
+    let width = size.width
+    let s = height / 2.0
+    let b = width / 2.0
+    let a = (height - s) / 2.0
+    
+    let halfLineWidth = lineWidth / 2.0
+    
+    let path = CGPathCreateMutable()
+    CGPathMoveToPoint(path, nil, b, halfLineWidth)
+    CGPathAddLineToPoint(path, nil, width - halfLineWidth, a)
+    CGPathAddLineToPoint(path, nil, width - halfLineWidth, a + s)
+    CGPathAddLineToPoint(path, nil, b, height - halfLineWidth)
+    CGPathAddLineToPoint(path, nil, halfLineWidth, a + s)
+    CGPathAddLineToPoint(path, nil, halfLineWidth, a)
+    CGPathAddLineToPoint(path, nil, b, halfLineWidth)
+    
+    CGPathCloseSubpath(path)
+    return path
+}
+
 class HexagonView: UIView {
     static let lineWidth: CGFloat = 3.0
     static let path: CGPathRef = {
-        let size = cellSize
-        let height = size.height
-        let width = size.width
-        let s = height / 2.0
-        let b = width / 2.0
-        let a = (height - s) / 2.0
-        
-        let halfLineWidth = lineWidth / 2.0
-        
-        let path = CGPathCreateMutable()
-        CGPathMoveToPoint(path, nil, b, halfLineWidth)
-        CGPathAddLineToPoint(path, nil, width - halfLineWidth, a)
-        CGPathAddLineToPoint(path, nil, width - halfLineWidth, a + s)
-        CGPathAddLineToPoint(path, nil, b, height - halfLineWidth)
-        CGPathAddLineToPoint(path, nil, halfLineWidth, a + s)
-        CGPathAddLineToPoint(path, nil, halfLineWidth, a)
-        CGPathAddLineToPoint(path, nil, b, halfLineWidth)
-        return path
+        return hexagonPath(cellSize, lineWidth: lineWidth)
     }()
 
     static let fillColor = UIColor.lightAmberColor
