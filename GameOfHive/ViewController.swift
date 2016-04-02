@@ -185,10 +185,7 @@ extension ViewController {
         if motion == .MotionShake {
             stop()
             dispatch_async(gridQueue) {
-                let cellWidth = CGFloat(22)
-                let cellHeight = CGFloat(25)
-
-                let grid = gridFromViewDimensions(self.view.bounds.size, cellSize: CGSize(width: cellWidth, height: cellHeight), gridType: .Empty)
+                let grid = gridFromViewDimensions(self.view.bounds.size, cellSize: cellSize, gridType: .Empty)
                 self.grid = grid
                 dispatch_async(dispatch_get_main_queue()) {
                     self.drawGrid(grid)
