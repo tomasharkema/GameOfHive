@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         
         button = UIButton(type: .Custom)
         button.addTarget(self, action: #selector(toggle(_:)), forControlEvents: .TouchUpInside)
-		button.frame = CGRectMake(10, 10, 30, 30)
+		button.frame = CGRectMake(10, 10, 50, 50)
 		button.setImage(UIImage(named: "button_play"), forState: .Normal)
         self.view.addSubview(button)
     }
