@@ -23,6 +23,7 @@
 		B3938BB11CB003D200C75813 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3938BB01CB003D200C75813 /* Dictionary.swift */; };
 		B3938BB31CB003FE00C75813 /* Argo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3938BB21CB003FE00C75813 /* Argo.swift */; };
 		B3938BB51CB024BC00C75813 /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3938BB41CB024BC00C75813 /* Foundation.swift */; };
+		B3938BB71CB04C3B00C75813 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3938BB61CB04C3B00C75813 /* UIView.swift */; };
 		B399C6D11CB0029F002C57A4 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B399C6D01CB0029F002C57A4 /* Encodable.swift */; };
 		B3BD1C991B0CD3EF00331176 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BD1C981B0CD3EF00331176 /* Rules.swift */; };
 		C35B19101CB0092D003DF56C /* HiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B190F1CB0092D003DF56C /* HiveButton.swift */; };
@@ -62,6 +63,7 @@
 		B3938BB01CB003D200C75813 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		B3938BB21CB003FE00C75813 /* Argo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Argo.swift; sourceTree = "<group>"; };
 		B3938BB41CB024BC00C75813 /* Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
+		B3938BB61CB04C3B00C75813 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		B399C6D01CB0029F002C57A4 /* Encodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		B3BD1C981B0CD3EF00331176 /* Rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 		C35B190F1CB0092D003DF56C /* HiveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HiveButton.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				B3938BB01CB003D200C75813 /* Dictionary.swift */,
 				B3938BB21CB003FE00C75813 /* Argo.swift */,
 				B3938BB41CB024BC00C75813 /* Foundation.swift */,
+				B3938BB61CB04C3B00C75813 /* UIView.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				1CE620491B0C8E350072BBF9 /* AppDelegate.swift in Sources */,
 				1C366C341B0D3A1B001B2B53 /* UIColor.swift in Sources */,
 				B38DD5E71B0C9BB30064E7E4 /* Hexagon.swift in Sources */,
+				B3938BB71CB04C3B00C75813 /* UIView.swift in Sources */,
 				B3938BB31CB003FE00C75813 /* Argo.swift in Sources */,
 				1C366C321B0D39BC001B2B53 /* Animations.swift in Sources */,
 				B3938BB51CB024BC00C75813 /* Foundation.swift in Sources */,
@@ -500,6 +504,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = GameOfHive/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.gameofhive.release;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -515,6 +520,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = GameOfHive/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.gameofhive.release;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -535,6 +541,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = GameOfHiveTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Beetles.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -551,6 +558,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = GameOfHiveTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Beetles.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -26,9 +26,16 @@ class ViewController: UIViewController {
     let rules = Rules.defaultRules
     
     @IBOutlet weak var hiveView: UIView!
-    var button: UIButton!
-    var saveButton = UIButton(type: UIButtonType.RoundedRect)
-    var loadButton = UIButton(type: UIButtonType.RoundedRect)
+    let contentView = UIView()
+    let buttonContainer = UIStackView()
+    var buttonsVisibleConstraint: NSLayoutConstraint?
+    var buttonsHiddenConstraint: NSLayoutConstraint?
+    let playButton: UIButton = UIButton(type: .Custom)
+    let saveButton = UIButton(type: .Custom)
+    let menuButton = UIButton(type: .Custom)
+    
+    let messageOverlay = UIControl()
+    let messageHUD = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
     
     // MARK: UIViewController
     override func didReceiveMemoryWarning() {
@@ -44,29 +51,84 @@ class ViewController: UIViewController {
         return [.LandscapeLeft,.LandscapeRight]
     }
     
+    var shouldShowMessage: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(contentView)
+        view.addSubview(buttonContainer)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
+        contentView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
+        contentView.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
+        contentView.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = true
         createGrid()
         
-        button = UIButton(type: .Custom)
-        button.addTarget(self, action: #selector(toggle(_:)), forControlEvents: .TouchUpInside)
-		button.frame = CGRectMake(10, 10, 50, 50)
-		button.setImage(UIImage(named: "button_play"), forState: .Normal)
-        view.addSubview(button)
+        buttonContainer.translatesAutoresizingMaskIntoConstraints = false
+        buttonsVisibleConstraint = buttonContainer.topAnchor.constraintEqualToAnchor(view.topAnchor, constant: 25)
+        buttonsHiddenConstraint = buttonContainer.bottomAnchor.constraintEqualToAnchor(view.topAnchor)
+        buttonsVisibleConstraint?.active = true
+        buttonContainer.leftAnchor.constraintEqualToAnchor(view.leftAnchor, constant: 25).active = true
+        buttonContainer.axis = .Vertical
+        buttonContainer.spacing = 10
         
-        saveButton.setTitle("save", forState: .Normal)
-        loadButton.setTitle("load", forState: .Normal)
-        view.addSubview(saveButton)
-        view.addSubview(loadButton)
-        saveButton.frame.size = CGSize(width: 50, height: 50)
-        loadButton.frame.size = CGSize(width: 50, height: 50)
-        saveButton.frame.origin = CGPoint(x: 10, y: button.frame.maxY)
-        loadButton.frame.origin = CGPoint(x: 10, y: saveButton.frame.maxY)
+        playButton.addTarget(self, action: #selector(togglePlayback(_:)), forControlEvents: .TouchUpInside)
+		playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
+        
+        saveButton.setImage(UIImage(named: "button_save"), forState: .Normal)
+        menuButton.setImage(UIImage(named: "button_menu"), forState: .Normal)
         saveButton.addTarget(self, action: #selector(saveGrid), forControlEvents: .TouchUpInside)
-        loadButton.addTarget(self, action: #selector(loadGrid), forControlEvents: .TouchUpInside)
-        saveButton.setTitleColor(UIColor.darkAmberColor, forState: .Normal)
-        loadButton.setTitleColor(UIColor.darkAmberColor, forState: .Normal)
+        menuButton.addTarget(self, action: #selector(openMenu), forControlEvents: .TouchUpInside)
         
+        buttonContainer.addArrangedSubview(playButton)
+        buttonContainer.addArrangedSubview(saveButton)
+        buttonContainer.addArrangedSubview(menuButton)
+        
+        let threeFingerTap = UITapGestureRecognizer(target: self, action: #selector(toggleButtons(_:)))
+        threeFingerTap.numberOfTouchesRequired = 3
+        contentView.addGestureRecognizer(threeFingerTap)
+        
+        view.addSubview(messageOverlay)
+        messageOverlay.constrainToView(view)
+        messageOverlay.addTarget(self, action: #selector(dismissMessageOverlay), forControlEvents: .TouchUpInside)
+        
+        
+        messageOverlay.addSubview(messageHUD)
+        messageHUD.userInteractionEnabled = false
+        messageHUD.translatesAutoresizingMaskIntoConstraints = false
+        messageHUD.centerXAnchor.constraintEqualToAnchor(messageOverlay.centerXAnchor).active = true
+        messageHUD.centerYAnchor.constraintEqualToAnchor(messageOverlay.centerYAnchor).active = true
+        messageHUD.heightAnchor.constraintEqualToAnchor(messageOverlay.heightAnchor, multiplier: 0.5).active = true
+        messageHUD.heightAnchor.constraintEqualToAnchor(messageHUD.widthAnchor, multiplier: 1/(sqrt(3) / 2)).active = true
+
+        let messageView = UILabel()
+
+        messageHUD.contentView.addSubview(messageView)
+        
+        
+        
+        messageView.numberOfLines = 0
+        messageView.adjustsFontSizeToFitWidth = true
+        messageView.textAlignment = .Center
+        messageView.constrainToView(messageHUD, margin: 20)
+        messageView.text = "Tap with three fingers to show and hide the menu"
+        messageView.font = UIFont(name: "Raleway-Medium", size: 20)
+        messageView.textColor = UIColor.lightAmberColor
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = hexagonPath(messageHUD.frame.size)
+        let borderLayer = CAShapeLayer()
+        borderLayer.path = maskLayer.path
+        borderLayer.strokeColor = UIColor.lightAmberColor.CGColor
+        borderLayer.lineWidth = 5
+        borderLayer.fillColor = UIColor.clearColor().CGColor
+        messageHUD.layer.mask = maskLayer
+        messageHUD.layer.addSublayer(borderLayer)
     }
     
     var savePath: String {
@@ -84,8 +146,29 @@ class ViewController: UIViewController {
         guard let g = HexagonGrid.load() else {
             return
         }
+        stop()
         grid = g
-        drawGrid(grid)
+        drawGrid(grid, animationDuration: 0.2)
+    }
+    
+    func openMenu() {
+        print("Open menu")
+    }
+    
+    func toggleButtons(gestureRecognizer: UIGestureRecognizer) {
+        buttonsVisibleConstraint?.active = !(buttonsVisibleConstraint?.active ?? false)
+        buttonsHiddenConstraint?.active = !(buttonsHiddenConstraint?.active ?? false)
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .BeginFromCurrentState, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    func dismissMessageOverlay() {
+        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .BeginFromCurrentState, animations: {
+            self.messageHUD.transform = CGAffineTransformMakeScale(0.01, 0.01)
+            }) { finished in
+            self.messageOverlay.removeFromSuperview()
+        }
     }
     
     
@@ -111,7 +194,7 @@ class ViewController: UIViewController {
             cell.alpha = cell.alive ? HexagonView.aliveAlpha : HexagonView.deadAlpha
             cell.hexagonViewDelegate = self
             cells.append(cell)
-            view.addSubview(cell)
+            contentView.addSubview(cell)
         }
     }
     
@@ -125,7 +208,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func drawGrid(grid: HexagonGrid) {
+    func drawGrid(grid: HexagonGrid, animationDuration: Double = 0.05) {
         assert(NSThread.isMainThread(), "Expect main thread")
         
         // split cells by needed action. filter unchanged cells
@@ -150,11 +233,11 @@ class ViewController: UIViewController {
         }
         // animate changes
         if cellsToActivate.count > 0 {
-            let config = AnimationConfiguration(startValue: HexagonView.deadAlpha, endValue: HexagonView.aliveAlpha, duration: 0.05)
+            let config = AnimationConfiguration(startValue: HexagonView.deadAlpha, endValue: HexagonView.aliveAlpha, duration: animationDuration)
             Animator.addAnimationForViews(cellsToActivate, configuration: config)
         }
         if cellsToDeactivate.count > 0 {
-            let config = AnimationConfiguration(startValue: HexagonView.aliveAlpha, endValue: HexagonView.deadAlpha, duration: 0.05)
+            let config = AnimationConfiguration(startValue: HexagonView.aliveAlpha, endValue: HexagonView.deadAlpha, duration: animationDuration)
             Animator.addAnimationForViews(cellsToDeactivate, configuration: config)
         }
         
@@ -175,7 +258,7 @@ class ViewController: UIViewController {
     }
     
     // MARK: Button
-    func toggle(button: UIButton) {
+    func togglePlayback(button: UIButton) {
         if timer == nil {
             start()
         } else {
@@ -188,13 +271,13 @@ class ViewController: UIViewController {
         timer?.invalidate()
         timer = createTimer()
         timer.fire()
-        button.setImage(UIImage(named: "button_stop"), forState: .Normal)
+        playButton.setImage(UIImage(named: "button_stop"), forState: .Normal)
     }
     
     func stop() {
         timer?.invalidate()
         timer = nil
-        button.setImage(UIImage(named: "button_play"), forState: .Normal)
+        playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
     }
 
     @IBAction func menuButtonPressed(sender: AnyObject) {
