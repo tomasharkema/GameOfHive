@@ -87,7 +87,7 @@ class ViewController: UIViewController {
             return
         }
         grid = g
-        drawGrid(grid)
+        drawGrid(grid, animationDuration: 0.25)
     }
     
     
@@ -152,11 +152,11 @@ class ViewController: UIViewController {
         }
         // animate changes
         if cellsToActivate.count > 0 {
-            let config = AnimationConfiguration(startValue: HexagonView.deadAlpha, endValue: HexagonView.aliveAlpha, duration: 0.05)
+            let config = AnimationConfiguration(startValue: HexagonView.deadAlpha, endValue: HexagonView.aliveAlpha, duration: animationDuration)
             Animator.addAnimationForViews(cellsToActivate, configuration: config)
         }
         if cellsToDeactivate.count > 0 {
-            let config = AnimationConfiguration(startValue: HexagonView.aliveAlpha, endValue: HexagonView.deadAlpha, duration: 0.05)
+            let config = AnimationConfiguration(startValue: HexagonView.aliveAlpha, endValue: HexagonView.deadAlpha, duration: animationDuration)
             Animator.addAnimationForViews(cellsToDeactivate, configuration: config)
         }
         
