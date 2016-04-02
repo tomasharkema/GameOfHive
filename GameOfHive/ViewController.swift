@@ -11,7 +11,12 @@ import UIKit
 // queue enforcing serial grid creation
 let gridQueue = dispatch_queue_create("grid_queue", DISPATCH_QUEUE_SERIAL)
 
-let cellSize = CGSize(width: 22, height: 25)
+let cellSize: CGSize = {
+    let cellHeight: CGFloat = 25
+    let cellWidth = round(cellHeight * sqrt(3) / 2)
+    return CGSize(width: cellWidth, height: cellHeight)
+}()
+
 let sideLength = cellSize.height/2
 
 class ViewController: UIViewController {
