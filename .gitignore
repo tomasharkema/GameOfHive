@@ -34,3 +34,4 @@ DerivedData
 # Carthage/Checkouts
 
 Carthage/Build
+deployment/fastlane/README.md
