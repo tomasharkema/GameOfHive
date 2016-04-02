@@ -25,6 +25,10 @@ class MenuController: UIViewController {
         animateIn()
     }
 
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+
     func addButtons() {
 
         let height: CGFloat = 200
@@ -79,7 +83,6 @@ class MenuController: UIViewController {
   }
 
   private func animateMenuState(pressedState: MenuPressedState, completion: (Bool -> ())? = nil) {
-
     switch pressedState {
     case .Show:
         self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0)
@@ -90,24 +93,19 @@ class MenuController: UIViewController {
         self.buttons.forEach { $0.transform = CGAffineTransformIdentity }
     }
 
-    let animationBlock: Void -> Void = {
-      
-      switch pressedState {
-      case .Show:
-         self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0.7)
-         self.centerButton.transform = CGAffineTransformIdentity
-         self.buttons.forEach { $0.transform = CGAffineTransformIdentity }
+    UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: .CurveEaseIn, animations: {
+        switch pressedState {
+        case .Show:
+            self.centerButton.transform = CGAffineTransformIdentity
+            self.buttons.forEach { $0.transform = CGAffineTransformIdentity }
 
-      case .Hide:
-        self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0)
-        self.centerButton.transform = CGAffineTransformMakeScale(0.0000001, 0.0000001)
-        self.buttons.forEach { $0.transform = CGAffineTransformMakeScale(0.0000001, 0.0000001) }
-      }
+        case .Hide:
+            self.centerButton.transform = CGAffineTransformMakeScale(0.01, 0.01)
+            self.buttons.forEach { $0.transform = CGAffineTransformMakeScale(0.01, 0.01) }
+        }
 
-      self.view.setNeedsDisplay()
-    }
-    
-    UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: .CurveEaseIn, animations: animationBlock, completion: completion)
+        self.view.setNeedsDisplay()
+    }, completion: completion)
   }
 
     func animateIn() {
@@ -122,7 +120,11 @@ class MenuController: UIViewController {
         }
     }
 
+    var isDismissing = false
     @IBAction func dismissButtonPressed(sender: AnyObject) {
-        animateOut()
+        if !isDismissing {
+            isDismissing = true
+            animateOut()
+        }
     }
 }
