@@ -38,7 +38,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(rules)
         createGrid()
         
         button = UIButton(type: .Custom)
