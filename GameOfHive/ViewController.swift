@@ -11,10 +11,12 @@ import UIKit
 // queue enforcing serial grid creation
 let gridQueue = dispatch_queue_create("grid_queue", DISPATCH_QUEUE_SERIAL)
 
-let cellHeight: CGFloat = 25.0
-let cellWidth = cellHeight * sqrt(3.0) / 2.0
+let cellSize: CGSize = {
+    let cellHeight: CGFloat = 25
+    let cellWidth = round(cellHeight * sqrt(3) / 2)
+    return CGSize(width: cellWidth, height: cellHeight)
+}()
 
-let cellSize = CGSize(width: cellWidth, height: cellHeight)
 let sideLength = cellSize.height/2
 
 class ViewController: UIViewController {
@@ -25,6 +27,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var hiveView: UIView!
     var button: UIButton!
+    var saveButton = UIButton(type: UIButtonType.RoundedRect)
+    var loadButton = UIButton(type: UIButtonType.RoundedRect)
     var menuView: MenuView? = nil
     
     // MARK: UIViewController
@@ -43,20 +47,53 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(rules)
         createGrid()
         
         button = UIButton(type: .Custom)
         button.addTarget(self, action: #selector(toggle(_:)), forControlEvents: .TouchUpInside)
-		button.frame = CGRectMake(10, 10, 30, 30)
+		button.frame = CGRectMake(10, 10, 50, 50)
 		button.setImage(UIImage(named: "button_play"), forState: .Normal)
-        self.view.addSubview(button)
+        view.addSubview(button)
+        
+        saveButton.setTitle("save", forState: .Normal)
+        loadButton.setTitle("load", forState: .Normal)
+        view.addSubview(saveButton)
+        view.addSubview(loadButton)
+        saveButton.frame.size = CGSize(width: 50, height: 50)
+        loadButton.frame.size = CGSize(width: 50, height: 50)
+        saveButton.frame.origin = CGPoint(x: 10, y: button.frame.maxY)
+        loadButton.frame.origin = CGPoint(x: 10, y: saveButton.frame.maxY)
+        saveButton.addTarget(self, action: #selector(saveGrid), forControlEvents: .TouchUpInside)
+        loadButton.addTarget(self, action: #selector(loadGrid), forControlEvents: .TouchUpInside)
+        saveButton.setTitleColor(UIColor.darkAmberColor, forState: .Normal)
+        loadButton.setTitleColor(UIColor.darkAmberColor, forState: .Normal)
+        
+    }
+    
+    var savePath: String {
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+        return "\(documentsPath)/save.json"
+    }
+    
+    func saveGrid() {
+        do { try grid.save() } catch let error {
+            print("Error saving grid",error)
+        }
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         showMenu()
     }
+    
+    func loadGrid() {
+        guard let g = HexagonGrid.load() else {
+            return
+        }
+        grid = g
+        drawGrid(grid)
+    }
+    
     
     // MARK: Grid
     func createGrid() {
@@ -68,7 +105,7 @@ class ViewController: UIViewController {
         let xOffset = -cellSize.width/2
         let yOffset = -(cellSize.height/4 + sideLength)
         
-        for hexagon in grid {
+        grid.forEach { hexagon in
             let row = hexagon.location.row
             let column = hexagon.location.column
             let x = xOffset + (row & 1 == 0 ? (cellSize.width * CGFloat(column)) : (cellSize.width * CGFloat(column)) + (cellSize.width * 0.5))
@@ -77,7 +114,7 @@ class ViewController: UIViewController {
             let cell = HexagonView(frame: frame)
             cell.coordinate = hexagon.location
             cell.alive = hexagon.active
-            cell.fillPath = cell.alive ? HexagonView.pathPrototype : nil
+            cell.alpha = cell.alive ? HexagonView.aliveAlpha : HexagonView.deadAlpha
             cell.hexagonViewDelegate = self
             cells.append(cell)
             view.addSubview(cell)
@@ -102,7 +139,7 @@ class ViewController: UIViewController {
         var cellsToDeactivate: [HexagonView] = []
         
         var isCompletelyDead = true
-        for cell in cells {
+        cells.forEach { cell in
             if let hexagon = grid.hexagon(atLocation: cell.coordinate) {
                 switch (cell.alive, hexagon.active) {
                 case (false, true):
@@ -119,13 +156,14 @@ class ViewController: UIViewController {
         }
         // animate changes
         if cellsToActivate.count > 0 {
-            let config = AnimationConfiguration(startValue: 0, endValue: 1, duration: 0.4)
+            let config = AnimationConfiguration(startValue: HexagonView.deadAlpha, endValue: HexagonView.aliveAlpha, duration: 0.05)
             Animator.addAnimationForViews(cellsToActivate, configuration: config)
         }
         if cellsToDeactivate.count > 0 {
-            let config = AnimationConfiguration(startValue: 1, endValue: 0, duration: 0.2)
+            let config = AnimationConfiguration(startValue: HexagonView.aliveAlpha, endValue: HexagonView.deadAlpha, duration: 0.05)
             Animator.addAnimationForViews(cellsToDeactivate, configuration: config)
         }
+        
         if isCompletelyDead {
             self.stop()
             return
@@ -175,13 +213,14 @@ extension ViewController: HexagonViewDelegate {
     func userDidUpateCell(cell: HexagonView) {
         dispatch_async(gridQueue) {
             let grid = self.grid.setActive(cell.alive, atLocation: cell.coordinate)
+            
             self.grid = grid
             
             dispatch_async(dispatch_get_main_queue()){
                 let alive = cell.alive
-                let start: CGFloat = alive ? 0 : 1
-                let end: CGFloat = alive ? 1 : 0
-                let duration: CFTimeInterval = alive ? 0.2 : 0.1
+                let start: CGFloat = alive ? HexagonView.deadAlpha : HexagonView.aliveAlpha
+                let end: CGFloat = alive ? HexagonView.aliveAlpha : HexagonView.deadAlpha
+                let duration: CFTimeInterval = 0.2
                 let config = AnimationConfiguration(startValue: start, endValue: end, duration: duration)
                 Animator.addAnimationForViews([cell], configuration: config)
             }

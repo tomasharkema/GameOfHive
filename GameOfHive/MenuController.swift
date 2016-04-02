@@ -14,23 +14,15 @@ enum MenuPressedState {
   case Hide
 }
 
-class MenuView: UIView {
-  
-//  let hexagonImageView = UIImageView(image: UIImage(named: "hexagon"))
+class MenuView: UIViewController {
+
     @IBOutlet weak var buttonContainerView: UIView!
+    @IBOutlet weak var centerButton: HiveButton!
 
     var menuState = false
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        animateMenuState(.Hide, animated: false)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
     func addButtons() {
+
         let height: CGFloat = 200
         let offset: CGFloat = 4
 
@@ -56,11 +48,11 @@ class MenuView: UIView {
         }
 
         buttonsAndCoordinates.forEach { (string, point) in
-            let rect = CGRect(x: point.x + self.center.x, y: point.y + self.center.y, width: height/2 * sqrt(3.0) / 2.0, height: height/2)
+            let rect = CGRect(x: point.x + self.view.center.x, y: point.y + self.view.center.y, width: height/2 * sqrt(3.0) / 2.0, height: height/2)
 
             let button = HiveButton(type: .System)
             button.frame = rect
-            self.addSubview(button)
+            self.view.addSubview(button)
             button.setTitle(string, forState: .Normal)
         }
     }
@@ -76,23 +68,31 @@ class MenuView: UIView {
   }
 
   private func animateMenuState(pressedState: MenuPressedState, animated: Bool, completion: (Bool -> ())? = nil) {
-    
+
+    switch pressedState {
+    case .Show:
+        buttonContainerView.transform = CGAffineTransformScale(CGAffineTransformMakeRotation(CGFloat(M_PI / 2)), CGFloat.min, CGFloat.min)
+    case .Hide:
+        buttonContainerView.transform = CGAffineTransformIdentity
+    default:
+        break
+    }
+
     let animationBlock: Void -> Void = {
       
       switch pressedState {
       case .Show:
-         self.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0.9)
+         self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0.9)
         self.buttonContainerView.transform = CGAffineTransformIdentity
       case .HalfPressed:
-        self.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0.2)
+        self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0.2)
         self.buttonContainerView.transform = CGAffineTransformMakeScale(0.50, 0.50)
       case .Hide:
-        self.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0)
+        self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0)
         self.buttonContainerView.transform = CGAffineTransformMakeScale(0.0000001, 0.0000001)
       }
-      
-//      self.centerButton.transform = animateIn ? CGAffineTransformIdentity : CGAffineTransformMakeScale(0, 0)
-      self.setNeedsDisplay()
+
+      self.view.setNeedsDisplay()
     }
     
     if animated {
@@ -111,14 +111,13 @@ class MenuView: UIView {
 
     func animateIn() {
         addButtons()
-        buttonContainerView.transform = CGAffineTransformScale(CGAffineTransformMakeRotation(CGFloat(M_PI / 2)), CGFloat.min, CGFloat.min)
         animateMenuState(.Show, animated: true)
     }
 
     func animateOut() {
         animateMenuState(.Hide, animated: true) { completed in
             if completed {
-                self.removeFromSuperview()
+//                self.removeFromSuperview()
             }
         }
     }

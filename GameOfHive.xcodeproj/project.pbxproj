@@ -16,9 +16,14 @@
 		1CE620531B0C8E350072BBF9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CE620511B0C8E350072BBF9 /* LaunchScreen.xib */; };
 		1CE6205F1B0C8E350072BBF9 /* GameOfHiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE6205E1B0C8E350072BBF9 /* GameOfHiveTests.swift */; };
 		1CE620691B0C91CD0072BBF9 /* HexagonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE620681B0C91CD0072BBF9 /* HexagonView.swift */; };
+		8E0D0897AD96E4DDAA0B0DCB /* Pods_GameOfHive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2FA7DC67DF597D0AD3E8B0 /* Pods_GameOfHive.framework */; };
 		B38DD5E71B0C9BB30064E7E4 /* Hexagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38DD5E61B0C9BB30064E7E4 /* Hexagon.swift */; };
 		B38DD5E91B0CA52D0064E7E4 /* HexagonGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38DD5E81B0CA52D0064E7E4 /* HexagonGrid.swift */; };
 		B38DD5EB1B0CA7A60064E7E4 /* GridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38DD5EA1B0CA7A60064E7E4 /* GridTests.swift */; };
+		B3938BB11CB003D200C75813 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3938BB01CB003D200C75813 /* Dictionary.swift */; };
+		B3938BB31CB003FE00C75813 /* Argo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3938BB21CB003FE00C75813 /* Argo.swift */; };
+		B3938BB51CB024BC00C75813 /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3938BB41CB024BC00C75813 /* Foundation.swift */; };
+		B399C6D11CB0029F002C57A4 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B399C6D01CB0029F002C57A4 /* Encodable.swift */; };
 		B3BD1C991B0CD3EF00331176 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BD1C981B0CD3EF00331176 /* Rules.swift */; };
 		C35B190E1CB0089F003DF56C /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C35B190D1CB0089F003DF56C /* MenuView.xib */; };
 		C35B19101CB0092D003DF56C /* HiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B190F1CB0092D003DF56C /* HiveButton.swift */; };
@@ -49,13 +54,22 @@
 		1CE6205D1B0C8E350072BBF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1CE6205E1B0C8E350072BBF9 /* GameOfHiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOfHiveTests.swift; sourceTree = "<group>"; };
 		1CE620681B0C91CD0072BBF9 /* HexagonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexagonView.swift; sourceTree = "<group>"; };
+		79F4CFD69591550CEEA9C4E1 /* Pods-GameOfHive.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameOfHive.release.xcconfig"; path = "Pods/Target Support Files/Pods-GameOfHive/Pods-GameOfHive.release.xcconfig"; sourceTree = "<group>"; };
+		80A15281B5CFE264A13F45B4 /* Pods-GameOfHive.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameOfHive.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GameOfHive/Pods-GameOfHive.debug.xcconfig"; sourceTree = "<group>"; };
 		B38DD5E61B0C9BB30064E7E4 /* Hexagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hexagon.swift; sourceTree = "<group>"; };
 		B38DD5E81B0CA52D0064E7E4 /* HexagonGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexagonGrid.swift; sourceTree = "<group>"; };
 		B38DD5EA1B0CA7A60064E7E4 /* GridTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridTests.swift; sourceTree = "<group>"; };
+		B3938BB01CB003D200C75813 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
+		B3938BB21CB003FE00C75813 /* Argo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Argo.swift; sourceTree = "<group>"; };
+		B3938BB41CB024BC00C75813 /* Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
+		B399C6D01CB0029F002C57A4 /* Encodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		B3BD1C981B0CD3EF00331176 /* Rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 		C35B190D1CB0089F003DF56C /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
 		C35B190F1CB0092D003DF56C /* HiveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HiveButton.swift; sourceTree = "<group>"; };
 		C3881F911B0D4915006D9CF0 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; tabWidth = 4; };
+		C3881F911B0D4915006D9CF0 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		C3881F911B0D4915006D9CF0 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		CF2FA7DC67DF597D0AD3E8B0 /* Pods_GameOfHive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameOfHive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E0D0897AD96E4DDAA0B0DCB /* Pods_GameOfHive.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +97,8 @@
 				1CE620451B0C8E350072BBF9 /* GameOfHive */,
 				1CE6205B1B0C8E350072BBF9 /* GameOfHiveTests */,
 				1CE620441B0C8E350072BBF9 /* Products */,
+				7A738A801B92B4F9D2DD51BA /* Pods */,
+				C8BAB33AD901FF33E68651D3 /* Frameworks */,
 			);
 			indentWidth = 4;
 			sourceTree = "<group>";
@@ -101,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				C35B190C1CB0088C003DF56C /* Menu */,
+				B3938BAF1CB003C300C75813 /* Extensions */,
 				1CE620481B0C8E350072BBF9 /* AppDelegate.swift */,
 				1CE6204A1B0C8E350072BBF9 /* ViewController.swift */,
 				1CE6204C1B0C8E350072BBF9 /* Main.storyboard */,
@@ -113,6 +131,9 @@
 				B38DD5E81B0CA52D0064E7E4 /* HexagonGrid.swift */,
 				B3BD1C981B0CD3EF00331176 /* Rules.swift */,
 				1C366C311B0D39BC001B2B53 /* Animations.swift */,
+				C3881F911B0D4915006D9CF0 /* MenuView.swift */,
+				C3881F911B0D4915006D9CF0 /* MenuView.swift */,
+				B399C6D01CB0029F002C57A4 /* Encodable.swift */,
 			);
 			path = GameOfHive;
 			sourceTree = "<group>";
@@ -153,6 +174,33 @@
 			name = Menu;
 			sourceTree = "<group>";
 		};
+		7A738A801B92B4F9D2DD51BA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				80A15281B5CFE264A13F45B4 /* Pods-GameOfHive.debug.xcconfig */,
+				79F4CFD69591550CEEA9C4E1 /* Pods-GameOfHive.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B3938BAF1CB003C300C75813 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B3938BB01CB003D200C75813 /* Dictionary.swift */,
+				B3938BB21CB003FE00C75813 /* Argo.swift */,
+				B3938BB41CB024BC00C75813 /* Foundation.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		C8BAB33AD901FF33E68651D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CF2FA7DC67DF597D0AD3E8B0 /* Pods_GameOfHive.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -160,9 +208,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1CE620621B0C8E350072BBF9 /* Build configuration list for PBXNativeTarget "GameOfHive" */;
 			buildPhases = (
+				1F15963D438D73F792338103 /* Check Pods Manifest.lock */,
 				1CE6203F1B0C8E350072BBF9 /* Sources */,
 				1CE620401B0C8E350072BBF9 /* Frameworks */,
 				1CE620411B0C8E350072BBF9 /* Resources */,
+				564750F717BD7CB76470BEDE /* Embed Pods Frameworks */,
+				C33950A1DFA82C525F503C70 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -252,21 +303,73 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1F15963D438D73F792338103 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		564750F717BD7CB76470BEDE /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GameOfHive/Pods-GameOfHive-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C33950A1DFA82C525F503C70 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GameOfHive/Pods-GameOfHive-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1CE6203F1B0C8E350072BBF9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B38DD5E91B0CA52D0064E7E4 /* HexagonGrid.swift in Sources */,
+				B399C6D11CB0029F002C57A4 /* Encodable.swift in Sources */,
 				1CE6204B1B0C8E350072BBF9 /* ViewController.swift in Sources */,
 				1CE620691B0C91CD0072BBF9 /* HexagonView.swift in Sources */,
 				C35B19101CB0092D003DF56C /* HiveButton.swift in Sources */,
+				B3938BB11CB003D200C75813 /* Dictionary.swift in Sources */,
 				B3BD1C991B0CD3EF00331176 /* Rules.swift in Sources */,
 				C3881F921B0D4915006D9CF0 /* MenuView.swift in Sources */,
 				1CE620491B0C8E350072BBF9 /* AppDelegate.swift in Sources */,
 				1C366C341B0D3A1B001B2B53 /* UIColor.swift in Sources */,
 				B38DD5E71B0C9BB30064E7E4 /* Hexagon.swift in Sources */,
+				B3938BB31CB003FE00C75813 /* Argo.swift in Sources */,
 				1C366C321B0D39BC001B2B53 /* Animations.swift in Sources */,
+				B3938BB51CB024BC00C75813 /* Foundation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +498,7 @@
 		};
 		1CE620631B0C8E350072BBF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80A15281B5CFE264A13F45B4 /* Pods-GameOfHive.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -409,6 +513,7 @@
 		};
 		1CE620641B0C8E350072BBF9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79F4CFD69591550CEEA9C4E1 /* Pods-GameOfHive.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
