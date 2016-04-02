@@ -86,6 +86,7 @@ class ViewController: UIViewController {
         guard let g = HexagonGrid.load() else {
             return
         }
+        stop()
         grid = g
         drawGrid(grid, animationDuration: 0.25)
     }
