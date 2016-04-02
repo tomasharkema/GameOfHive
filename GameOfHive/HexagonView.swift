@@ -13,25 +13,40 @@ protocol HexagonViewDelegate: class {
 }
 
 class HexagonView: UIView {
-    static let lineWidth: CGFloat = 3.0
     static let path: CGPathRef = {
         let size = cellSize
         let height = size.height
         let width = size.width
+        
+        
+        //    1
+        //  6    2
+        //  5    3
+        //	  4
+        
+        
+        let midX = width / 2.0
+        
+        let p1 = CGPointMake(midX, 0)
+        let p2 = CGPointMake(width - (lineWidth / 2), height / 4)
+        let p3 = CGPointMake(p2.x, p2.y * 3)
+        let p4 = CGPointMake(midX, height)
+        let p5 = CGPointMake((lineWidth / 2), p3.y)
+        let p6 = CGPointMake(p5.x, p2.y)
+        
+        
         let s = height / 2.0
-        let b = width / 2.0
         let a = (height - s) / 2.0
         
         let halfLineWidth = lineWidth / 2.0
         
         let path = CGPathCreateMutable()
-        CGPathMoveToPoint(path, nil, b, halfLineWidth)
-        CGPathAddLineToPoint(path, nil, width - halfLineWidth, a)
-        CGPathAddLineToPoint(path, nil, width - halfLineWidth, a + s)
-        CGPathAddLineToPoint(path, nil, b, height - halfLineWidth)
-        CGPathAddLineToPoint(path, nil, halfLineWidth, a + s)
-        CGPathAddLineToPoint(path, nil, halfLineWidth, a)
-        CGPathAddLineToPoint(path, nil, b, halfLineWidth)
+        CGPathMoveToPoint(path, nil, p1.x, p1.y)
+        CGPathAddLineToPoint(path, nil, p2.x, p2.y)
+        CGPathAddLineToPoint(path, nil, p3.x, p3.y)
+        CGPathAddLineToPoint(path, nil, p4.x, p4.y)
+        CGPathAddLineToPoint(path, nil, p5.x, p5.y)
+        CGPathAddLineToPoint(path, nil, p6.x, p6.y)
         return path
     }()
 
@@ -54,6 +69,8 @@ class HexagonView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.alpha = HexagonView.deadAlpha
+
+//        self.backgroundColor = UIColor.init(red: (CGFloat)(arc4random()%256)/256.0, green: (CGFloat)(arc4random()%256)/256.0, blue: (CGFloat)(arc4random()%256)/256.0, alpha: 0.3)
         self.backgroundColor = UIColor.clearColor()
     }
   
@@ -67,7 +84,7 @@ class HexagonView: UIView {
     
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
-        CGContextSetLineWidth(context, HexagonView.lineWidth)
+        CGContextSetLineWidth(context, lineWidth)
         CGContextSetFillColorWithColor(context, HexagonView.fillColor.CGColor)
         CGContextAddPath(context, HexagonView.path)
         CGContextFillPath(context)

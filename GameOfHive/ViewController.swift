@@ -11,13 +11,28 @@ import UIKit
 // queue enforcing serial grid creation
 let gridQueue = dispatch_queue_create("grid_queue", DISPATCH_QUEUE_SERIAL)
 
+
+func ourFloor(input:CGFloat) -> CGFloat {
+    return floor(input)
+}
+
+func ourCeil(input:CGFloat) -> CGFloat {
+    return ceil(input)
+}
+
+
 let cellSize: CGSize = {
-    let cellHeight: CGFloat = 25
-    let cellWidth = round(cellHeight * sqrt(3) / 2)
+    let cellHeight: CGFloat = 26// must be even!!!!
+    
+    var cellWidth = (sqrt((3 * cellHeight * cellHeight) / 16)) * 2
+    cellWidth = ceil(cellWidth) % 2 == 1 ? floor(cellWidth) : ceil(cellWidth)
+    
     return CGSize(width: cellWidth, height: cellHeight)
 }()
 
 let sideLength = cellSize.height/2
+
+let lineWidth: CGFloat = 2.0
 
 class ViewController: UIViewController {
     var cells: [HexagonView] = []
@@ -65,7 +80,6 @@ class ViewController: UIViewController {
         loadButton.addTarget(self, action: #selector(loadGrid), forControlEvents: .TouchUpInside)
         saveButton.setTitleColor(UIColor.darkAmberColor, forState: .Normal)
         loadButton.setTitleColor(UIColor.darkAmberColor, forState: .Normal)
-        
     }
     
     var savePath: String {
@@ -105,6 +119,9 @@ class ViewController: UIViewController {
             let y = yOffset + ((cellSize.height - sideLength/2) * CGFloat(row))
             let frame = CGRect(x: x, y: y, width: cellSize.width, height: cellSize.height)
             let cell = HexagonView(frame: frame)
+            
+            print(frame)
+            
             cell.coordinate = hexagon.location
             cell.alive = hexagon.active
             cell.alpha = cell.alive ? HexagonView.aliveAlpha : HexagonView.deadAlpha
