@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Argo
 
 typealias HexagonRow = [Int: Hexagon]
 
@@ -18,6 +19,14 @@ public enum GridType {
 public struct HexagonGrid {
     private var count = 0
     private let grid: [Int: HexagonRow]
+    
+    var rows: Int {
+        return grid.count
+    }
+    
+    var columns: Int {
+        return grid[0]?.count ?? 0
+    }
     
     private init(grid: [Int: HexagonRow]) {
         self.grid = grid
@@ -105,6 +114,77 @@ extension HexagonGrid: SequenceType {
         }
     }
 }
+
+extension HexagonGrid: Encodable {
+    public func encode() -> JSON {
+        var data: [JSON] = []
+        for rowIndex in 0..<rows {
+            var rowString: String = ""
+            for columnIndex in 0..<columns {
+                if let hex = self.grid[rowIndex]?[columnIndex] {
+                    rowString += hex.active ? "1" : "0"
+                } else {
+                    assertionFailure("Error encoding grid")
+                    rowString += "x"
+                }
+            }
+            data.append(.String(rowString))
+        }
+        let size: JSON = ["rows":rows,"columns":columns]
+        let grid: JSON = ["data":data,"size":size]
+        return ["grid":grid]
+    }
+}
+
+extension HexagonGrid: Decodable {
+    static var curriedInit: Int -> Int -> GridType -> HexagonGrid = { rows in
+        return { columns in
+            return { type in
+                return HexagonGrid(rows: rows, columns: columns, initialGridType: type)
+            }
+        }
+    }
+    
+    typealias RowData = String
+    
+    public static func decode(json: JSON) -> Decoded<HexagonGrid> {
+        let decodedRows: Decoded<[RowData]> = json <|| ["grid","data"]
+        let decodedGrid: Decoded<HexagonGrid> = curriedInit <^> json <| ["grid","size","rows"]
+                                                     <*> json <| ["grid","size","columns"]
+                                                     <*> pure(.Empty)
+        return decodedGrid.map { grid in
+            var newGrid = grid
+            decodedRows.map { rows in
+                rows.enumerate().forEach { (rowIndex,row) in
+                    row.characters.enumerate().forEach { (columnIndex,character) in
+                        let active = String(character) == "1"
+                        newGrid = newGrid.setActive(active, atLocation: Coordinate(row: rowIndex, column: columnIndex))
+                    }
+                }
+            }
+            return newGrid
+        }
+    }
+}
+
+//MARK: Loading and saving
+extension HexagonGrid {
+    func save(filename: String = "grid.json") throws {
+        let file = documentsDirectory.stringByAppendingPathComponent(filename)
+        try self.encode().toJSONString.writeToFile(file, atomically: true, encoding: NSUTF8StringEncoding)
+    }
+    
+    static func load(filename: String = "grid.json") -> HexagonGrid? {
+        let file = documentsDirectory.stringByAppendingPathComponent(filename)
+        guard let data = NSData(contentsOfFile: file), object = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) else {
+            return nil
+        }
+        let decodedGrid: Decoded<HexagonGrid> = Argo.decode(object)
+        return decodedGrid.value
+    }
+}
+
+
 
 func initialGrid(rows: Int, columns: Int, gridType: GridType) -> [Int: HexagonRow] {
     var grid: [Int:HexagonRow] = [:]
