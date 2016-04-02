@@ -56,9 +56,10 @@ class ViewController: UIViewController {
         loadButton.frame.size = CGSize(width: 50, height: 50)
         saveButton.frame.origin = CGPoint(x: 10, y: button.frame.maxY)
         loadButton.frame.origin = CGPoint(x: 10, y: saveButton.frame.maxY)
-        
         saveButton.addTarget(self, action: #selector(saveGrid), forControlEvents: .TouchUpInside)
         loadButton.addTarget(self, action: #selector(loadGrid), forControlEvents: .TouchUpInside)
+        saveButton.setTitleColor(UIColor.darkAmberColor, forState: .Normal)
+        loadButton.setTitleColor(UIColor.darkAmberColor, forState: .Normal)
         
     }
     
