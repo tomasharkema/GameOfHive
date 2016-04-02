@@ -31,6 +31,10 @@ class ViewController: UIViewController {
     let playButton: UIButton = UIButton(type: .Custom)
     let saveButton = UIButton(type: UIButtonType.RoundedRect)
     let loadButton = UIButton(type: UIButtonType.RoundedRect)
+    
+    let messageOverlay = UIControl()
+    let messageHUD = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+    
     var menuView: MenuView? = nil
     
     // MARK: UIViewController
@@ -45,6 +49,10 @@ class ViewController: UIViewController {
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return [.LandscapeLeft,.LandscapeRight]
+    }
+    
+    var shouldShowMessage: Bool {
+        return true
     }
     
     override func viewDidLoad() {
@@ -82,6 +90,46 @@ class ViewController: UIViewController {
         let threeFingerTap = UITapGestureRecognizer(target: self, action: #selector(toggleButtons(_:)))
         threeFingerTap.numberOfTouchesRequired = 3
         contentView.addGestureRecognizer(threeFingerTap)
+        
+        view.addSubview(messageOverlay)
+        messageOverlay.constrainToView(view)
+        messageOverlay.addTarget(self, action: #selector(dismissMessageOverlay), forControlEvents: .TouchUpInside)
+        
+        
+        messageOverlay.addSubview(messageHUD)
+        messageHUD.userInteractionEnabled = false
+        messageHUD.translatesAutoresizingMaskIntoConstraints = false
+        messageHUD.centerXAnchor.constraintEqualToAnchor(messageOverlay.centerXAnchor).active = true
+        messageHUD.centerYAnchor.constraintEqualToAnchor(messageOverlay.centerYAnchor).active = true
+        messageHUD.heightAnchor.constraintEqualToAnchor(messageOverlay.heightAnchor, multiplier: 0.5).active = true
+        messageHUD.heightAnchor.constraintEqualToAnchor(messageHUD.widthAnchor, multiplier: 1/(sqrt(3) / 2)).active = true
+
+        let messageView = UILabel()
+
+        messageHUD.contentView.addSubview(messageView)
+        
+        
+        
+        messageView.numberOfLines = 0
+        messageView.adjustsFontSizeToFitWidth = true
+        messageView.textAlignment = .Center
+        messageView.constrainToView(messageHUD, margin: 20)
+        messageView.text = "Tap with three fingers to show and hide the menu"
+        messageView.font = UIFont.boldSystemFontOfSize(30)
+        messageView.textColor = UIColor.lightAmberColor
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = hexagonPath(messageHUD.frame.size)
+        let borderLayer = CAShapeLayer()
+        borderLayer.path = maskLayer.path
+        borderLayer.strokeColor = UIColor.lightAmberColor.CGColor
+        borderLayer.lineWidth = 5
+        borderLayer.fillColor = UIColor.clearColor().CGColor
+        messageHUD.layer.mask = maskLayer
+        messageHUD.layer.addSublayer(borderLayer)
     }
     
     var savePath: String {
@@ -111,6 +159,15 @@ class ViewController: UIViewController {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
+    
+    func dismissMessageOverlay() {
+        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .BeginFromCurrentState, animations: {
+            self.messageHUD.transform = CGAffineTransformMakeScale(0.01, 0.01)
+            }) { finished in
+            self.messageOverlay.removeFromSuperview()
+        }
+    }
+    
     
     // MARK: Grid
     func createGrid() {
