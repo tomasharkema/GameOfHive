@@ -210,13 +210,13 @@ class ViewController: UIViewController {
         timer?.invalidate()
         timer = createTimer()
         timer.fire()
-        button.setImage(UIImage(named: "button_stop"), forState: .Normal)
+        playButton.setImage(UIImage(named: "button_stop"), forState: .Normal)
     }
     
     func stop() {
         timer?.invalidate()
         timer = nil
-        button.setImage(UIImage(named: "button_play"), forState: .Normal)
+        playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
     }
 }
 
