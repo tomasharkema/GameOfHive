@@ -31,10 +31,10 @@ class ViewController: UIViewController {
         return true;
     }
     
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return .Portrait
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [.LandscapeLeft,.LandscapeRight]
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(rules)
