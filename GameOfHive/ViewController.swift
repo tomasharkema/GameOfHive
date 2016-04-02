@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     var timer: NSTimer!
     var grid: HexagonGrid!
     let rules = Rules.defaultRules
+
     let contentView = UIView()
     let buttonContainer = UIStackView()
     var buttonsVisibleConstraint: NSLayoutConstraint?
@@ -34,8 +35,6 @@ class ViewController: UIViewController {
     
     let messageOverlay = UIControl()
     let messageHUD = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
-    
-    var menuView: MenuView? = nil
     
     // MARK: UIViewController
     override func didReceiveMemoryWarning() {
@@ -114,7 +113,7 @@ class ViewController: UIViewController {
         messageView.textAlignment = .Center
         messageView.constrainToView(messageHUD, margin: 20)
         messageView.text = "Tap with three fingers to show and hide the menu"
-        messageView.font = UIFont.boldSystemFontOfSize(30)
+        messageView.font = UIFont(name: "Raleway-Medium", size: 20)
         messageView.textColor = UIColor.lightAmberColor
     }
     
@@ -152,7 +151,8 @@ class ViewController: UIViewController {
     }
     
     func openMenu() {
-        print("Open menu")
+        stop()
+        performSegueWithIdentifier("presentMenu", sender: self)
     }
     
     func toggleButtons(gestureRecognizer: UIGestureRecognizer) {
@@ -278,6 +278,7 @@ class ViewController: UIViewController {
         timer = nil
         playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
     }
+
 }
 
 // MARK: HexagonView Delegate
@@ -318,16 +319,6 @@ extension ViewController {
                 }
             }
         }
-    }
-}
-
-
-//MARK: Menu
-extension ViewController {
-    func showMenu() {
-        let menuView = MenuView(frame: view.frame)
-        view.addSubview(menuView)
-        self.menuView = menuView
     }
 }
 
