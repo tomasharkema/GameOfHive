@@ -145,16 +145,16 @@ extension HexagonGrid: Decodable {
         }
     }
     
-    
+    typealias RowData = String
     
     public static func decode(json: JSON) -> Decoded<HexagonGrid> {
-        let data: Decoded<[String]> = json <|| ["grid","data"]
-        let grid: Decoded<HexagonGrid> = curriedInit <^> json <| ["grid","size","rows"]
+        let decodedRows: Decoded<[RowData]> = json <|| ["grid","data"]
+        let decodedGrid: Decoded<HexagonGrid> = curriedInit <^> json <| ["grid","size","rows"]
                                                      <*> json <| ["grid","size","columns"]
                                                      <*> pure(.Empty)
-        return grid.map { g in
-            var newGrid = g
-            data.map { rows in
+        return decodedGrid.map { grid in
+            var newGrid = grid
+            decodedRows.map { rows in
                 rows.enumerate().forEach { (rowIndex,row) in
                     row.characters.enumerate().forEach { (columnIndex,character) in
                         let active = String(character) == "1"
