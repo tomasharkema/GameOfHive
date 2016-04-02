@@ -1,7 +1,7 @@
 app_identifier "org.gameofhive.release" # The bundle identifier of your app
 apple_id "gijs@redhouse.nl" # Your Apple email address
 
-team_id "729WVZ5N33"  # Developer Portal Team ID
+team_id "352393"  # Developer Portal Team ID
 
 # you can even provide different app identifiers, Apple IDs and team names per lane:
 # More information: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Appfile.md

@@ -14,8 +14,11 @@ xcuserdata
 *.moved-aside
 DerivedData
 *.hmap
-*.ipa
 *.xcuserstate
+*.ipa
+*.dSYM.zip
+*/fastlane/report.xml
+
 
 # CocoaPods
 #
@@ -31,3 +34,4 @@ DerivedData
 # Carthage/Checkouts
 
 Carthage/Build
+deployment/fastlane/README.md
