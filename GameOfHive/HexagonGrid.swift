@@ -38,8 +38,21 @@ public struct HexagonGrid {
         self.init(grid: grid)
     }
     
+    func wrap(value: Int, max: Int) -> Int {
+        if value < 0 {
+            return value + max
+        }
+        if max <= value {
+            return value - max
+        }
+        return value
+    }
+    
     public func hexagon(atLocation location: Coordinate) -> Hexagon? {
-        return grid[location.row]?[location.column]
+        let wrappedRow = wrap(location.row, max: rows)
+        let wrappedColumn = wrap(location.column, max: columns)
+        let wrappedLocation = Coordinate(row: wrappedRow, column: wrappedColumn)
+        return grid[wrappedLocation.row]?[wrappedLocation.column]
     }
     
     func activeNeigbors(cell: Hexagon) -> Int {
