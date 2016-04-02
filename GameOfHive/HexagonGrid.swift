@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Argo
 
 typealias HexagonRow = [Int: Hexagon]
 
@@ -18,6 +19,14 @@ public enum GridType {
 public struct HexagonGrid {
     private var count = 0
     private let grid: [Int: HexagonRow]
+    
+    var rows: Int {
+        return grid.count
+    }
+    
+    var columns: Int {
+        return grid[0]?.count ?? 0
+    }
     
     private init(grid: [Int: HexagonRow]) {
         self.grid = grid
