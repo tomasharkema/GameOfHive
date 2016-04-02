@@ -9,12 +9,12 @@
 import UIKit
 
 private protocol AnimationDelegate: class {
-    func animationDidFinish(animation: ScaleAnimation)
+    func animationDidFinish(animation: Animation)
 }
 
 enum AnimationState {
     case Ready
-    case Animating(identifier: UInt32)
+    case Animating(identifier: AnimationIdentifier)
 }
 
 struct AnimationConfiguration {
@@ -27,15 +27,25 @@ struct AnimationConfiguration {
     }
 }
 
-// MARK: Animation
-private class ScaleAnimation {
-    static var identifier : UInt32 = 0
-    static func nextIdentifier() -> UInt32 {
-        identifier = (identifier % UINT32_MAX) + 1
-        return identifier
+
+typealias AnimationIdentifier = UInt
+
+private let accessorQueue = dispatch_queue_create("animation_accessor_queue", DISPATCH_QUEUE_SERIAL)
+private var __identifier : AnimationIdentifier = 0
+private func nextIdentifier()-> AnimationIdentifier {
+    var identifier: AnimationIdentifier!
+    dispatch_sync(accessorQueue) {
+        identifier = (__identifier % AnimationIdentifier.max) + 1
+        __identifier = identifier
     }
     
-    let identifier: UInt32
+    return identifier
+}
+
+// MARK: Animation
+
+private class Animation {
+    let identifier: AnimationIdentifier
     var views = Set<HexagonView>()
     weak var delegate: AnimationDelegate?
     
@@ -48,8 +58,8 @@ private class ScaleAnimation {
     let endTime: CFTimeInterval
     var currentTime: CFTimeInterval = 0
     
-    init (views: [HexagonView], configuration:AnimationConfiguration) {
-        self.identifier = ScaleAnimation.nextIdentifier()
+    required init (views: [HexagonView], configuration:AnimationConfiguration) {
+        self.identifier = nextIdentifier()
         self.views = Set(views)
         self.start = configuration.startValue
         self.delta = configuration.delta
@@ -63,7 +73,7 @@ private class ScaleAnimation {
         view.animationState = .Ready
         views.remove(view)
         if views.count == 0 {
-           delegate?.animationDidFinish(self)
+            delegate?.animationDidFinish(self)
         }
     }
     
@@ -79,33 +89,27 @@ private class ScaleAnimation {
         let factor = CGFloat(currentTime / endTime)
         currentValue = start + delta * factor
         
-        // create transform
-        let size = HexagonView.size
-        let height = size.height
-        let width = size.width
-        let tx = (width - (width * currentValue)) / 2
-        let ty = (height - (height * currentValue)) / 2
-        let translationTransform = CGAffineTransformMakeTranslation(tx, ty)
-        let scaleTransform = CGAffineTransformMakeScale(currentValue, currentValue)
-        var totalTransform = CGAffineTransformConcat(scaleTransform, translationTransform)
-        let path = CGPathCreateCopyByTransformingPath(HexagonView.pathPrototype, &totalTransform)
-
-        // draw fill
-        for view in views {
-            view.fillPath = path
-            view.setNeedsDisplay()
-        }
-        
+        updateViews()
+        updateAniamationState()
+    }
+    
+    // override in subclasses to update the views with the current value
+    func updateViews() {}
+    
+    func updateAniamationState() {
         // finish if end time is reached
         if currentTime >= endTime {
-            // reset animation state to .Ready
-            for view in views {
-                view.animationState = .Ready
-            }
-            
+            // reset animation state to Ready
+            views.forEach { $0.animationState = .Ready }
             // inform delegate
             delegate?.animationDidFinish(self)
         }
+    }
+}
+
+private final class FadeAnimation: Animation {
+    override func updateViews() {
+        views.forEach { $0.alpha = currentValue }
     }
 }
 
@@ -113,11 +117,11 @@ private class ScaleAnimation {
 class Animator {
     private static let animator = Animator()
     private var displayLink: CADisplayLink!
-    private var animations: [UInt32 : ScaleAnimation] = [:]
+    private var animations: [AnimationIdentifier : Animation] = [:]
     private var lastDrawTime: CFTimeInterval = 0
     
     init () {
-      displayLink = UIScreen.mainScreen().displayLinkWithTarget(self, selector: #selector(tick))
+        displayLink = UIScreen.mainScreen().displayLinkWithTarget(self, selector: #selector(tick))
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
     }
     
@@ -136,7 +140,7 @@ class Animator {
                     existingAnimation.removeView(view)
                     // add to new animation starting from current value
                     let config = AnimationConfiguration(startValue: existingAnimation.currentValue, endValue: configuration.endValue, duration: configuration.duration)
-                    let newAnimation = ScaleAnimation(views: [view], configuration: config)
+                    let newAnimation = FadeAnimation(views: [view], configuration: config)
                     animator.addAnimation(newAnimation)
                 }
                 else {
@@ -146,15 +150,14 @@ class Animator {
                 }
             }
         }
-        
         // Start animating the views with animation state ready together in a single animation
         if ready.count > 0 {
-            let animation = ScaleAnimation(views: ready, configuration: configuration)
+            let animation = FadeAnimation(views: ready, configuration: configuration)
             animator.addAnimation(animation)
         }
     }
     
-    private func addAnimation(animation: ScaleAnimation) {
+    private func addAnimation(animation: Animation) {
         animation.delegate = self
         animations[animation.identifier] = animation
     }
@@ -164,7 +167,6 @@ class Animator {
         if lastDrawTime == 0 {
             lastDrawTime = displayLink.timestamp
         }
-        
         let duration = displayLink.timestamp - lastDrawTime
         
         animations.forEach { (_, animation) in
@@ -177,7 +179,7 @@ class Animator {
 
 // MARK: AnimationDelegate
 extension Animator: AnimationDelegate {
-    private func animationDidFinish(animation: ScaleAnimation) {
+    private func animationDidFinish(animation: Animation) {
         animations[animation.identifier] = nil
     }
 }
