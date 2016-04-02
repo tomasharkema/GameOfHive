@@ -74,7 +74,7 @@ class ViewController: UIViewController {
         buttonContainer.axis = .Vertical
         buttonContainer.spacing = 10
         
-        playButton.addTarget(self, action: #selector(toggle(_:)), forControlEvents: .TouchUpInside)
+        playButton.addTarget(self, action: #selector(togglePlayback(_:)), forControlEvents: .TouchUpInside)
 		playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
         
         saveButton.setImage(UIImage(named: "button_save"), forState: .Normal)
@@ -258,7 +258,7 @@ class ViewController: UIViewController {
     }
     
     // MARK: Button
-    func toggle(button: UIButton) {
+    func togglePlayback(button: UIButton) {
         if timer == nil {
             start()
         } else {
