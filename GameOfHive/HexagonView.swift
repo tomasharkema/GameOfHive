@@ -64,6 +64,11 @@ class HexagonView: UIView {
   
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
+        
+        guard let touch = touches.first where touches.count == 1 && CGPathContainsPoint(HexagonView.path, nil, touch.locationInView(self), false) else {
+            return
+        }
+        
         // invert alive
         self.alive = !self.alive
         // inform delegate
