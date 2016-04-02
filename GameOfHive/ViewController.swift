@@ -15,7 +15,7 @@ let cellSize = CGSize(width: 22, height: 25)
 let sideLength = cellSize.height/2
 
 class ViewController: UIViewController {
-    var cells = [HexagonView]()
+    var cells: [HexagonView] = []
     var timer: NSTimer!
     var grid: HexagonGrid!
     let rules = Rules.defaultRules
