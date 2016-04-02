@@ -24,10 +24,13 @@ class ViewController: UIViewController {
     var timer: NSTimer!
     var grid: HexagonGrid!
     let rules = Rules.defaultRules
-    var contentView: UIView!
-    var button: UIButton!
-    var saveButton = UIButton(type: UIButtonType.RoundedRect)
-    var loadButton = UIButton(type: UIButtonType.RoundedRect)
+    let contentView = UIView()
+    let buttonContainer = UIStackView()
+    var buttonsVisibleConstraint: NSLayoutConstraint?
+    var buttonsHiddenConstraint: NSLayoutConstraint?
+    let playButton: UIButton = UIButton(type: .Custom)
+    let saveButton = UIButton(type: UIButtonType.RoundedRect)
+    let loadButton = UIButton(type: UIButtonType.RoundedRect)
     var menuView: MenuView? = nil
     
     // MARK: UIViewController
@@ -50,11 +53,16 @@ class ViewController: UIViewController {
         view.addSubview(contentView)
         createGrid()
         
-        button = UIButton(type: .Custom)
-        button.addTarget(self, action: #selector(toggle(_:)), forControlEvents: .TouchUpInside)
-		button.frame = CGRectMake(10, 10, 50, 50)
-		button.setImage(UIImage(named: "button_play"), forState: .Normal)
-        view.addSubview(button)
+        buttonContainer.translatesAutoresizingMaskIntoConstraints = false
+        buttonsVisibleConstraint = buttonContainer.topAnchor.constraintEqualToAnchor(view.topAnchor)
+        buttonsHiddenConstraint = buttonContainer.bottomAnchor.constraintEqualToAnchor(view.topAnchor)
+        buttonsVisibleConstraint?.active = true
+        buttonContainer.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
+        buttonContainer.axis = .Vertical
+        
+        playButton.addTarget(self, action: #selector(toggle(_:)), forControlEvents: .TouchUpInside)
+		playButton.frame = CGRectMake(10, 10, 50, 50)
+		playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
         
         saveButton.setTitle("save", forState: .Normal)
         loadButton.setTitle("load", forState: .Normal)
@@ -69,6 +77,13 @@ class ViewController: UIViewController {
         saveButton.setTitleColor(UIColor.darkAmberColor, forState: .Normal)
         loadButton.setTitleColor(UIColor.darkAmberColor, forState: .Normal)
         
+        buttonContainer.addArrangedSubview(playButton)
+        buttonContainer.addArrangedSubview(saveButton)
+        buttonContainer.addArrangedSubview(loadButton)
+        
+        let threeFingerTap = UITapGestureRecognizer(target: self, action: #selector(toggleButtons(_:)))
+        threeFingerTap.numberOfTouchesRequired = 3
+        contentView.addGestureRecognizer(threeFingerTap)
     }
     
     var savePath: String {
@@ -91,6 +106,13 @@ class ViewController: UIViewController {
         drawGrid(grid, animationDuration: 0.2)
     }
     
+    func toggleButtons(gestureRecognizer: UIGestureRecognizer) {
+        buttonsVisibleConstraint?.active = !(buttonsVisibleConstraint?.active ?? false)
+        buttonsHiddenConstraint?.active = !(buttonsHiddenConstraint?.active ?? false)
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .BeginFromCurrentState, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
     
     // MARK: Grid
     func createGrid() {
