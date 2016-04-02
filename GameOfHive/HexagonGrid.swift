@@ -66,9 +66,9 @@ public struct HexagonGrid {
     
     func nextIteration(rules: Rules) -> HexagonGrid {
         var nextIteration: [Int:HexagonRow] = [:]
-        for (rowNumber,row) in grid {
+        grid.forEach{ (rowNumber,row) in
             var nextRow: HexagonRow = [:]
-            for (columnNumber,hex) in row {
+            row.forEach { (columnNumber,hex) in
                 let nextHex = update(hex, forRules: rules)
                 nextRow[columnNumber] = nextHex
             }
@@ -123,11 +123,6 @@ func initialGrid(rows: Int, columns: Int, gridType: GridType) -> [Int: HexagonRo
 
 func gridFromViewDimensions(gridSize: CGSize, cellSize: CGSize, gridType: GridType = .Empty) -> HexagonGrid {
     let colums = Int(ceil(gridSize.width / cellSize.width))
-    let rows = Int(ceil((gridSize.height / cellSize.height) * 1.5))
-    let cellSize = CGSize(width: cellSize.width, height: cellSize.height)
-
-//TODO: Leave this sideeffect for Taco's scale meuk
-    HexagonView.updateEdgePath(cellSize, lineWidth: 3)
-    
+    let rows = Int(ceil((gridSize.height / cellSize.height) * 1.5))    
     return HexagonGrid(rows: rows, columns: colums, initialGridType: gridType)
 }

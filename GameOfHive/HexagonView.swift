@@ -13,15 +13,9 @@ protocol HexagonViewDelegate: class {
 }
 
 class HexagonView: UIView {
-    static var pathPrototype: CGMutablePathRef!
-    static var size: CGSize!
-    static var lineWidth: CGFloat = 1.0
-    static let fillColor = UIColor.lightAmberColor
-    
-    static func updateEdgePath(size: CGSize, lineWidth: CGFloat) {
-        self.lineWidth = lineWidth
-        self.size = size
-        
+    static let lineWidth: CGFloat = 3.0
+    static let path: CGPathRef = {
+        let size = cellSize
         let height = size.height
         let width = size.width
         let s = height / 2.0
@@ -38,15 +32,19 @@ class HexagonView: UIView {
         CGPathAddLineToPoint(path, nil, halfLineWidth, a + s)
         CGPathAddLineToPoint(path, nil, halfLineWidth, a)
         CGPathAddLineToPoint(path, nil, b, halfLineWidth)
-        pathPrototype = path
-    }
+        return path
+    }()
+
+    static let fillColor = UIColor.lightAmberColor
+    
+    static let aliveAlpha: CGFloat = 1
+    static let deadAlpha: CGFloat = 0.15
     
     var coordinate = Coordinate(row: NSNotFound, column: NSNotFound)
     var alive: Bool = false
 
     var animationState: AnimationState = .Ready
-    var fillPath: CGPathRef!
-  
+    
     weak var hexagonViewDelegate: HexagonViewDelegate?
   
     required init?(coder aDecoder: NSCoder) {
@@ -55,25 +53,23 @@ class HexagonView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.alpha = HexagonView.deadAlpha
         self.backgroundColor = UIColor.clearColor()
     }
   
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
+        // invert alive
         self.alive = !self.alive
         // inform delegate
         hexagonViewDelegate?.userDidUpateCell(self)
     }
     
     override func drawRect(rect: CGRect) {
-        if fillPath == nil {
-            return;
-        }
-        
         let context = UIGraphicsGetCurrentContext()
         CGContextSetLineWidth(context, HexagonView.lineWidth)
         CGContextSetFillColorWithColor(context, HexagonView.fillColor.CGColor)
-        CGContextAddPath(context, fillPath)
+        CGContextAddPath(context, HexagonView.path)
         CGContextFillPath(context)
     }
 }
