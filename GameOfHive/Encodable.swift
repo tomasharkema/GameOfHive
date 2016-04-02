@@ -108,28 +108,12 @@ extension Float: Encodable {
     }
 }
 
-//extension Array where Element: Encodable {
-//    func encodeAll() -> JSON {
-//        return .Array(self.map {$0.encode()})
-//    }
-//}
-
 extension Array: Encodable {
     public func encode() -> JSON {
         let encodables: [Encodable] = self.map{ ($0 as? Encodable) ?? JSON.Null }
         return .Array(encodables.map {$0.encode()})
     }
 }
-
-//extension Dictionary where Key: StringLiteralConvertible, Value: Encodable {
-//    private func encodeAll() -> JSON {
-//        var result: [String:JSON] = [:]
-//        for (key,value) in self {
-//            result[String(key)] = value.encode()
-//        }
-//        return .Object(result)
-//    }
-//}
 
 extension Dictionary: Encodable {
     public func encode() -> JSON {
