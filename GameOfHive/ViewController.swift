@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     var grid: HexagonGrid!
     let rules = Rules.defaultRules
     var button: UIButton!
+    var saveButton = UIButton(type: UIButtonType.RoundedRect)
+    var loadButton = UIButton(type: UIButtonType.RoundedRect)
     var menuView: MenuView? = nil
     
     // MARK: UIViewController
@@ -45,7 +47,40 @@ class ViewController: UIViewController {
 		button.frame = CGRectMake(10, 10, 30, 30)
 		button.setImage(UIImage(named: "button_play"), forState: .Normal)
         self.view.addSubview(button)
+        
+        saveButton.setTitle("save", forState: .Normal)
+        loadButton.setTitle("load", forState: .Normal)
+        self.view.addSubview(saveButton)
+        self.view.addSubview(loadButton)
+        saveButton.frame.size = CGSize(width: 50, height: 50)
+        loadButton.frame.size = CGSize(width: 50, height: 50)
+        saveButton.frame.origin = CGPoint(x: 10, y: button.frame.maxY)
+        loadButton.frame.origin = CGPoint(x: 10, y: saveButton.frame.maxY)
+        
+        saveButton.addTarget(self, action: #selector(saveGrid), forControlEvents: .TouchUpInside)
+        loadButton.addTarget(self, action: #selector(loadGrid), forControlEvents: .TouchUpInside)
+        
     }
+    
+    var savePath: String {
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+        return "\(documentsPath)/save.json"
+    }
+    
+    func saveGrid() {
+        do { try grid.save() } catch let error {
+            print("Error saving grid",error)
+        }
+    }
+    
+    func loadGrid() {
+        guard let g = HexagonGrid.load() else {
+            return
+        }
+        grid = g
+        drawGrid(grid)
+    }
+    
     
     // MARK: Grid
     func createGrid() {
@@ -159,6 +194,7 @@ extension ViewController: HexagonViewDelegate {
     func userDidUpateCell(cell: HexagonView) {
         dispatch_async(gridQueue) {
             let grid = self.grid.setActive(cell.alive, atLocation: cell.coordinate)
+            
             self.grid = grid
             
             dispatch_async(dispatch_get_main_queue()){
