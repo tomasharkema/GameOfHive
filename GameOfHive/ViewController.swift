@@ -20,11 +20,15 @@ let cellSize: CGSize = {
 let sideLength = cellSize.height/2
 
 class ViewController: UIViewController {
+    let rules = Rules.defaultRules
+    
+    var grid: HexagonGrid!
     var cells: [HexagonView] = []
     var timer: NSTimer!
-    var grid: HexagonGrid!
-    let rules = Rules.defaultRules
-
+    var playing: Bool {
+        return timer != nil
+    }
+    
     let contentView = UIView()
     let buttonContainer = UIStackView()
     var buttonsVisibleConstraint: NSLayoutConstraint?
@@ -259,10 +263,10 @@ class ViewController: UIViewController {
     
     // MARK: Button
     func togglePlayback(button: UIButton) {
-        if timer == nil {
-            start()
-        } else {
+        if playing {
             stop()
+        } else {
+            start()
         }
     }
     
@@ -274,9 +278,18 @@ class ViewController: UIViewController {
     }
     
     func stop() {
+        guard playing else {
+            return
+        }
+        
         timer?.invalidate()
         timer = nil
         playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
+    }
+    
+    func nextStep(button: UIButton) {
+        stop()
+        drawGrid(grid, animationDuration: 0.4)
     }
 
 }
