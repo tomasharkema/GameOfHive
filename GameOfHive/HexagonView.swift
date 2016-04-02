@@ -21,9 +21,10 @@ class HexagonView: UIView {
     static func updateEdgePath(size: CGSize, lineWidth: CGFloat) {
         self.lineWidth = lineWidth
         self.size = size
-        
-        let height = size.height
+
         let width = size.width
+        let height = size.height
+
         let s = height / 2.0
         let b = width / 2.0
         let a = (height - s) / 2.0

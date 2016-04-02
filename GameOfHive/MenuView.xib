@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MenuView" customModule="GameOfHive" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nsR-er-GAn">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUh-qJ-Agy" userLabel="DismissButton">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <connections>
+                                <action selector="dismissButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="Lsk-LZ-za1"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gy6-5E-ikM" customClass="HiveButton" customModule="GameOfHive" customModuleProvider="target">
+                            <rect key="frame" x="200" y="200" width="200" height="200"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="200" id="UZ3-Jf-VY0"/>
+                                <constraint firstAttribute="width" constant="200" id="dBT-bJ-f9j"/>
+                            </constraints>
+                            <state key="normal" title="Game of Hive"/>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="vUh-qJ-Agy" firstAttribute="leading" secondItem="nsR-er-GAn" secondAttribute="leading" id="3qr-GF-f10"/>
+                        <constraint firstItem="Gy6-5E-ikM" firstAttribute="centerY" secondItem="nsR-er-GAn" secondAttribute="centerY" id="6p9-Kf-Zli"/>
+                        <constraint firstItem="vUh-qJ-Agy" firstAttribute="top" secondItem="nsR-er-GAn" secondAttribute="top" id="NcP-ET-WLq"/>
+                        <constraint firstAttribute="bottom" secondItem="vUh-qJ-Agy" secondAttribute="bottom" id="TPR-g1-lQd"/>
+                        <constraint firstAttribute="trailing" secondItem="vUh-qJ-Agy" secondAttribute="trailing" id="lWn-P8-Tty"/>
+                        <constraint firstItem="Gy6-5E-ikM" firstAttribute="centerX" secondItem="nsR-er-GAn" secondAttribute="centerX" id="yAl-FJ-Yj7"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="nsR-er-GAn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="RIm-h0-DKI"/>
+                <constraint firstAttribute="trailing" secondItem="nsR-er-GAn" secondAttribute="trailing" id="TFF-jv-vey"/>
+                <constraint firstItem="nsR-er-GAn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lcC-by-EkV"/>
+                <constraint firstAttribute="bottom" secondItem="nsR-er-GAn" secondAttribute="bottom" id="q0n-sy-7xi"/>
+            </constraints>
+            <connections>
+                <outlet property="buttonContainerView" destination="nsR-er-GAn" id="G2Q-OU-ZJj"/>
+            </connections>
+        </view>
+    </objects>
+</document>

@@ -11,7 +11,10 @@ import UIKit
 // queue enforcing serial grid creation
 let gridQueue = dispatch_queue_create("grid_queue", DISPATCH_QUEUE_SERIAL)
 
-let cellSize = CGSize(width: 22, height: 25)
+let cellHeight: CGFloat = 25.0
+let cellWidth = cellHeight * sqrt(3.0) / 2.0
+
+let cellSize = CGSize(width: cellWidth, height: cellHeight)
 let sideLength = cellSize.height/2
 
 class ViewController: UIViewController {
@@ -19,6 +22,8 @@ class ViewController: UIViewController {
     var timer: NSTimer!
     var grid: HexagonGrid!
     let rules = Rules.defaultRules
+    
+    @IBOutlet weak var hiveView: UIView!
     var button: UIButton!
     var menuView: MenuView? = nil
     
@@ -46,6 +51,11 @@ class ViewController: UIViewController {
 		button.frame = CGRectMake(10, 10, 30, 30)
 		button.setImage(UIImage(named: "button_play"), forState: .Normal)
         self.view.addSubview(button)
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        showMenu()
     }
     
     // MARK: Grid
@@ -153,6 +163,11 @@ class ViewController: UIViewController {
         timer = nil
         button.setImage(UIImage(named: "button_play"), forState: .Normal)
     }
+
+    @IBAction func menuButtonPressed(sender: AnyObject) {
+        showMenu()
+    }
+
 }
 
 // MARK: HexagonView Delegate
@@ -199,9 +214,13 @@ extension ViewController {
 //MARK: Menu
 extension ViewController {
     func showMenu() {
-        let menuView = MenuView(frame: view.frame)
+        let menuView = NSBundle.mainBundle().loadNibNamed("MenuView", owner: nil, options: nil).first as! MenuView
+        menuView.translatesAutoresizingMaskIntoConstraints = true
+        menuView.frame = view.frame
         view.addSubview(menuView)
         self.menuView = menuView
+        menuView.animateIn()
+        stop()
     }
 }
 

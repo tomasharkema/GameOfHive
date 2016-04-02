@@ -16,68 +16,82 @@ enum MenuPressedState {
 
 class MenuView: UIView {
   
-  let hexagonImageView = UIImageView(image: UIImage(named: "hexagon"))
-  
-  var menuState = false
-  
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    
-    hexagonImageView.frame = frame
-    hexagonImageView.contentMode = .Center
-    
-    addSubview(hexagonImageView)
-    
-    animateMenuState(.Hide, animated: false)
-    
-    let tgr = UILongPressGestureRecognizer(target: self, action: #selector(tap(_:)))
-    addGestureRecognizer(tgr)
-  }
-  
-  required init(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
-  }
-  
+//  let hexagonImageView = UIImageView(image: UIImage(named: "hexagon"))
+    @IBOutlet weak var buttonContainerView: UIView!
+
+    var menuState = false
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        animateMenuState(.Hide, animated: false)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
+    func addButtons() {
+        let height: CGFloat = 200
+        let offset: CGFloat = 4
+
+        // calculate initial degrees for offset
+        let initial_x = ((height / 2.0) * sqrt(3.0) / 2.0) + (pow(offset, 2) / 2.0)
+        let initial_y = (height / 2.0) + (pow(offset, 2) / 2.0)
+        let distance = sqrt(pow(initial_x, 2) + pow(initial_y, 2))
+
+        let degrees = atan(initial_x / initial_y) * (180 / CGFloat(M_PI))
+
+        func pointForDegrees(offset: CGFloat, degrees: CGFloat) -> CGPoint {
+            let xOff = offset * cos(degrees * (CGFloat(M_PI) / 180))
+            let yOff = offset * sin(degrees * (CGFloat(M_PI) / 180))
+            return CGPoint(x: xOff, y: yOff)
+        }
+
+        let buttons = ["About", "Credits", "Video", "Templates", "Dingen", "Foo"]
+
+        let buttonsAndCoordinates: [(String, CGPoint)] = buttons.enumerate().map { (idx, el) in
+            let offsetDegrees = (CGFloat(idx - 90) * 60.0) + degrees
+            let point = pointForDegrees(distance, degrees: offsetDegrees - 90)
+            return (el, point)
+        }
+
+        buttonsAndCoordinates.forEach { (string, point) in
+            let rect = CGRect(x: point.x + self.center.x, y: point.y + self.center.y, width: height/2 * sqrt(3.0) / 2.0, height: height/2)
+
+            let button = HiveButton(type: .System)
+            button.frame = rect
+            self.addSubview(button)
+            button.setTitle(string, forState: .Normal)
+        }
+    }
+
   func showMenu() {
     menuState = true
     animateMenuState(.Show, animated: true)
   }
+
   func hideMenu() {
     menuState = false
     animateMenuState(.Hide, animated: true)
   }
-  
-  func tap(recognizer: UILongPressGestureRecognizer) {
-    
-    switch recognizer.state {
-    case .Began:
-        animateMenuState(.HalfPressed, animated: true)
-    case .Cancelled, .Failed:
-      animateMenuState(menuState == true ? .Show : .Hide, animated: true)
-    case .Ended:
-      animateMenuState(menuState == false ? .Show : .Hide, animated: true)
-      menuState = !menuState
-    default:()
-    }
-  }
-  
-  private func animateMenuState(pressedState: MenuPressedState, animated: Bool) {
+
+  private func animateMenuState(pressedState: MenuPressedState, animated: Bool, completion: (Bool -> ())? = nil) {
     
     let animationBlock: Void -> Void = {
       
       switch pressedState {
       case .Show:
-         self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
-        self.hexagonImageView.transform = CGAffineTransformIdentity
+         self.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0.9)
+        self.buttonContainerView.transform = CGAffineTransformIdentity
       case .HalfPressed:
-        self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.2)
-        self.hexagonImageView.transform = CGAffineTransformMakeScale(0.50, 0.50)
+        self.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0.2)
+        self.buttonContainerView.transform = CGAffineTransformMakeScale(0.50, 0.50)
       case .Hide:
-        self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
-        self.hexagonImageView.transform = CGAffineTransformMakeScale(0, 0)
+        self.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0)
+        self.buttonContainerView.transform = CGAffineTransformMakeScale(0.0000001, 0.0000001)
       }
       
-      //self.hexagonImageView.transform = animateIn ? CGAffineTransformIdentity : CGAffineTransformMakeScale(0, 0)
+//      self.centerButton.transform = animateIn ? CGAffineTransformIdentity : CGAffineTransformMakeScale(0, 0)
       self.setNeedsDisplay()
     }
     
@@ -85,14 +99,31 @@ class MenuView: UIView {
       
       switch pressedState {
       case .HalfPressed:
-        UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: .CurveEaseOut, animations: animationBlock, completion: nil)
+        UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: .CurveEaseOut, animations: animationBlock, completion: completion)
       default:
-        UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: .CurveEaseOut, animations: animationBlock, completion: nil)
+        UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: .CurveEaseIn, animations: animationBlock, completion: completion)
       }
       
     } else {
       animationBlock()
     }
   }
-  
+
+    func animateIn() {
+        addButtons()
+        buttonContainerView.transform = CGAffineTransformScale(CGAffineTransformMakeRotation(CGFloat(M_PI / 2)), CGFloat.min, CGFloat.min)
+        animateMenuState(.Show, animated: true)
+    }
+
+    func animateOut() {
+        animateMenuState(.Hide, animated: true) { completed in
+            if completed {
+                self.removeFromSuperview()
+            }
+        }
+    }
+
+    @IBAction func dismissButtonPressed(sender: AnyObject) {
+        animateOut()
+    }
 }
