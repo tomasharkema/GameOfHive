@@ -10,7 +10,6 @@ import UIKit
 
 enum MenuPressedState {
   case Show
-  case HalfPressed
   case Hide
 }
 
@@ -18,12 +17,7 @@ class MenuController: UIViewController {
 
     @IBOutlet weak var centerButton: HiveButton!
 
-    var menuState = false
     var buttons = [HiveButton]()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -77,16 +71,14 @@ class MenuController: UIViewController {
     }
 
   func showMenu() {
-    menuState = true
-    animateMenuState(.Show, animated: true)
+    animateMenuState(.Show)
   }
 
   func hideMenu() {
-    menuState = false
-    animateMenuState(.Hide, animated: true)
+    animateMenuState(.Hide)
   }
 
-  private func animateMenuState(pressedState: MenuPressedState, animated: Bool, completion: (Bool -> ())? = nil) {
+  private func animateMenuState(pressedState: MenuPressedState, completion: (Bool -> ())? = nil) {
 
     switch pressedState {
     case .Show:
@@ -96,8 +88,6 @@ class MenuController: UIViewController {
     case .Hide:
         centerButton.transform = CGAffineTransformIdentity
         self.buttons.forEach { $0.transform = CGAffineTransformIdentity }
-    default:
-        break
     }
 
     let animationBlock: Void -> Void = {
@@ -108,11 +98,6 @@ class MenuController: UIViewController {
          self.centerButton.transform = CGAffineTransformIdentity
          self.buttons.forEach { $0.transform = CGAffineTransformIdentity }
 
-      case .HalfPressed:
-        self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0.2)
-        self.centerButton.transform = CGAffineTransformMakeScale(0.50, 0.50)
-        self.buttons.forEach { $0.transform = CGAffineTransformMakeScale(0.50, 0.50) }
-
       case .Hide:
         self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0)
         self.centerButton.transform = CGAffineTransformMakeScale(0.0000001, 0.0000001)
@@ -122,28 +107,17 @@ class MenuController: UIViewController {
       self.view.setNeedsDisplay()
     }
     
-    if animated {
-      
-      switch pressedState {
-      case .HalfPressed:
-        UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: .CurveEaseOut, animations: animationBlock, completion: completion)
-      default:
-        UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: .CurveEaseIn, animations: animationBlock, completion: completion)
-      }
-      
-    } else {
-      animationBlock()
-    }
+    UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: .CurveEaseIn, animations: animationBlock, completion: completion)
   }
 
     func animateIn() {
-        animateMenuState(.Show, animated: true)
+        animateMenuState(.Show)
     }
 
     func animateOut() {
-        animateMenuState(.Hide, animated: true) { completed in
+        animateMenuState(.Hide) { completed in
             if completed {
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismissViewControllerAnimated(false, completion: nil)
             }
         }
     }

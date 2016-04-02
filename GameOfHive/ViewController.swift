@@ -24,8 +24,7 @@ class ViewController: UIViewController {
     var timer: NSTimer!
     var grid: HexagonGrid!
     let rules = Rules.defaultRules
-    
-    @IBOutlet weak var hiveView: UIView!
+
     let contentView = UIView()
     let buttonContainer = UIStackView()
     var buttonsVisibleConstraint: NSLayoutConstraint?
@@ -152,14 +151,14 @@ class ViewController: UIViewController {
     }
     
     func openMenu() {
-        performSegueWithIdentifier("presentMenu", sender: self)
         stop()
+        performSegueWithIdentifier("presentMenu", sender: self)
     }
     
     func toggleButtons(gestureRecognizer: UIGestureRecognizer) {
         buttonsVisibleConstraint?.active = !(buttonsVisibleConstraint?.active ?? false)
         buttonsHiddenConstraint?.active = !(buttonsHiddenConstraint?.active ?? false)
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: .BeginFromCurrentState, animations: {
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .BeginFromCurrentState, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
