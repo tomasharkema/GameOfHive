@@ -57,8 +57,8 @@ class HexagonView: UIView {
         self.backgroundColor = UIColor.clearColor()
     }
   
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesEnded(touches, withEvent: event)
         // invert alive
         self.alive = !self.alive
         // inform delegate
