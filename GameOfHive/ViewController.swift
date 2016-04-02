@@ -29,7 +29,6 @@ class ViewController: UIViewController {
     var button: UIButton!
     var saveButton = UIButton(type: UIButtonType.RoundedRect)
     var loadButton = UIButton(type: UIButtonType.RoundedRect)
-    var menuView: MenuView? = nil
     
     // MARK: UIViewController
     override func didReceiveMemoryWarning() {
@@ -253,12 +252,14 @@ extension ViewController {
 //MARK: Menu
 extension ViewController {
     func showMenu() {
-        let menuView = NSBundle.mainBundle().loadNibNamed("MenuView", owner: nil, options: nil).first as! MenuView
-        menuView.translatesAutoresizingMaskIntoConstraints = true
-        menuView.frame = view.frame
-        view.addSubview(menuView)
-        self.menuView = menuView
-        menuView.animateIn()
+        performSegueWithIdentifier("presentMenu", sender: self)
+//        let menuView = NSBundle.mainBundle().loadNibNamed("MenuView", owner: nil, options: nil).first as! MenuView
+//        menuView.translatesAutoresizingMaskIntoConstraints = true
+//        menuView.frame = view.frame
+//        view.addSubview(menuView)
+//        self.menuView = menuView
+//        menuView.animateIn()
+        
         stop()
     }
 }

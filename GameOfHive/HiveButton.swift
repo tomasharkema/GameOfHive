@@ -28,10 +28,9 @@ class HiveButton: UIButton {
         initialize()
     }
 
-    override var frame: CGRect {
-        didSet {
-            background.frame = bounds
-        }
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        background.frame = bounds
     }
 
     private func initialize() {

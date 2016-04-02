@@ -14,12 +14,21 @@ enum MenuPressedState {
   case Hide
 }
 
-class MenuView: UIViewController {
+class MenuController: UIViewController {
 
-    @IBOutlet weak var buttonContainerView: UIView!
     @IBOutlet weak var centerButton: HiveButton!
 
     var menuState = false
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        addButtons()
+        animateIn()
+    }
 
     func addButtons() {
 
@@ -48,12 +57,14 @@ class MenuView: UIViewController {
         }
 
         buttonsAndCoordinates.forEach { (string, point) in
-            let rect = CGRect(x: point.x + self.view.center.x, y: point.y + self.view.center.y, width: height/2 * sqrt(3.0) / 2.0, height: height/2)
+            let center = CGPoint(x: point.x + (self.view.frame.width / 2), y: point.y + (self.view.frame.height / 2))
+            let rect = CGRect(x: center.x, y: center.y, width: height/2 * sqrt(3.0) / 2.0, height: height/2)
 
             let button = HiveButton(type: .System)
             button.frame = rect
             self.view.addSubview(button)
             button.setTitle(string, forState: .Normal)
+            button.center = center
         }
     }
 
@@ -71,9 +82,9 @@ class MenuView: UIViewController {
 
     switch pressedState {
     case .Show:
-        buttonContainerView.transform = CGAffineTransformScale(CGAffineTransformMakeRotation(CGFloat(M_PI / 2)), CGFloat.min, CGFloat.min)
+        centerButton.transform = CGAffineTransformScale(CGAffineTransformMakeRotation(CGFloat(M_PI / 2)), CGFloat.min, CGFloat.min)
     case .Hide:
-        buttonContainerView.transform = CGAffineTransformIdentity
+        centerButton.transform = CGAffineTransformIdentity
     default:
         break
     }
@@ -83,13 +94,13 @@ class MenuView: UIViewController {
       switch pressedState {
       case .Show:
          self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0.9)
-        self.buttonContainerView.transform = CGAffineTransformIdentity
+        self.centerButton.transform = CGAffineTransformIdentity
       case .HalfPressed:
         self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0.2)
-        self.buttonContainerView.transform = CGAffineTransformMakeScale(0.50, 0.50)
+        self.centerButton.transform = CGAffineTransformMakeScale(0.50, 0.50)
       case .Hide:
         self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0)
-        self.buttonContainerView.transform = CGAffineTransformMakeScale(0.0000001, 0.0000001)
+        self.centerButton.transform = CGAffineTransformMakeScale(0.0000001, 0.0000001)
       }
 
       self.view.setNeedsDisplay()

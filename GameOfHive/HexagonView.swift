@@ -18,7 +18,6 @@ class HexagonView: UIView {
         let size = cellSize
         let height = size.height
         let width = size.width
-        let height = size.height
 
         let s = height / 2.0
         let b = width / 2.0

@@ -47,6 +47,7 @@
             </constraints>
             <connections>
                 <outlet property="buttonContainerView" destination="nsR-er-GAn" id="G2Q-OU-ZJj"/>
+                <outlet property="centerButton" destination="Gy6-5E-ikM" id="Doa-gu-NFy"/>
             </connections>
         </view>
     </objects>
