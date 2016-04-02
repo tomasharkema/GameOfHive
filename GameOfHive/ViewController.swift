@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     var timer: NSTimer!
     var grid: HexagonGrid!
     let rules = Rules.defaultRules
+    var contentView: UIView!
     var button: UIButton!
     var saveButton = UIButton(type: UIButtonType.RoundedRect)
     var loadButton = UIButton(type: UIButtonType.RoundedRect)
@@ -45,6 +46,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        contentView = UIView(frame: view.bounds)
+        view.addSubview(contentView)
         createGrid()
         
         button = UIButton(type: .Custom)
@@ -110,7 +113,7 @@ class ViewController: UIViewController {
             cell.alpha = cell.alive ? HexagonView.aliveAlpha : HexagonView.deadAlpha
             cell.hexagonViewDelegate = self
             cells.append(cell)
-            view.addSubview(cell)
+            contentView.addSubview(cell)
         }
     }
     
@@ -124,7 +127,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func drawGrid(grid: HexagonGrid) {
+    func drawGrid(grid: HexagonGrid, animationDuration: Double = 0.05) {
         assert(NSThread.isMainThread(), "Expect main thread")
         
         // split cells by needed action. filter unchanged cells
