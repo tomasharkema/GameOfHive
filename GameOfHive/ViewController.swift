@@ -67,11 +67,12 @@ class ViewController: UIViewController {
         createGrid()
         
         buttonContainer.translatesAutoresizingMaskIntoConstraints = false
-        buttonsVisibleConstraint = buttonContainer.topAnchor.constraintEqualToAnchor(view.topAnchor)
+        buttonsVisibleConstraint = buttonContainer.topAnchor.constraintEqualToAnchor(view.topAnchor, constant: 25)
         buttonsHiddenConstraint = buttonContainer.bottomAnchor.constraintEqualToAnchor(view.topAnchor)
         buttonsVisibleConstraint?.active = true
-        buttonContainer.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
+        buttonContainer.leftAnchor.constraintEqualToAnchor(view.leftAnchor, constant: 25).active = true
         buttonContainer.axis = .Vertical
+        buttonContainer.spacing = 10
         
         playButton.addTarget(self, action: #selector(toggle(_:)), forControlEvents: .TouchUpInside)
 		playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
