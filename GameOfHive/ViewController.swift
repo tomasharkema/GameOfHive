@@ -12,18 +12,8 @@ import UIKit
 let gridQueue = dispatch_queue_create("grid_queue", DISPATCH_QUEUE_SERIAL)
 
 
-func ourFloor(input:CGFloat) -> CGFloat {
-    return floor(input)
-}
-
-func ourCeil(input:CGFloat) -> CGFloat {
-    return ceil(input)
-}
-
-
 let cellSize: CGSize = {
     let cellHeight: CGFloat = 26 // must be even!!!! We use half height and half width for drawing
-    
     var cellWidth = (sqrt((3 * cellHeight * cellHeight) / 16)) * 2
     cellWidth = ceil(cellWidth) % 2 == 1 ? floor(cellWidth) : ceil(cellWidth)
     
