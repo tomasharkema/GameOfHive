@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     var cells: [HexagonView] = []
     var timer: NSTimer!
     var grid: HexagonGrid!
-    let rules = Rules.defaultRules()
+    let rules = Rules.defaultRules
     var button: UIButton!
     var menuView: MenuView? = nil
     

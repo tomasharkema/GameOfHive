@@ -19,7 +19,7 @@ class GridTests: XCTestCase {
     }
     
     func testNextGrid() {
-        let rules = Rules.defaultRules()
+        let rules = Rules.defaultRules
         var grid = HexagonGrid(rows: 5, columns: 5, initialGridType: .Empty)
         grid = grid.setActive(true, atLocation: Coordinate(row: 1, column: 2))
         grid = grid.setActive(true, atLocation: Coordinate(row: 3, column: 2))

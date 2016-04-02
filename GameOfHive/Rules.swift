@@ -12,9 +12,13 @@ struct Rules {
     let environment: [Int]
     let fertility: [Int]
     
-    static func defaultRules() -> Rules {
-//        return Rules(environment: [3,5], fertility: [2])
-        return Rules(environment: [3], fertility: [2,4,5])
+    static let defaultRules: Rules = Rules(environment: [3], fertility: [2,4,5])
+    static let otherRules: Rules = Rules(environment: [3,5], fertility: [2])
+
+    static func randomRules() -> Rules {
+        let environment = randomArray()
+        let fertility = randomArray()
+        return Rules(environment: environment, fertility: fertility)
     }
     
     private static func randomArray(from: Int = 1, to: Int = 6) -> [Int] {
@@ -27,11 +31,6 @@ struct Rules {
         return result
     }
     
-    static func randomRules() -> Rules {
-        let environment = randomArray()
-        let fertility = randomArray()
-        return Rules(environment: environment, fertility: fertility)
-    }
     
     func update(hexagon: Hexagon, numberOfActiveNeighbors: Int) -> Hexagon {
         if fertility.contains(numberOfActiveNeighbors) && !hexagon.active {
