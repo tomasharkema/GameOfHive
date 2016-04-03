@@ -13,6 +13,10 @@ class TemplateContainerController: UIViewController {
 
     weak var templateDelegate: TemplatePickerDelegate?
     var leftOffset: CGFloat = 120
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
