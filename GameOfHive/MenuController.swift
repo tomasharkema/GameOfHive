@@ -13,9 +13,15 @@ enum MenuPressedState {
   case Hide
 }
 
+protocol MenuDelegate: class {
+    func menuWillClose(menu: MenuController)
+}
+
 class MenuController: UIViewController {
 
     @IBOutlet weak var centerButton: HiveButton!
+    
+    weak var delegate: MenuDelegate?
 
     var buttons = [HiveButton]()
 
@@ -134,28 +140,29 @@ class MenuController: UIViewController {
         
         self.view.setNeedsDisplay()
     }
-
+    
     switch pressedState {
     case .Show:
         UIView.animateWithDuration(1.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: .CurveEaseIn, animations: animations, completion: completion)
-
+        
     case .Hide:
         UIView.animateWithDuration(0.4, delay: 0, options: .CurveEaseIn, animations: animations, completion: completion)
     }
-  }
-
+    }
+    
     func animateIn() {
         animateMenuState(.Show)
     }
-
+    
     func animateOut() {
+        delegate?.menuWillClose(self)
         animateMenuState(.Hide) { completed in
             if completed {
                 self.dismissViewControllerAnimated(false, completion: nil)
             }
         }
     }
-
+    
     var isDismissing = false
     @IBAction func dismissButtonPressed(sender: AnyObject) {
         guard !isDismissing else {

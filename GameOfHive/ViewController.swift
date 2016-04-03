@@ -132,6 +132,14 @@ class ViewController: UIViewController {
         drawGrid(grid, animationDuration: 0.1)
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        guard let menu = segue.destinationViewController as? MenuController where segue.identifier == "presentMenu" else {
+            return
+        }
+        
+        menu.delegate = self
+    }
+    
     func openMenu() {
         stop()
         performSegueWithIdentifier("presentMenu", sender: self)
@@ -360,6 +368,7 @@ extension ViewController {
     }
     
     @IBAction func didTapMenu(sender: UIButton) {
+        toggleButtons(nil)
         openMenu()
     }
     
