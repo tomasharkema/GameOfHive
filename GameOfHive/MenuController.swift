@@ -55,9 +55,11 @@ class MenuController: UIViewController {
 
     private var buttons = [HiveButton]()
     private var openedHive: HiveButton?
+    private var height: CGFloat = 0
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        height = centerButton.bounds.height
         addButtons()
         animateIn()
     }
@@ -70,7 +72,6 @@ class MenuController: UIViewController {
         return [.LandscapeLeft,.LandscapeRight]
     }
 
-    let height: CGFloat = 200
     let offset: CGFloat = 4
 
     var initialPoint: CGPoint {
@@ -248,6 +249,7 @@ extension MenuController: ContentDelegate {
 
     switch item.content {
     case let .Webpage(url):
+        destination.leftOffset = height/2 * sqrt(3.0) / 2.0
         destination.webView.loadRequest(NSURLRequest(URL: url))
     }
 
