@@ -16,11 +16,13 @@ func hexagonPath(size: CGSize, lineWidth: CGFloat = 0) -> CGPath {
         let height = size.height
         let width = size.width
         
-        
-        //    1
-        //  6    2
-        //  5    3
-        //	  4
+        // points numbered like this:
+    	//
+        //     1
+        //  6     2
+    	//
+        //  5     3
+        //	   4
         
         let topBottomOffset = (sqrt((3 * lineWidth * lineWidth) / 4))
         
