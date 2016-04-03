@@ -49,8 +49,8 @@ class HiveButton: UIButton {
         layoutIfNeeded()
 
         titleLabel?.font = UIFont(name: "Raleway-Medium", size: 14)
-        setTitleColor(UIColor.lightAmberColor, forState: .Normal)
-        tintColor = UIColor.lightAmberColor
+        setTitleColor(UIColor.darkAmberColor, forState: .Normal)
+        tintColor = UIColor.darkAmberColor
 
         insertSubview(backgroundView, belowSubview: titleLabel!)
     }
@@ -61,7 +61,7 @@ class HiveButton: UIButton {
         maskLayer.path = hexagonPath(backgroundView.frame.size)
         let borderLayer = CAShapeLayer()
         borderLayer.path = maskLayer.path
-        borderLayer.strokeColor = UIColor.lightAmberColor.CGColor
+        borderLayer.strokeColor = UIColor.darkAmberColor.CGColor
         borderLayer.lineWidth = 5
         borderLayer.fillColor = UIColor.clearColor().CGColor
         backgroundView.layer.mask = maskLayer
