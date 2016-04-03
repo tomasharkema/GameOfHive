@@ -20,7 +20,6 @@ let cellSize: CGSize = {
     return CGSize(width: cellWidth, height: cellHeight)
 }()
 
-let sideLength = cellSize.height/2
 
 let lineWidth: CGFloat = 1.0
 
@@ -184,14 +183,15 @@ class ViewController: UIViewController {
 
         grid = gridFromViewDimensions(view.bounds.size, cellSize: cellSize, gridType: .Random)
 
+        let viewYSpacing = (3 * cellSize.height) / 4
         let xOffset = -cellSize.width/2
-        let yOffset = -(cellSize.height/4 + sideLength)
+        let yOffset = -(viewYSpacing)
         
         grid.forEach { hexagon in
             let row = hexagon.location.row
             let column = hexagon.location.column
             let x = xOffset + (row & 1 == 0 ? (cellSize.width * CGFloat(column)) : (cellSize.width * CGFloat(column)) + (cellSize.width * 0.5))
-            let y = yOffset + ((cellSize.height - sideLength/2) * CGFloat(row))
+            let y = yOffset + (viewYSpacing * CGFloat(row))
             let frame = CGRect(x: x, y: y, width: cellSize.width, height: cellSize.height)
             let cell = HexagonView(frame: frame)
             cell.coordinate = hexagon.location
