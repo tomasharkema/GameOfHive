@@ -131,7 +131,7 @@ class ViewController: UIViewController {
         performSegueWithIdentifier("presentMenu", sender: self)
     }
     
-    func toggleButtons(gestureRecognizer: UIGestureRecognizer) {
+    func toggleButtons(gestureRecognizer: UIGestureRecognizer?) {
         if let constraint = buttonsVisibleConstraint where constraint.active {
             buttonsVisibleConstraint?.active = false
             buttonsHiddenConstraint?.active = true
@@ -145,10 +145,12 @@ class ViewController: UIViewController {
     }
     
     func dismissMessageOverlay() {
+        self.toggleButtons(nil)
         UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .BeginFromCurrentState, animations: {
             self.messageHUD.transform = CGAffineTransformMakeScale(0.01, 0.01)
             }) { finished in
             self.messageOverlay.removeFromSuperview()
+            self.togglePlayback()
         }
     }
     
