@@ -20,7 +20,6 @@ let cellSize: CGSize = {
     return CGSize(width: cellWidth, height: cellHeight)
 }()
 
-let sideLength = cellSize.height/2
 
 let lineWidth: CGFloat = 1.0
 
@@ -42,12 +41,8 @@ class ViewController: UIViewController {
     
     let messageOverlay = UIControl()
     let messageHUD = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
-    
+
     // MARK: UIViewController
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -93,6 +88,9 @@ class ViewController: UIViewController {
         messageView.text = "Tap with three fingers to show and hide the menu"
         messageView.font = UIFont(name: "Raleway-Medium", size: 20)
         messageView.textColor = UIColor.lightAmberColor
+
+        let drawingGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didDrawWithFinger))
+        view.addGestureRecognizer(drawingGestureRecognizer)
     }
     
     override func viewDidLayoutSubviews() {
@@ -162,14 +160,15 @@ class ViewController: UIViewController {
 
         grid = gridFromViewDimensions(view.bounds.size, cellSize: cellSize, gridType: .Random)
 
+        let viewYSpacing = (3 * cellSize.height) / 4
         let xOffset = -cellSize.width/2
-        let yOffset = -(cellSize.height/4 + sideLength)
+        let yOffset = -(viewYSpacing)
         
         grid.forEach { hexagon in
             let row = hexagon.location.row
             let column = hexagon.location.column
             let x = xOffset + (row & 1 == 0 ? (cellSize.width * CGFloat(column)) : (cellSize.width * CGFloat(column)) + (cellSize.width * 0.5))
-            let y = yOffset + ((cellSize.height - sideLength/2) * CGFloat(row))
+            let y = yOffset + (viewYSpacing * CGFloat(row))
             let frame = CGRect(x: x, y: y, width: cellSize.width, height: cellSize.height)
             let cell = HexagonView(frame: frame)
             cell.coordinate = hexagon.location
@@ -256,6 +255,15 @@ class ViewController: UIViewController {
         timer = nil
         playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
     }
+
+    func didDrawWithFinger(recognizer: UIPanGestureRecognizer) {
+        guard let cellView = view.hitTest(recognizer.locationInView(view), withEvent: nil) as? HexagonView else {
+            return
+        }
+        cellView.alive = true
+        userDidUpateCell(cellView)
+    }
+
 }
 
 // MARK: HexagonView Delegate
