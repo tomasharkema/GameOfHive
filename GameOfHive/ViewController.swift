@@ -321,9 +321,9 @@ extension ViewController {
                 self.grid = grid
                 dispatch_async(dispatch_get_main_queue()) {
                     self.drawGrid(grid)
+                }
             }
         }
-    }
     }
 }
 

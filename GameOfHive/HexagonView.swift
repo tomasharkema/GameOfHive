@@ -71,13 +71,13 @@ class HexagonView: UIView {
         super.init(frame: frame)
         self.alpha = HexagonView.deadAlpha
         self.backgroundColor = UIColor.clearColor()
+//        self.backgroundColor = UIColor.init(red: (CGFloat)(arc4random()%256)/256.0, green: (CGFloat)(arc4random()%256)/256.0, blue: (CGFloat)(arc4random()%256)/256.0, alpha: 0.3)
     }
 
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
         
         guard let touch = touches.first where touches.count == 1 && CGPathContainsPoint(HexagonView.path, nil, touch.locationInView(self), false) else {
-        self.backgroundColor = UIColor.clearColor()
             return
     }
   
