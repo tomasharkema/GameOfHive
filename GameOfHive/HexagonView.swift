@@ -79,12 +79,16 @@ class HexagonView: UIView {
         guard let touch = touches.first where touches.count == 1 && CGPathContainsPoint(HexagonView.path, nil, touch.locationInView(self), false) else {
             return
     }
-  
         // invert alive
         self.alive = !self.alive
         // inform delegate
         hexagonViewDelegate?.userDidUpateCell(self)
     }
+    
+    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+        return CGPathContainsPoint(HexagonView.path, nil, point, false)
+    }
+
     
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
