@@ -16,4 +16,15 @@ extension UIView {
         leftAnchor.constraintEqualToAnchor(view.leftAnchor, constant: margin).active = true
         rightAnchor.constraintEqualToAnchor(view.rightAnchor, constant: -margin).active = true
     }
+    
+    func image(scaled scale: CGFloat) -> UIImage {
+        let scaleTransform = CGAffineTransformMakeScale(scale, scale)
+        let size = CGSizeApplyAffineTransform(self.bounds.size, scaleTransform)
+        let rect = CGRect(origin: CGPoint.zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(size, true, 0)
+        self.drawViewHierarchyInRect(rect, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }
