@@ -55,11 +55,14 @@ class MenuController: UIViewController {
 
     private var buttons = [HiveButton]()
     private var openedHive: HiveButton?
-    private var height: CGFloat = 0
+    private var height: CGFloat = 200
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+
+        // because, you know, constraints...
         height = centerButton.bounds.height
+        
         addButtons()
         animateIn()
     }
