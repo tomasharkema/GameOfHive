@@ -75,7 +75,6 @@ class TemplateManager {
             return []
         }
         let paths = filenames.filter { $0.hasSuffix(".json") }.map(templateDirectory.stringByAppendingPathComponent)
-        print(paths)
         return paths.flatMap { path in
             do { return try Template.load(path) }
             catch { return nil }

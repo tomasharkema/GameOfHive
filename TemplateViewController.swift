@@ -33,7 +33,6 @@ class TemplateViewController: UICollectionViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        print(view.frame)
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             let cellWidth = (view.frame.width - 20)/2
             let screenBounds = UIScreen.mainScreen().bounds
