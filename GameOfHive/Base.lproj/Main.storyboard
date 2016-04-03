@@ -82,20 +82,28 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="leW-L6-NR1">
+                                <rect key="frame" x="525" y="25" width="50" height="50"/>
+                                <state key="normal" image="button_clear"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.090196078430000007" green="0.090196078430000007" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="leW-L6-NR1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="25" id="4RU-ZG-vnt"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WOB-QO-Nq2" secondAttribute="bottom" id="8E5-IH-j3X"/>
+                            <constraint firstAttribute="trailing" secondItem="leW-L6-NR1" secondAttribute="trailing" constant="25" id="KVK-ya-5kX"/>
                             <constraint firstItem="oQx-Fh-Mjj" firstAttribute="trailing" secondItem="WOB-QO-Nq2" secondAttribute="leading" id="bYM-7Y-X5l"/>
                             <constraint firstAttribute="trailing" secondItem="WOB-QO-Nq2" secondAttribute="trailing" id="cfN-Pe-lhg"/>
                             <constraint firstItem="WOB-QO-Nq2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="f0E-P2-dOT"/>
                             <constraint firstItem="oQx-Fh-Mjj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="25" id="g1q-C6-N3H"/>
                             <constraint firstItem="oQx-Fh-Mjj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="25" id="m6o-LY-NH1"/>
+                            <constraint firstAttribute="trailing" secondItem="leW-L6-NR1" secondAttribute="leading" id="qBg-ky-LHV"/>
                             <constraint firstItem="WOB-QO-Nq2" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="sde-Kk-3JI"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="bYM-7Y-X5l"/>
+                                <exclude reference="qBg-ky-LHV"/>
                             </mask>
                         </variation>
                     </view>
@@ -159,6 +167,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="button_clear" width="50" height="50"/>
         <image name="button_load" width="50" height="50"/>
         <image name="button_menu" width="50" height="50"/>
         <image name="button_play" width="50" height="50"/>
