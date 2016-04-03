@@ -25,11 +25,15 @@ let sideLength = cellSize.height/2
 let lineWidth: CGFloat = 1.0
 
 class ViewController: UIViewController {
+    let rules = Rules.defaultRules
+    
+    var grid: HexagonGrid!
     var cells: [HexagonView] = []
     var timer: NSTimer!
-    var grid: HexagonGrid!
-    let rules = Rules.defaultRules
-
+    var playing: Bool {
+        return timer != nil
+    }
+    
     let contentView = UIView()
     let buttonContainer = UIStackView()
     var buttonsVisibleConstraint: NSLayoutConstraint?
@@ -110,9 +114,7 @@ class ViewController: UIViewController {
         let messageView = UILabel()
 
         messageHUD.contentView.addSubview(messageView)
-        
-        
-        
+
         messageView.numberOfLines = 0
         messageView.adjustsFontSizeToFitWidth = true
         messageView.textAlignment = .Center
@@ -140,7 +142,7 @@ class ViewController: UIViewController {
         return "\(documentsPath)/save.json"
     }
     
-    func saveGrid() {
+    @IBAction func saveGrid() {
         do { try grid.save() } catch let error {
             print("Error saving grid",error)
         }
@@ -263,25 +265,34 @@ class ViewController: UIViewController {
     }
     
     // MARK: Button
-    func togglePlayback(button: UIButton) {
-        if timer == nil {
-            start()
-        } else {
+    @IBAction func togglePlayback() {
+        if playing {
             stop()
+        } else {
+            start()
         }
     }
     
-    func start() {
+    private func start() {
         timer?.invalidate()
         timer = createTimer()
         timer.fire()
         playButton.setImage(UIImage(named: "button_stop"), forState: .Normal)
     }
     
-    func stop() {
+    private func stop() {
+        guard playing else {
+            return
+        }
+        
         timer?.invalidate()
         timer = nil
         playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
+    }
+    
+    @IBAction func nextStep() {
+        stop()
+        drawGrid(grid, animationDuration: 0.4)
     }
 
 }
