@@ -63,7 +63,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(buttonsHiddenConstraint?.active,buttonsVisibleConstraint?.active)
         createGrid()
 
         let threeFingerTap = UITapGestureRecognizer(target: self, action: #selector(toggleButtons(_:)))
