@@ -158,9 +158,11 @@ class MenuController: UIViewController {
 
     var isDismissing = false
     @IBAction func dismissButtonPressed(sender: AnyObject) {
-        if !isDismissing {
-            isDismissing = true
-            animateOut()
+        guard !isDismissing else {
+            return
         }
+
+        isDismissing = true
+        animateOut()
     }
 }
