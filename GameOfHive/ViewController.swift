@@ -11,24 +11,34 @@ import UIKit
 // queue enforcing serial grid creation
 let gridQueue = dispatch_queue_create("grid_queue", DISPATCH_QUEUE_SERIAL)
 
+
 let cellSize: CGSize = {
-    let cellHeight: CGFloat = 25
-    let cellWidth = round(cellHeight * sqrt(3) / 2)
+    let cellHeight: CGFloat = 26 // must be even!!!! We use half height and half width for drawing
+    var cellWidth = (sqrt((3 * cellHeight * cellHeight) / 16)) * 2
+    cellWidth = ceil(cellWidth) % 2 == 1 ? floor(cellWidth) : ceil(cellWidth)
+    
     return CGSize(width: cellWidth, height: cellHeight)
 }()
 
 let sideLength = cellSize.height/2
 
+let lineWidth: CGFloat = 1.0
+
 class ViewController: UIViewController {
+    let rules = Rules.defaultRules
+    
+    var grid: HexagonGrid!
     var cells: [HexagonView] = []
     var timer: NSTimer!
-    var grid: HexagonGrid!
-    let rules = Rules.defaultRules
 
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet var contentView: UIView!
     @IBOutlet var buttonsVisibleConstraint: NSLayoutConstraint?
     @IBOutlet var buttonsHiddenConstraint: NSLayoutConstraint?
+
+    var playing: Bool {
+        return timer != nil
+    }
     
     let messageOverlay = UIControl()
     let messageHUD = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
@@ -55,6 +65,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         print(buttonsHiddenConstraint?.active,buttonsVisibleConstraint?.active)
         createGrid()
+
         let threeFingerTap = UITapGestureRecognizer(target: self, action: #selector(toggleButtons(_:)))
         threeFingerTap.numberOfTouchesRequired = 3
         contentView.addGestureRecognizer(threeFingerTap)
@@ -75,8 +86,6 @@ class ViewController: UIViewController {
         let messageView = UILabel()
 
         messageHUD.contentView.addSubview(messageView)
-        
-        
         
         messageView.numberOfLines = 0
         messageView.adjustsFontSizeToFitWidth = true
@@ -105,7 +114,7 @@ class ViewController: UIViewController {
         return "\(documentsPath)/save.json"
     }
     
-    func saveGrid() {
+    @IBAction func saveGrid() {
         do { try grid.save() } catch let error {
             print("Error saving grid",error)
         }
@@ -233,25 +242,34 @@ class ViewController: UIViewController {
     }
     
     // MARK: Button
-    func togglePlayback(button: UIButton) {
-        if timer == nil {
-            start()
-        } else {
+    @IBAction func togglePlayback() {
+        if playing {
             stop()
+        } else {
+            start()
         }
     }
     
-    func start() {
+    private func start() {
         timer?.invalidate()
         timer = createTimer()
         timer.fire()
         playButton.setImage(UIImage(named: "button_stop"), forState: .Normal)
     }
     
-    func stop() {
+    private func stop() {
+        guard playing else {
+            return
+        }
+        
         timer?.invalidate()
         timer = nil
         playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
+    }
+    
+    @IBAction func nextStep() {
+        stop()
+        drawGrid(grid, animationDuration: 0.4)
     }
 
 }

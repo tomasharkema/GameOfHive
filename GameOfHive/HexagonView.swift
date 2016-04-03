@@ -13,32 +13,43 @@ protocol HexagonViewDelegate: class {
 }
 
 func hexagonPath(size: CGSize, lineWidth: CGFloat = 0) -> CGPath {
-    let height = size.height
-    let width = size.width
-    let s = height / 2.0
-    let b = width / 2.0
-    let a = (height - s) / 2.0
+        let height = size.height
+        let width = size.width
+        
+        // points numbered like this:
+    	//
+        //     1
+        //  6     2
+    	//
+        //  5     3
+        //	   4
+        
+        let topBottomOffset = (sqrt((3 * lineWidth * lineWidth) / 4))
+        
+        let p1 = CGPointMake(width / 2.0, topBottomOffset)
+        let p2 = CGPointMake(width - (lineWidth / 2), height / 4)
+        let p3 = CGPointMake(p2.x, p2.y * 3)
+        let p4 = CGPointMake(p1.x, height - topBottomOffset)
+        let p5 = CGPointMake(lineWidth / 2, p3.y)
+        let p6 = CGPointMake(p5.x, p2.y)
+        
     
-    let halfLineWidth = lineWidth / 2.0
+        
+        let path = CGPathCreateMutable()
+        CGPathMoveToPoint(path, nil, p1.x, p1.y)
+        CGPathAddLineToPoint(path, nil, p2.x, p2.y)
+        CGPathAddLineToPoint(path, nil, p3.x, p3.y)
+        CGPathAddLineToPoint(path, nil, p4.x, p4.y)
+        CGPathAddLineToPoint(path, nil, p5.x, p5.y)
     
-    let path = CGPathCreateMutable()
-    CGPathMoveToPoint(path, nil, b, halfLineWidth)
-    CGPathAddLineToPoint(path, nil, width - halfLineWidth, a)
-    CGPathAddLineToPoint(path, nil, width - halfLineWidth, a + s)
-    CGPathAddLineToPoint(path, nil, b, height - halfLineWidth)
-    CGPathAddLineToPoint(path, nil, halfLineWidth, a + s)
-    CGPathAddLineToPoint(path, nil, halfLineWidth, a)
-    CGPathAddLineToPoint(path, nil, b, halfLineWidth)
+        CGPathAddLineToPoint(path, nil, p6.x, p6.y)
+    	CGPathCloseSubpath(path)
     
-    CGPathCloseSubpath(path)
-    return path
+        return path
 }
 
 class HexagonView: UIView {
-    static let lineWidth: CGFloat = 3.0
-    static let path: CGPathRef = {
-        return hexagonPath(cellSize, lineWidth: lineWidth)
-    }()
+    static let path: CGPathRef = hexagonPath(cellSize, lineWidth: lineWidth)
 
     static let fillColor = UIColor.lightAmberColor
     
@@ -61,14 +72,14 @@ class HexagonView: UIView {
         self.alpha = HexagonView.deadAlpha
         self.backgroundColor = UIColor.clearColor()
     }
-  
+
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
         
         guard let touch = touches.first where touches.count == 1 && CGPathContainsPoint(HexagonView.path, nil, touch.locationInView(self), false) else {
             return
-        }
-        
+    }
+  
         // invert alive
         self.alive = !self.alive
         // inform delegate
@@ -77,7 +88,7 @@ class HexagonView: UIView {
     
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
-        CGContextSetLineWidth(context, HexagonView.lineWidth)
+        CGContextSetLineWidth(context, lineWidth)
         CGContextSetFillColorWithColor(context, HexagonView.fillColor.CGColor)
         CGContextAddPath(context, HexagonView.path)
         CGContextFillPath(context)
