@@ -112,24 +112,50 @@ class ViewController: UIViewController {
         messageHUD.layer.addSublayer(borderLayer)
     }
     
-    var savePath: String {
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-        return "\(documentsPath)/save.json"
+    var undoFileName: String {
+        return documentsDirectory.stringByAppendingPathComponent("undo.json")
     }
     
-    func saveGrid(filename: String = "grid.json") {
-        do { try grid.save(filename) } catch let error {
+    func saveUndo() {
+        do {
+            try grid.save(undoFileName)
+        } catch {
+            print("error saving undo", error)
+        }
+    }
+    
+    func loadUndo() {
+        do {
+            let grid = try HexagonGrid.load(undoFileName)
+            loadGrid(grid)
+        } catch {
+            print("error loading undo", error)
+        }
+    }
+    
+    func saveTemplate() {
+        do {
+            let image = contentView.image(scaled: 0.1)
+            try TemplateManager.shared.saveTemplate(grid: grid, image: image)
+
+        } catch let error {
             print("Error saving grid",error)
         }
     }
     
-    func loadGrid(filename: String = "grid.json") {
-        guard let g = HexagonGrid.load(filename) else {
-            return
+    func loadTemplate(identifier: String? = nil) {
+        do {
+            let grid = try TemplateManager.shared.loadTemplate(identifier).grid()
+            loadGrid(grid)
+        } catch {
+            print("error loading template", error)
         }
+    }
+    
+    func loadGrid(grid: HexagonGrid) {
         stop()
-        grid = g
-        drawGrid(grid, animationDuration: 0.1)
+        self.grid = grid
+        drawGrid(self.grid, animationDuration: 0.1)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -345,13 +371,13 @@ extension ViewController {
         if playing {
             stop()
         } else {
-            saveGrid("undo.json")
+            saveUndo()
             start()
         }
     }
     
     @IBAction func didTapUndo(sender: UIButton) {
-        loadGrid("undo.json")
+        loadUndo()
     }
     
     @IBAction func didTapStep(sender: UIButton) {
@@ -360,11 +386,11 @@ extension ViewController {
     }
     
     @IBAction func didTapLoad(sender: UIButton) {
-        loadGrid()
+        loadTemplate()
     }
     
     @IBAction func didTapSave(sender: UIButton) {
-        saveGrid()
+        saveTemplate()
     }
     
     @IBAction func didTapMenu(sender: UIButton) {

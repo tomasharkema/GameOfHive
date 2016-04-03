@@ -16,7 +16,7 @@ public enum GridType {
   case Random
 }
 
-public struct HexagonGrid {
+public struct HexagonGrid: Persistable {
     private var count = 0
     private let grid: [Int: HexagonRow]
     
@@ -201,25 +201,6 @@ extension HexagonGrid: Decodable {
         }
     }
 }
-
-//MARK: Loading and saving
-extension HexagonGrid {
-    func save(filename: String) throws {
-        let file = documentsDirectory.stringByAppendingPathComponent(filename)
-        try self.encode().toJSONString.writeToFile(file, atomically: true, encoding: NSUTF8StringEncoding)
-    }
-    
-    static func load(filename: String) -> HexagonGrid? {
-        let file = documentsDirectory.stringByAppendingPathComponent(filename)
-        guard let data = NSData(contentsOfFile: file), object = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) else {
-            return nil
-        }
-        let decodedGrid: Decoded<HexagonGrid> = Argo.decode(object)
-        return decodedGrid.value
-    }
-}
-
-
 
 func initialGrid(rows: Int, columns: Int, gridType: GridType) -> [Int: HexagonRow] {
     var grid: [Int:HexagonRow] = [:]
