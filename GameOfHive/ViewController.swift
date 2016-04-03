@@ -61,7 +61,11 @@ class ViewController: UIViewController {
         createGrid()
 
         let threeFingerTap = UITapGestureRecognizer(target: self, action: #selector(toggleButtons(_:)))
+        #if TARGET_IPHONE_SIMULATOR
+        threeFingerTap.numberOfTouchesRequired = 2
+        #else
         threeFingerTap.numberOfTouchesRequired = 3
+        #endif
         contentView.addGestureRecognizer(threeFingerTap)
         
         view.addSubview(messageOverlay)
