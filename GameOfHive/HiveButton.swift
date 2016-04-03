@@ -9,7 +9,7 @@
 import UIKit
 
 enum HiveButtonStyle: CGFloat {
-    case Big = 20
+    case Big = 18
     case Small = 14
 }
 
@@ -41,7 +41,6 @@ class HiveButton: UIButton {
 
     override var frame: CGRect {
         didSet {
-            backgroundView.frame = bounds
             updateLayers()
         }
     }
@@ -51,14 +50,20 @@ class HiveButton: UIButton {
         layoutIfNeeded()
 
         titleLabel?.font = UIFont(name: "Raleway-Medium", size: style.rawValue)
+        titleLabel?.adjustsFontSizeToFitWidth = true
         setTitleColor(UIColor.darkAmberColor, forState: .Normal)
         tintColor = UIColor.darkAmberColor
 
         insertSubview(backgroundView, belowSubview: titleLabel!)
+        backgroundView.constrainToView(self, margin: 0)
+        backgroundView.userInteractionEnabled = false
+    }
+
+    override func drawRect(rect: CGRect) {
+        updateLayers()
     }
 
     func updateLayers() {
-        backgroundView.userInteractionEnabled = false
         let maskLayer = CAShapeLayer()
         maskLayer.path = hexagonPath(backgroundView.frame.size)
         let borderLayer = CAShapeLayer()

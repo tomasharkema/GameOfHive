@@ -15,6 +15,8 @@ protocol ContentDelegate: class {
 
 class ContentViewController: UIViewController {
     @IBOutlet weak var webViewContainer: UIView!
+    @IBOutlet private weak var leftOffsetConstraint: NSLayoutConstraint!
+    var leftOffset: CGFloat = 0
 
     let webView = WKWebView()
 
@@ -32,6 +34,8 @@ class ContentViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+
+        leftOffsetConstraint.constant = leftOffset + 30
 
         webViewContainer.alpha = 0
 
