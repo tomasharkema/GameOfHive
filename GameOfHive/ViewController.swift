@@ -32,9 +32,9 @@ class ViewController: UIViewController {
     var timer: NSTimer!
 
     @IBOutlet weak var playButton: UIButton!
-    @IBOutlet var contentView: UIView!
-    @IBOutlet var buttonsVisibleConstraint: NSLayoutConstraint?
-    @IBOutlet var buttonsHiddenConstraint: NSLayoutConstraint?
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var buttonsVisibleConstraint: NSLayoutConstraint?
+    @IBOutlet weak var buttonsHiddenConstraint: NSLayoutConstraint?
 
     var playing: Bool {
         return timer != nil
