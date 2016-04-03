@@ -67,5 +67,16 @@ class TemplateManager {
         try template.save(templatePath)
         
         NSUserDefaults.standardUserDefaults().setObject(identifier, forKey: lastSavedTemplateIdentifierKey)
-    }    
+    }
+    
+    func allTemplates() -> [Template] {
+        
+        guard let paths = try? NSFileManager.defaultManager().contentsOfDirectoryAtPath(templateDirectory as String) else {
+            return []
+        }
+        return paths.flatMap { path in
+            do { return try Template.load(path) }
+            catch { return nil }
+        }
+    }
 }
