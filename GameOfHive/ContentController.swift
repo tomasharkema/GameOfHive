@@ -9,18 +9,15 @@
 import UIKit
 import WebKit
 
-protocol ContentDelegate: class {
-    func contentWillClose(menu: ContentViewController)
-}
 
 class ContentViewController: UIViewController {
     @IBOutlet weak var webViewContainer: UIView!
     @IBOutlet private weak var leftOffsetConstraint: NSLayoutConstraint!
-    var leftOffset: CGFloat = 0
+    var leftOffset: CGFloat = 120
 
     let webView = WKWebView()
 
-    weak var delegate: ContentDelegate?
+    weak var delegate: SubMenuDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +32,7 @@ class ContentViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        leftOffsetConstraint.constant = leftOffset + 30
+        leftOffsetConstraint.constant = leftOffset + 60
 
         webViewContainer.alpha = 0
 

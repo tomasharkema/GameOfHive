@@ -15,6 +15,8 @@
 		1C3E32F11CB13163003739F0 /* ISO8601.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E32F01CB13163003739F0 /* ISO8601.swift */; };
 		1C3E32F31CB136BD003739F0 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E32F21CB136BD003739F0 /* Persistable.swift */; };
 		1C3E32F51CB13AE4003739F0 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E32F41CB13AE4003739F0 /* Template.swift */; };
+		1C3E32F71CB14CEF003739F0 /* TemplateDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E32F61CB14CEF003739F0 /* TemplateDataSource.swift */; };
+		1C3E32F91CB152C0003739F0 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E32F81CB152C0003739F0 /* TemplateViewController.swift */; };
 		1CE620491B0C8E350072BBF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE620481B0C8E350072BBF9 /* AppDelegate.swift */; };
 		1CE6204B1B0C8E350072BBF9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE6204A1B0C8E350072BBF9 /* ViewController.swift */; };
 		1CE6204E1B0C8E350072BBF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CE6204C1B0C8E350072BBF9 /* Main.storyboard */; };
@@ -35,6 +37,7 @@
 		C35B19101CB0092D003DF56C /* HiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B190F1CB0092D003DF56C /* HiveButton.swift */; };
 		C35B19121CB06ACF003DF56C /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C35B19111CB06ACF003DF56C /* Raleway-Medium.ttf */; };
 		C35B19141CB13E5A003DF56C /* ContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B19131CB13E5A003DF56C /* ContentController.swift */; };
+		C35B19161CB16862003DF56C /* TemplateContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B19151CB16862003DF56C /* TemplateContainerController.swift */; };
 		C3881F921B0D4915006D9CF0 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3881F911B0D4915006D9CF0 /* MenuController.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +60,8 @@
 		1C3E32F01CB13163003739F0 /* ISO8601.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISO8601.swift; sourceTree = "<group>"; };
 		1C3E32F21CB136BD003739F0 /* Persistable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		1C3E32F41CB13AE4003739F0 /* Template.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
+		1C3E32F61CB14CEF003739F0 /* TemplateDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemplateDataSource.swift; path = ../TemplateDataSource.swift; sourceTree = "<group>"; };
+		1C3E32F81CB152C0003739F0 /* TemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemplateViewController.swift; path = ../TemplateViewController.swift; sourceTree = "<group>"; };
 		1CE620431B0C8E350072BBF9 /* GameOfHive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameOfHive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE620471B0C8E350072BBF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1CE620481B0C8E350072BBF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +87,7 @@
 		C35B190F1CB0092D003DF56C /* HiveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HiveButton.swift; sourceTree = "<group>"; };
 		C35B19111CB06ACF003DF56C /* Raleway-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium.ttf"; sourceTree = "<group>"; };
 		C35B19131CB13E5A003DF56C /* ContentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentController.swift; sourceTree = "<group>"; };
+		C35B19151CB16862003DF56C /* TemplateContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateContainerController.swift; sourceTree = "<group>"; };
 		C3881F911B0D4915006D9CF0 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		CF2FA7DC67DF597D0AD3E8B0 /* Pods_GameOfHive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameOfHive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -136,6 +142,8 @@
 				1CE620481B0C8E350072BBF9 /* AppDelegate.swift */,
 				1CE6204A1B0C8E350072BBF9 /* ViewController.swift */,
 				1C3E32EC1CB10FED003739F0 /* TemplateManager.swift */,
+				1C3E32F81CB152C0003739F0 /* TemplateViewController.swift */,
+				1C3E32F61CB14CEF003739F0 /* TemplateDataSource.swift */,
 				1C3E32F41CB13AE4003739F0 /* Template.swift */,
 				1C3E32F21CB136BD003739F0 /* Persistable.swift */,
 				1CE6204C1B0C8E350072BBF9 /* Main.storyboard */,
@@ -209,6 +217,7 @@
 				C3881F911B0D4915006D9CF0 /* MenuController.swift */,
 				C35B190F1CB0092D003DF56C /* HiveButton.swift */,
 				C35B19131CB13E5A003DF56C /* ContentController.swift */,
+				C35B19151CB16862003DF56C /* TemplateContainerController.swift */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -380,6 +389,8 @@
 				C35B19141CB13E5A003DF56C /* ContentController.swift in Sources */,
 				B399C6D11CB0029F002C57A4 /* Encodable.swift in Sources */,
 				1CE6204B1B0C8E350072BBF9 /* ViewController.swift in Sources */,
+				1C3E32F71CB14CEF003739F0 /* TemplateDataSource.swift in Sources */,
+				C35B19161CB16862003DF56C /* TemplateContainerController.swift in Sources */,
 				1CE620691B0C91CD0072BBF9 /* HexagonView.swift in Sources */,
 				C35B19101CB0092D003DF56C /* HiveButton.swift in Sources */,
 				1C3E32F51CB13AE4003739F0 /* Template.swift in Sources */,
@@ -392,6 +403,7 @@
 				1C366C341B0D3A1B001B2B53 /* UIColor.swift in Sources */,
 				B38DD5E71B0C9BB30064E7E4 /* Hexagon.swift in Sources */,
 				B3938BB71CB04C3B00C75813 /* UIView.swift in Sources */,
+				1C3E32F91CB152C0003739F0 /* TemplateViewController.swift in Sources */,
 				B3938BB31CB003FE00C75813 /* Argo.swift in Sources */,
 				1C3E32F11CB13163003739F0 /* ISO8601.swift in Sources */,
 				1C3E32EF1CB13126003739F0 /* NSDate.swift in Sources */,
