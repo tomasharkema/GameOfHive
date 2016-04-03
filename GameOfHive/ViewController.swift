@@ -61,7 +61,11 @@ class ViewController: UIViewController {
         createGrid()
 
         let threeFingerTap = UITapGestureRecognizer(target: self, action: #selector(toggleButtons(_:)))
+        #if TARGET_IPHONE_SIMULATOR
+        threeFingerTap.numberOfTouchesRequired = 2
+        #else
         threeFingerTap.numberOfTouchesRequired = 3
+        #endif
         contentView.addGestureRecognizer(threeFingerTap)
         
         view.addSubview(messageOverlay)
@@ -85,7 +89,7 @@ class ViewController: UIViewController {
         messageView.adjustsFontSizeToFitWidth = true
         messageView.textAlignment = .Center
         messageView.constrainToView(messageHUD, margin: 20)
-        messageView.text = "Tap with three fingers to show and hide the menu"
+        messageView.text = "Tap with three fingers to show and hide the controls"
         messageView.font = UIFont(name: "Raleway-Medium", size: 20)
         messageView.textColor = UIColor.lightAmberColor
 
@@ -131,7 +135,7 @@ class ViewController: UIViewController {
         performSegueWithIdentifier("presentMenu", sender: self)
     }
     
-    func toggleButtons(gestureRecognizer: UIGestureRecognizer) {
+    func toggleButtons(gestureRecognizer: UIGestureRecognizer?) {
         if let constraint = buttonsVisibleConstraint where constraint.active {
             buttonsVisibleConstraint?.active = false
             buttonsHiddenConstraint?.active = true
@@ -145,10 +149,12 @@ class ViewController: UIViewController {
     }
     
     func dismissMessageOverlay() {
+        self.toggleButtons(nil)
         UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .BeginFromCurrentState, animations: {
             self.messageHUD.transform = CGAffineTransformMakeScale(0.01, 0.01)
             }) { finished in
             self.messageOverlay.removeFromSuperview()
+            self.togglePlayback()
         }
     }
     
