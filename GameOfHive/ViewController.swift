@@ -11,13 +11,18 @@ import UIKit
 // queue enforcing serial grid creation
 let gridQueue = dispatch_queue_create("grid_queue", DISPATCH_QUEUE_SERIAL)
 
+
 let cellSize: CGSize = {
-    let cellHeight: CGFloat = 25
-    let cellWidth = round(cellHeight * sqrt(3) / 2)
+    let cellHeight: CGFloat = 26 // must be even!!!! We use half height and half width for drawing
+    var cellWidth = (sqrt((3 * cellHeight * cellHeight) / 16)) * 2
+    cellWidth = ceil(cellWidth) % 2 == 1 ? floor(cellWidth) : ceil(cellWidth)
+    
     return CGSize(width: cellWidth, height: cellHeight)
 }()
 
 let sideLength = cellSize.height/2
+
+let lineWidth: CGFloat = 1.0
 
 class ViewController: UIViewController {
     var cells: [HexagonView] = []

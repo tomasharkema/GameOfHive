@@ -215,7 +215,8 @@ func initialGrid(rows: Int, columns: Int, gridType: GridType) -> [Int: HexagonRo
 
 
 func gridFromViewDimensions(gridSize: CGSize, cellSize: CGSize, gridType: GridType = .Empty) -> HexagonGrid {
-    let colums = Int(ceil(gridSize.width / cellSize.width))
-    let rows = Int(ceil((gridSize.height / cellSize.height) * 1.5))    
+    let colums = Int(ceil(gridSize.width / cellSize.width)) + 1
+    let rows = Int(ceil(gridSize.height / ((3 * cellSize.height) / 4))) + 1
+    
     return HexagonGrid(rows: rows, columns: colums, initialGridType: gridType)
 }
