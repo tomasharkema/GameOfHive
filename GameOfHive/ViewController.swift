@@ -114,7 +114,7 @@ class ViewController: UIViewController {
         let messageView = UILabel()
 
         messageHUD.contentView.addSubview(messageView)
-
+        
         messageView.numberOfLines = 0
         messageView.adjustsFontSizeToFitWidth = true
         messageView.textAlignment = .Center

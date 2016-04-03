@@ -12,7 +12,7 @@ import UIKit
 class HiveButton: UIButton {
 
     // MARK: Lifecycle
-    let background = UIImageView(image: UIImage(named: "hexagon"))
+    let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,7 +30,8 @@ class HiveButton: UIButton {
 
     override var frame: CGRect {
         didSet {
-            background.frame = bounds
+            backgroundView.frame = bounds
+            updateLayers()
         }
     }
 
@@ -44,10 +45,26 @@ class HiveButton: UIButton {
     }
 
     private func initialize() {
-        background.contentMode = .ScaleAspectFit
-        insertSubview(background, belowSubview: titleLabel!)
+        setNeedsLayout()
+        layoutIfNeeded()
+
         titleLabel?.font = UIFont(name: "Raleway-Medium", size: 14)
-        setTitleColor(UIColor.blackColor(), forState: .Normal)
-        tintColor = UIColor.blackColor()
+        setTitleColor(UIColor.lightAmberColor, forState: .Normal)
+        tintColor = UIColor.lightAmberColor
+
+        insertSubview(backgroundView, belowSubview: titleLabel!)
+    }
+
+    func updateLayers() {
+        backgroundView.userInteractionEnabled = false
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = hexagonPath(backgroundView.frame.size)
+        let borderLayer = CAShapeLayer()
+        borderLayer.path = maskLayer.path
+        borderLayer.strokeColor = UIColor.lightAmberColor.CGColor
+        borderLayer.lineWidth = 5
+        borderLayer.fillColor = UIColor.clearColor().CGColor
+        backgroundView.layer.mask = maskLayer
+        backgroundView.layer.addSublayer(borderLayer)
     }
 }
