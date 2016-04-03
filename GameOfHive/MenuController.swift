@@ -76,7 +76,7 @@ class MenuController: UIViewController {
         }
 
         buttons.forEach { button in
-            self.view.addSubview(button)
+            self.view.insertSubview(button, belowSubview: centerButton)
         }
 
         self.buttons = buttons
