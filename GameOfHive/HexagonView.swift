@@ -43,7 +43,8 @@ func hexagonPath(size: CGSize, lineWidth: CGFloat = 0) -> CGPath {
         CGPathAddLineToPoint(path, nil, p5.x, p5.y)
     
         CGPathAddLineToPoint(path, nil, p6.x, p6.y)
-    CGPathCloseSubpath(path)
+    	CGPathCloseSubpath(path)
+    
         return path
 }
 
@@ -70,7 +71,6 @@ class HexagonView: UIView {
         super.init(frame: frame)
         self.alpha = HexagonView.deadAlpha
         self.backgroundColor = UIColor.clearColor()
-//        self.backgroundColor = UIColor.init(red: (CGFloat)(arc4random()%256)/256.0, green: (CGFloat)(arc4random()%256)/256.0, blue: (CGFloat)(arc4random()%256)/256.0, alpha: 0.3)
     }
 
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
