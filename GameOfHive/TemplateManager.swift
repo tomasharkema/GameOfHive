@@ -71,9 +71,11 @@ class TemplateManager {
     
     func allTemplates() -> [Template] {
         
-        guard let paths = try? NSFileManager.defaultManager().contentsOfDirectoryAtPath(templateDirectory as String) else {
+        guard let filenames = try? NSFileManager.defaultManager().contentsOfDirectoryAtPath(templateDirectory as String) else {
             return []
         }
+        let paths = filenames.filter { $0.hasSuffix(".json") }.map(templateDirectory.stringByAppendingPathComponent)
+        print(paths)
         return paths.flatMap { path in
             do { return try Template.load(path) }
             catch { return nil }

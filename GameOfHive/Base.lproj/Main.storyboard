@@ -143,6 +143,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
                                     <action selector="dismissButtonPressed:" destination="IvH-pj-GKi" eventType="touchUpInside" id="6q1-KZ-lxv"/>
+                                    <segue destination="sbO-54-B1j" kind="show" identifier="openTemplatePicker" id="Q64-4E-e4L"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TO-0y-wot" customClass="HiveButton" customModule="GameOfHive" customModuleProvider="target">
@@ -170,7 +171,55 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2e-Ug-6Us" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1029" y="463"/>
+            <point key="canvasLocation" x="1041" y="463"/>
+        </scene>
+        <!--Template View Controller-->
+        <scene sceneID="se3-4I-oEw">
+            <objects>
+                <collectionViewController modalPresentationStyle="overCurrentContext" id="sbO-54-B1j" customClass="TemplateViewController" customModule="GameOfHive" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="X7s-Zj-Vht">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ze7-q2-qXw">
+                            <size key="itemSize" width="200" height="100"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TemplateCell" id="zYw-bz-gpn" customClass="TemplateCell" customModule="GameOfHive" customModuleProvider="target">
+                                <rect key="frame" x="100" y="0.0" width="200" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wsc-Rz-e1F">
+                                            <rect key="frame" x="8" y="8" width="192" height="92"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="Wsc-Rz-e1F" firstAttribute="leading" secondItem="zYw-bz-gpn" secondAttribute="leadingMargin" id="7mt-Ye-hmJ"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="Wsc-Rz-e1F" secondAttribute="bottom" id="IAw-5d-UVf"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Wsc-Rz-e1F" secondAttribute="trailing" id="U0j-Jo-2Cx"/>
+                                    <constraint firstItem="Wsc-Rz-e1F" firstAttribute="top" secondItem="zYw-bz-gpn" secondAttribute="topMargin" id="prv-Xf-X7h"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="Wsc-Rz-e1F" id="WEd-Ef-rP9"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="sbO-54-B1j" id="afi-sI-RZJ"/>
+                            <outlet property="delegate" destination="sbO-54-B1j" id="DPx-At-Q8H"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kK6-Bt-k8j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1744" y="-386"/>
         </scene>
         <!--Content View Controller-->
         <scene sceneID="wWB-sX-CD2">

@@ -8,11 +8,20 @@
 
 import UIKit
 
-let cellIdentifier = "TemplateCell"
+class TemplateCell: UICollectionViewCell {
+    static let reuseIdentifier = "TemplateCell"
+    @IBOutlet weak var imageView: UIImageView?
+}
+
+protocol TemplatePickerDelegate {
+    func didSelectTemplate(template: Template)
+}
 
 class TemplateViewController: UICollectionViewController {
     
     let dataSource = TemplateDataSource()
+    var delegate: TemplatePickerDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         dataSource.refresh()
@@ -23,14 +32,25 @@ class TemplateViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(dataSource.numberOfTemplates(inSection: section))
         return dataSource.numberOfTemplates(inSection: section)
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath)
-        if let template = dataSource.template(atIndexPath: indexPath) {
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(TemplateCell.reuseIdentifier, forIndexPath: indexPath) as? TemplateCell,
+                template = dataSource.template(atIndexPath: indexPath) else {
+                return UICollectionViewCell()
         }
         
+        cell.imageView?.image = template.image
         return cell
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let template = dataSource.template(atIndexPath: indexPath) else {
+            return
+        }
+        delegate?.didSelectTemplate(template)
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
