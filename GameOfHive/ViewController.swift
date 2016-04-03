@@ -30,17 +30,15 @@ class ViewController: UIViewController {
     var grid: HexagonGrid!
     var cells: [HexagonView] = []
     var timer: NSTimer!
+
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var buttonsVisibleConstraint: NSLayoutConstraint?
+    @IBOutlet weak var buttonsHiddenConstraint: NSLayoutConstraint?
+
     var playing: Bool {
         return timer != nil
     }
-    
-    let contentView = UIView()
-    let buttonContainer = UIStackView()
-    var buttonsVisibleConstraint: NSLayoutConstraint?
-    var buttonsHiddenConstraint: NSLayoutConstraint?
-    let playButton: UIButton = UIButton(type: .Custom)
-    let saveButton = UIButton(type: .Custom)
-    let menuButton = UIButton(type: .Custom)
     
     let messageOverlay = UIControl()
     let messageHUD = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
@@ -65,35 +63,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(contentView)
-        view.addSubview(buttonContainer)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
-        contentView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
-        contentView.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
-        contentView.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = true
         createGrid()
-        
-        buttonContainer.translatesAutoresizingMaskIntoConstraints = false
-        buttonsVisibleConstraint = buttonContainer.topAnchor.constraintEqualToAnchor(view.topAnchor, constant: 25)
-        buttonsHiddenConstraint = buttonContainer.bottomAnchor.constraintEqualToAnchor(view.topAnchor)
-        buttonsVisibleConstraint?.active = true
-        buttonContainer.leftAnchor.constraintEqualToAnchor(view.leftAnchor, constant: 25).active = true
-        buttonContainer.axis = .Vertical
-        buttonContainer.spacing = 10
-        
-        playButton.addTarget(self, action: #selector(togglePlayback), forControlEvents: .TouchUpInside)
-		playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
-        
-        saveButton.setImage(UIImage(named: "button_save"), forState: .Normal)
-        menuButton.setImage(UIImage(named: "button_menu"), forState: .Normal)
-        saveButton.addTarget(self, action: #selector(saveGrid), forControlEvents: .TouchUpInside)
-        menuButton.addTarget(self, action: #selector(openMenu), forControlEvents: .TouchUpInside)
-        
-        buttonContainer.addArrangedSubview(playButton)
-        buttonContainer.addArrangedSubview(saveButton)
-        buttonContainer.addArrangedSubview(menuButton)
-        
+
         let threeFingerTap = UITapGestureRecognizer(target: self, action: #selector(toggleButtons(_:)))
         threeFingerTap.numberOfTouchesRequired = 3
         contentView.addGestureRecognizer(threeFingerTap)
@@ -142,19 +113,19 @@ class ViewController: UIViewController {
         return "\(documentsPath)/save.json"
     }
     
-    @IBAction func saveGrid() {
-        do { try grid.save() } catch let error {
+    func saveGrid(filename: String = "grid.json") {
+        do { try grid.save(filename) } catch let error {
             print("Error saving grid",error)
         }
     }
     
-    func loadGrid() {
-        guard let g = HexagonGrid.load() else {
+    func loadGrid(filename: String = "grid.json") {
+        guard let g = HexagonGrid.load(filename) else {
             return
         }
         stop()
         grid = g
-        drawGrid(grid, animationDuration: 0.2)
+        drawGrid(grid, animationDuration: 0.1)
     }
     
     func openMenu() {
@@ -163,8 +134,13 @@ class ViewController: UIViewController {
     }
     
     func toggleButtons(gestureRecognizer: UIGestureRecognizer) {
-        buttonsVisibleConstraint?.active = !(buttonsVisibleConstraint?.active ?? false)
-        buttonsHiddenConstraint?.active = !(buttonsHiddenConstraint?.active ?? false)
+        if let constraint = buttonsVisibleConstraint where constraint.active {
+            buttonsVisibleConstraint?.active = false
+            buttonsHiddenConstraint?.active = true
+        } else if let constraint = buttonsHiddenConstraint where constraint.active {
+            buttonsHiddenConstraint?.active = false
+            buttonsVisibleConstraint?.active = true
+        }
         UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .BeginFromCurrentState, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -264,15 +240,6 @@ class ViewController: UIViewController {
         updateGrid()
     }
     
-    // MARK: Button
-    @IBAction func togglePlayback() {
-        if playing {
-            stop()
-        } else {
-            start()
-        }
-    }
-    
     private func start() {
         timer?.invalidate()
         timer = createTimer()
@@ -289,12 +256,6 @@ class ViewController: UIViewController {
         timer = nil
         playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
     }
-    
-    @IBAction func nextStep() {
-        stop()
-        drawGrid(grid, animationDuration: 0.4)
-    }
-
 }
 
 // MARK: HexagonView Delegate
@@ -335,6 +296,38 @@ extension ViewController {
                 }
             }
         }
+    }
+}
+
+extension ViewController {
+    @IBAction func togglePlayback() {
+        if playing {
+            stop()
+        } else {
+            saveGrid("undo.json")
+            start()
+        }
+    }
+    
+    @IBAction func didTapUndo(sender: UIButton) {
+        loadGrid("undo.json")
+    }
+    
+    @IBAction func didTapStep(sender: UIButton) {
+        stop()
+        updateGrid()
+    }
+    
+    @IBAction func didTapLoad(sender: UIButton) {
+        loadGrid()
+    }
+    
+    @IBAction func didTapSave(sender: UIButton) {
+        saveGrid()
+    }
+    
+    @IBAction func didTapMenu(sender: UIButton) {
+        openMenu()
     }
 }
 
