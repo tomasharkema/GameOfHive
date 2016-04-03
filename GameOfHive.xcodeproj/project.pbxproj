@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1C366C321B0D39BC001B2B53 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C366C311B0D39BC001B2B53 /* Animations.swift */; };
 		1C366C341B0D3A1B001B2B53 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C366C331B0D3A1B001B2B53 /* UIColor.swift */; };
+		1C3E32EB1CB101F4003739F0 /* EncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E32EA1CB101F4003739F0 /* EncodingTests.swift */; };
 		1CE620491B0C8E350072BBF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE620481B0C8E350072BBF9 /* AppDelegate.swift */; };
 		1CE6204B1B0C8E350072BBF9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE6204A1B0C8E350072BBF9 /* ViewController.swift */; };
 		1CE6204E1B0C8E350072BBF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CE6204C1B0C8E350072BBF9 /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		1C366C311B0D39BC001B2B53 /* Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		1C366C331B0D3A1B001B2B53 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		1C3E32EA1CB101F4003739F0 /* EncodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodingTests.swift; sourceTree = "<group>"; };
 		1CE620431B0C8E350072BBF9 /* GameOfHive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameOfHive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE620471B0C8E350072BBF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1CE620481B0C8E350072BBF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				1CE6205E1B0C8E350072BBF9 /* GameOfHiveTests.swift */,
+				1C3E32EA1CB101F4003739F0 /* EncodingTests.swift */,
 				1CE6205C1B0C8E350072BBF9 /* Supporting Files */,
 				B38DD5EA1B0CA7A60064E7E4 /* GridTests.swift */,
 			);
@@ -378,6 +381,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CE6205F1B0C8E350072BBF9 /* GameOfHiveTests.swift in Sources */,
+				1C3E32EB1CB101F4003739F0 /* EncodingTests.swift in Sources */,
 				B38DD5EB1B0CA7A60064E7E4 /* GridTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
