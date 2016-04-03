@@ -22,7 +22,6 @@ func hexagonPath(size: CGSize, lineWidth: CGFloat = 0) -> CGPath {
         //  5    3
         //	  4
         
-        let halfLineWidth = lineWidth / 2.0
         let topBottomOffset = (sqrt((3 * lineWidth * lineWidth) / 4))
         
         let p1 = CGPointMake(width / 2.0, topBottomOffset)
@@ -47,9 +46,7 @@ func hexagonPath(size: CGSize, lineWidth: CGFloat = 0) -> CGPath {
 }
 
 class HexagonView: UIView {
-    static let path: CGPathRef = {
-        return hexagonPath(cellSize, lineWidth: lineWidth)
-    }()
+    static let path: CGPathRef = hexagonPath(cellSize, lineWidth: lineWidth)
 
     static let fillColor = UIColor.lightAmberColor
     
