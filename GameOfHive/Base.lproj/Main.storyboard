@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -19,9 +20,57 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <segue destination="IvH-pj-GKi" kind="show" identifier="presentMenu" animates="NO" id="ogs-3S-5fk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="343" y="463"/>
+        </scene>
+        <!--Menu Controller-->
+        <scene sceneID="cf3-a4-dW7">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="IvH-pj-GKi" customClass="MenuController" customModule="GameOfHive" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FXe-b0-Gkg"/>
+                        <viewControllerLayoutGuide type="bottom" id="0Ip-7x-ZQj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2hG-AS-kvK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUg-en-1Jk" userLabel="DismissButton">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <action selector="dismissButtonPressed:" destination="IvH-pj-GKi" eventType="touchUpInside" id="6q1-KZ-lxv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TO-0y-wot" customClass="HiveButton" customModule="GameOfHive" customModuleProvider="target">
+                                <rect key="frame" x="200" y="200" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="VCw-ki-VgB"/>
+                                    <constraint firstAttribute="width" constant="200" id="h68-tg-OyW"/>
+                                </constraints>
+                                <state key="normal" title="Game of Hive"/>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="iUg-en-1Jk" secondAttribute="bottom" id="FGA-tJ-HtK"/>
+                            <constraint firstItem="iUg-en-1Jk" firstAttribute="top" secondItem="2hG-AS-kvK" secondAttribute="top" id="KP5-U0-hFr"/>
+                            <constraint firstItem="7TO-0y-wot" firstAttribute="centerY" secondItem="2hG-AS-kvK" secondAttribute="centerY" id="bkW-3B-mhW"/>
+                            <constraint firstAttribute="trailing" secondItem="iUg-en-1Jk" secondAttribute="trailing" id="bo4-pw-PMw"/>
+                            <constraint firstItem="7TO-0y-wot" firstAttribute="centerX" secondItem="2hG-AS-kvK" secondAttribute="centerX" id="nwd-JS-TQe"/>
+                            <constraint firstItem="iUg-en-1Jk" firstAttribute="leading" secondItem="2hG-AS-kvK" secondAttribute="leading" id="tC0-8z-xdn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="centerButton" destination="7TO-0y-wot" id="xhQ-Ad-kD4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j2e-Ug-6Us" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1029" y="463"/>
         </scene>
     </scenes>
 </document>

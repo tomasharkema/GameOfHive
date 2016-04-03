@@ -12,9 +12,7 @@ protocol HexagonViewDelegate: class {
     func userDidUpateCell(cell: HexagonView)
 }
 
-class HexagonView: UIView {
-    static let path: CGPathRef = {
-        let size = cellSize
+func hexagonPath(size: CGSize, lineWidth: CGFloat = 0) -> CGPath {
         let height = size.height
         let width = size.width
         
@@ -45,8 +43,16 @@ class HexagonView: UIView {
         CGPathAddLineToPoint(path, nil, p3.x, p3.y)
         CGPathAddLineToPoint(path, nil, p4.x, p4.y)
         CGPathAddLineToPoint(path, nil, p5.x, p5.y)
+    
         CGPathAddLineToPoint(path, nil, p6.x, p6.y)
+    CGPathCloseSubpath(path)
         return path
+}
+
+class HexagonView: UIView {
+    static let lineWidth: CGFloat = 3.0
+    static let path: CGPathRef = {
+        return hexagonPath(cellSize, lineWidth: lineWidth)
     }()
 
     static let fillColor = UIColor.lightAmberColor
@@ -68,13 +74,17 @@ class HexagonView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.alpha = HexagonView.deadAlpha
-
-//        self.backgroundColor = UIColor.init(red: (CGFloat)(arc4random()%256)/256.0, green: (CGFloat)(arc4random()%256)/256.0, blue: (CGFloat)(arc4random()%256)/256.0, alpha: 0.3)
         self.backgroundColor = UIColor.clearColor()
     }
+
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesEnded(touches, withEvent: event)
+        
+        guard let touch = touches.first where touches.count == 1 && CGPathContainsPoint(HexagonView.path, nil, touch.locationInView(self), false) else {
+        self.backgroundColor = UIColor.clearColor()
+            return
+    }
   
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
         // invert alive
         self.alive = !self.alive
         // inform delegate
