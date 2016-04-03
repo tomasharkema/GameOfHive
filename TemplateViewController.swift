@@ -27,6 +27,21 @@ class TemplateViewController: UICollectionViewController {
         dataSource.refresh()
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        print(view.frame)
+        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
+            let cellWidth = (view.frame.width - 20)/2
+            let screenBounds = UIScreen.mainScreen().bounds
+            let ratio = screenBounds.height/screenBounds.width
+            layout.itemSize = CGSize(width: cellWidth, height: cellWidth*ratio)
+            
+        }
+    }
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return dataSource.numberOfSections
     }
