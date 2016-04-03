@@ -17,7 +17,7 @@ extension UIView {
         rightAnchor.constraintEqualToAnchor(view.rightAnchor, constant: -margin).active = true
     }
     
-    func image(scaled scale: CGFloat) -> UIImage {
+    func captureScreenshot(scale scale: CGFloat) -> UIImage {
         let scaleTransform = CGAffineTransformMakeScale(scale, scale)
         let size = CGSizeApplyAffineTransform(self.bounds.size, scaleTransform)
         let rect = CGRect(origin: CGPoint.zero, size: size)

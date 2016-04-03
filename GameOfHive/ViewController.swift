@@ -135,7 +135,7 @@ class ViewController: UIViewController {
     
     func saveTemplate() {
         do {
-            let image = contentView.image(scaled: 0.1)
+            let image = contentView.captureScreenshot(scale: 0.1)
             try TemplateManager.shared.saveTemplate(grid: grid, image: image)
 
         } catch let error {
