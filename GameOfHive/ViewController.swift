@@ -82,7 +82,7 @@ class ViewController: UIViewController {
         buttonContainer.axis = .Vertical
         buttonContainer.spacing = 10
         
-        playButton.addTarget(self, action: #selector(togglePlayback(_:)), forControlEvents: .TouchUpInside)
+        playButton.addTarget(self, action: #selector(togglePlayback), forControlEvents: .TouchUpInside)
 		playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
         
         saveButton.setImage(UIImage(named: "button_save"), forState: .Normal)
