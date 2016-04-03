@@ -20,10 +20,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <stackView opaque="NO" contentMode="top" misplaced="YES" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oQx-Fh-Mjj">
+                            <stackView opaque="NO" contentMode="top" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oQx-Fh-Mjj">
                                 <rect key="frame" x="25" y="25" width="170" height="170"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="left" misplaced="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jfg-oE-Ymp">
+                                    <stackView opaque="NO" contentMode="left" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jfg-oE-Ymp">
                                         <rect key="frame" x="0.0" y="0.0" width="170" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zi-6M-1t2" userLabel="Undo">
@@ -40,7 +40,7 @@
                                                     <action selector="togglePlayback" destination="BYZ-38-t0r" eventType="touchUpInside" id="QCv-qz-bwe"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wd1-oE-3dY" userLabel="Step">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wd1-oE-3dY" userLabel="Step">
                                                 <rect key="frame" x="120" y="0.0" width="50" height="50"/>
                                                 <state key="normal" image="button_step_forward"/>
                                                 <connections>
