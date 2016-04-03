@@ -10,6 +10,11 @@
 		1C366C321B0D39BC001B2B53 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C366C311B0D39BC001B2B53 /* Animations.swift */; };
 		1C366C341B0D3A1B001B2B53 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C366C331B0D3A1B001B2B53 /* UIColor.swift */; };
 		1C3E32EB1CB101F4003739F0 /* EncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E32EA1CB101F4003739F0 /* EncodingTests.swift */; };
+		1C3E32ED1CB10FED003739F0 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E32EC1CB10FED003739F0 /* TemplateManager.swift */; };
+		1C3E32EF1CB13126003739F0 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E32EE1CB13126003739F0 /* NSDate.swift */; };
+		1C3E32F11CB13163003739F0 /* ISO8601.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E32F01CB13163003739F0 /* ISO8601.swift */; };
+		1C3E32F31CB136BD003739F0 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E32F21CB136BD003739F0 /* Persistable.swift */; };
+		1C3E32F51CB13AE4003739F0 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E32F41CB13AE4003739F0 /* Template.swift */; };
 		1CE620491B0C8E350072BBF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE620481B0C8E350072BBF9 /* AppDelegate.swift */; };
 		1CE6204B1B0C8E350072BBF9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE6204A1B0C8E350072BBF9 /* ViewController.swift */; };
 		1CE6204E1B0C8E350072BBF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CE6204C1B0C8E350072BBF9 /* Main.storyboard */; };
@@ -46,6 +51,11 @@
 		1C366C311B0D39BC001B2B53 /* Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		1C366C331B0D3A1B001B2B53 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		1C3E32EA1CB101F4003739F0 /* EncodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodingTests.swift; sourceTree = "<group>"; };
+		1C3E32EC1CB10FED003739F0 /* TemplateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateManager.swift; sourceTree = "<group>"; };
+		1C3E32EE1CB13126003739F0 /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
+		1C3E32F01CB13163003739F0 /* ISO8601.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISO8601.swift; sourceTree = "<group>"; };
+		1C3E32F21CB136BD003739F0 /* Persistable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
+		1C3E32F41CB13AE4003739F0 /* Template.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		1CE620431B0C8E350072BBF9 /* GameOfHive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameOfHive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE620471B0C8E350072BBF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1CE620481B0C8E350072BBF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +133,9 @@
 				B3938BAF1CB003C300C75813 /* Extensions */,
 				1CE620481B0C8E350072BBF9 /* AppDelegate.swift */,
 				1CE6204A1B0C8E350072BBF9 /* ViewController.swift */,
+				1C3E32EC1CB10FED003739F0 /* TemplateManager.swift */,
+				1C3E32F41CB13AE4003739F0 /* Template.swift */,
+				1C3E32F21CB136BD003739F0 /* Persistable.swift */,
 				1CE6204C1B0C8E350072BBF9 /* Main.storyboard */,
 				1CE620681B0C91CD0072BBF9 /* HexagonView.swift */,
 				1C366C331B0D3A1B001B2B53 /* UIColor.swift */,
@@ -182,6 +195,8 @@
 				B3938BB21CB003FE00C75813 /* Argo.swift */,
 				B3938BB41CB024BC00C75813 /* Foundation.swift */,
 				B3938BB61CB04C3B00C75813 /* UIView.swift */,
+				1C3E32EE1CB13126003739F0 /* NSDate.swift */,
+				1C3E32F01CB13163003739F0 /* ISO8601.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -363,7 +378,10 @@
 				1CE6204B1B0C8E350072BBF9 /* ViewController.swift in Sources */,
 				1CE620691B0C91CD0072BBF9 /* HexagonView.swift in Sources */,
 				C35B19101CB0092D003DF56C /* HiveButton.swift in Sources */,
+				1C3E32F51CB13AE4003739F0 /* Template.swift in Sources */,
 				B3938BB11CB003D200C75813 /* Dictionary.swift in Sources */,
+				1C3E32ED1CB10FED003739F0 /* TemplateManager.swift in Sources */,
+				1C3E32F31CB136BD003739F0 /* Persistable.swift in Sources */,
 				B3BD1C991B0CD3EF00331176 /* Rules.swift in Sources */,
 				C3881F921B0D4915006D9CF0 /* MenuController.swift in Sources */,
 				1CE620491B0C8E350072BBF9 /* AppDelegate.swift in Sources */,
@@ -371,6 +389,8 @@
 				B38DD5E71B0C9BB30064E7E4 /* Hexagon.swift in Sources */,
 				B3938BB71CB04C3B00C75813 /* UIView.swift in Sources */,
 				B3938BB31CB003FE00C75813 /* Argo.swift in Sources */,
+				1C3E32F11CB13163003739F0 /* ISO8601.swift in Sources */,
+				1C3E32EF1CB13126003739F0 /* NSDate.swift in Sources */,
 				1C366C321B0D39BC001B2B53 /* Animations.swift in Sources */,
 				B3938BB51CB024BC00C75813 /* Foundation.swift in Sources */,
 			);

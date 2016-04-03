@@ -13,3 +13,7 @@ let documentsDirectory: NSString = {
     let documentsDirectory = paths[0]
     return documentsDirectory
 }()
+
+let templateDirectory: NSString = documentsDirectory.stringByAppendingPathComponent("template")
+let jsonDirectory: NSString = templateDirectory.stringByAppendingPathComponent("json")
+let imageDirectory: NSString = templateDirectory.stringByAppendingPathComponent("images")
