@@ -269,10 +269,10 @@ extension MenuController {
         destination.webView.loadRequest(NSURLRequest(URL: url))
         destination.delegate = self
     case .TemplatePicker:
-        guard let destination = segue.destinationViewController as? TemplateViewController where segue.identifier == "openTemplatePicker" else {
+        guard let destination = segue.destinationViewController as? TemplateContainerController where segue.identifier == "openTemplatePicker" else {
             return
         }
-        destination.delegate = self
+        destination.templateDelegate = self
         print("preparing for template picker segue")
     }
   }

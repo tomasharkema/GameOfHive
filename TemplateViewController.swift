@@ -13,14 +13,14 @@ class TemplateCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView?
 }
 
-protocol TemplatePickerDelegate {
+protocol TemplatePickerDelegate: class {
     func didSelectTemplate(template: Template)
 }
 
 class TemplateViewController: UICollectionViewController {
     
     let dataSource = TemplateDataSource()
-    var delegate: TemplatePickerDelegate?
+    weak var delegate: TemplatePickerDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()

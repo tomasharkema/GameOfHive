@@ -143,7 +143,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
                                     <action selector="dismissButtonPressed:" destination="IvH-pj-GKi" eventType="touchUpInside" id="6q1-KZ-lxv"/>
-                                    <segue destination="sbO-54-B1j" kind="show" identifier="openTemplatePicker" id="Q64-4E-e4L"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TO-0y-wot" customClass="HiveButton" customModule="GameOfHive" customModuleProvider="target">
@@ -167,18 +166,53 @@
                     <connections>
                         <outlet property="centerButton" destination="7TO-0y-wot" id="xhQ-Ad-kD4"/>
                         <segue destination="Jzz-hA-G2L" kind="show" identifier="presentContentController" id="KoF-Uj-NMy"/>
+                        <segue destination="xqp-o6-ECW" kind="show" identifier="openTemplatePicker" id="gzh-0f-GN7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2e-Ug-6Us" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1041" y="463"/>
         </scene>
+        <!--Template Container Controller-->
+        <scene sceneID="InY-GE-JXU">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" id="xqp-o6-ECW" customClass="TemplateContainerController" customModule="GameOfHive" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GrH-zI-o9p"/>
+                        <viewControllerLayoutGuide type="bottom" id="kAE-gd-Aj8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KUo-gg-vAJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ivd-Lg-7FZ">
+                                <rect key="frame" x="120" y="0.0" width="480" height="600"/>
+                                <connections>
+                                    <segue destination="sbO-54-B1j" kind="embed" identifier="embedTemplates" id="lCI-Eu-iRF"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Ivd-Lg-7FZ" secondAttribute="trailing" id="2vZ-4H-gWj"/>
+                            <constraint firstItem="kAE-gd-Aj8" firstAttribute="top" secondItem="Ivd-Lg-7FZ" secondAttribute="bottom" id="6Nk-3f-T1H"/>
+                            <constraint firstItem="Ivd-Lg-7FZ" firstAttribute="top" secondItem="GrH-zI-o9p" secondAttribute="bottom" id="aHK-A2-gHg"/>
+                            <constraint firstItem="Ivd-Lg-7FZ" firstAttribute="leading" secondItem="KUo-gg-vAJ" secondAttribute="leading" constant="120" id="qX4-fC-npe"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="leftOffsetConstraint" destination="qX4-fC-npe" id="utA-YF-Z9i"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r1A-WF-ps2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1818" y="-240"/>
+        </scene>
         <!--Template View Controller-->
         <scene sceneID="se3-4I-oEw">
             <objects>
                 <collectionViewController modalPresentationStyle="overCurrentContext" id="sbO-54-B1j" customClass="TemplateViewController" customModule="GameOfHive" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="X7s-Zj-Vht">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ze7-q2-qXw">
                             <size key="itemSize" width="200" height="100"/>
@@ -220,7 +254,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kK6-Bt-k8j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1744" y="-386"/>
+            <point key="canvasLocation" x="2467" y="-240"/>
         </scene>
         <!--Content View Controller-->
         <scene sceneID="wWB-sX-CD2">
@@ -241,11 +275,12 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m40-6p-ioX">
-                                <rect key="frame" x="140" y="0.0" width="460" height="600"/>
+                                <rect key="frame" x="120" y="0.0" width="480" height="600"/>
                             </view>
                         </subviews>
                         <constraints>
                             <constraint firstItem="m40-6p-ioX" firstAttribute="leading" secondItem="RbE-Xt-g3z" secondAttribute="trailing" id="3lL-Jy-TAw"/>
+                            <constraint firstItem="m40-6p-ioX" firstAttribute="leading" secondItem="iek-OP-kvj" secondAttribute="leading" constant="120" id="8p4-wp-Tfq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="m40-6p-ioX" secondAttribute="trailing" id="AtJ-uQ-RaP"/>
                             <constraint firstItem="RbE-Xt-g3z" firstAttribute="leading" secondItem="iek-OP-kvj" secondAttribute="leading" id="Cdq-Tp-BzB"/>
                             <constraint firstAttribute="trailing" secondItem="RbE-Xt-g3z" secondAttribute="trailing" id="DvU-Zb-5yD"/>
@@ -260,6 +295,7 @@
                             <mask key="constraints">
                                 <exclude reference="3lL-Jy-TAw"/>
                                 <exclude reference="AtJ-uQ-RaP"/>
+                                <exclude reference="YqW-4E-nZi"/>
                             </mask>
                         </variation>
                     </view>
@@ -269,7 +305,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cq0-yp-p1o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1702" y="463"/>
+            <point key="canvasLocation" x="1818" y="463"/>
         </scene>
     </scenes>
     <resources>
