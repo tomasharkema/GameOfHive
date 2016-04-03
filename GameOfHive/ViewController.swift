@@ -44,12 +44,8 @@ class ViewController: UIViewController {
     
     let messageOverlay = UIControl()
     let messageHUD = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
-    
+
     // MARK: UIViewController
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -122,6 +118,9 @@ class ViewController: UIViewController {
         messageView.text = "Tap with three fingers to show and hide the menu"
         messageView.font = UIFont(name: "Raleway-Medium", size: 20)
         messageView.textColor = UIColor.lightAmberColor
+
+        let drawingGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didDrawWithFinger))
+        view.addGestureRecognizer(drawingGestureRecognizer)
     }
     
     override func viewDidLayoutSubviews() {
@@ -293,6 +292,14 @@ class ViewController: UIViewController {
     @IBAction func nextStep() {
         stop()
         drawGrid(grid, animationDuration: 0.4)
+    }
+
+    func didDrawWithFinger(recognizer: UIPanGestureRecognizer) {
+        guard let cellView = view.hitTest(recognizer.locationInView(view), withEvent: nil) as? HexagonView else {
+            return
+        }
+        cellView.alive = true
+        userDidUpateCell(cellView)
     }
 
 }
