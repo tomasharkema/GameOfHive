@@ -32,10 +32,7 @@ func hexagonPath(size: CGSize, lineWidth: CGFloat = 0) -> CGPath {
         let p5 = CGPointMake(lineWidth / 2, p3.y)
         let p6 = CGPointMake(p5.x, p2.y)
         
-        
-        let s = height / 2.0
-        let a = (height - s) / 2.0
-        
+    
         
         let path = CGPathCreateMutable()
         CGPathMoveToPoint(path, nil, p1.x, p1.y)
@@ -50,7 +47,6 @@ func hexagonPath(size: CGSize, lineWidth: CGFloat = 0) -> CGPath {
 }
 
 class HexagonView: UIView {
-    static let lineWidth: CGFloat = 3.0
     static let path: CGPathRef = {
         return hexagonPath(cellSize, lineWidth: lineWidth)
     }()
