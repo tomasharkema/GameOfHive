@@ -17,7 +17,7 @@ enum HiveButtonStyle: CGFloat {
 class HiveButton: UIButton {
 
     // MARK: Lifecycle
-    let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+    let backgroundView = UIView()
     
     var style: HiveButtonStyle = .Big {
         didSet {
@@ -56,6 +56,7 @@ class HiveButton: UIButton {
 
         insertSubview(backgroundView, belowSubview: titleLabel!)
         backgroundView.constrainToView(self, margin: 0)
+        backgroundView.backgroundColor = UIColor.backgroundColor
         backgroundView.userInteractionEnabled = false
     }
 

@@ -183,7 +183,7 @@ class ViewController: UIViewController {
             clearButtonHiddenConstraint?.active = false
             clearButtonVisibleConstraint?.active = true
         }
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .BeginFromCurrentState, animations: {
+        UIView.animateWithDuration(0.45, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .BeginFromCurrentState, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
@@ -286,6 +286,11 @@ class ViewController: UIViewController {
     }
     
     private func start() {
+        
+        cells.forEach { cell in
+            cell.userInteractionEnabled = false
+        }
+
         timer?.invalidate()
         timer = createTimer()
         timer.fire()
@@ -295,6 +300,10 @@ class ViewController: UIViewController {
     private func stop() {
         guard playing else {
             return
+        }
+        
+        cells.forEach { cell in
+            cell.userInteractionEnabled = true
         }
         
         timer?.invalidate()

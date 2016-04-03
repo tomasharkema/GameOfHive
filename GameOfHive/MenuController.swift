@@ -182,7 +182,7 @@ class MenuController: UIViewController {
 
         UIView.animateWithDuration(0.4) {
             self.view.backgroundColor = UIColor.backgroundColor
-                .colorWithAlphaComponent(pressedState == MenuPressedState.Show ? 0.6 : 0)
+                .colorWithAlphaComponent(pressedState == MenuPressedState.Show ? 0.75 : 0)
         }
     }
     
