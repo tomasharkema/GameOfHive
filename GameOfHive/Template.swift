@@ -49,13 +49,15 @@ extension Template: Decodable {
         return curriedInit  <^> json <| "identifier"
             <*> json <| "title"
             <*> json <| "date"
-            <*> json <| "jsonPath"
-            <*> json <| "imagePath"
+            <*> (json <| "gridPath").map(documentsDirectory.stringByAppendingPathComponent)
+            <*> (json <| "imagePath").map(documentsDirectory.stringByAppendingPathComponent)
     }
 }
 
 extension Template: Encodable {
     func encode() -> JSON {
-        return ["identifier":identifier, "title":title, "date":date, "jsonPath":gridPath, "imagePath":imagePath]
+        let relativeGridPath = gridPath.stringByReplacingOccurrencesOfString(documentsDirectory as String, withString: "")
+        let relativeImagePath = imagePath.stringByReplacingOccurrencesOfString(documentsDirectory as String, withString: "")        
+        return ["identifier":identifier, "title":title, "date":date, "gridPath":relativeGridPath, "imagePath":relativeImagePath]
     }
 }
