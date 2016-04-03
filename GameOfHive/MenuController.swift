@@ -29,23 +29,31 @@ class MenuController: UIViewController {
         return true
     }
 
-    func addButtons() {
+    let height: CGFloat = 200
+    let offset: CGFloat = 4
 
-        let height: CGFloat = 200
-        let offset: CGFloat = 4
-
+    var initialPoint: CGPoint {
         // calculate initial degrees for offset
         let initial_x = ((height / 2.0) * sqrt(3.0) / 2.0) + (pow(offset, 2) / 2.0)
         let initial_y = (height / 2.0) + (pow(offset, 2) / 2.0)
-        let distance = sqrt(pow(initial_x, 2) + pow(initial_y, 2))
+        return CGPoint(x: initial_x, y: initial_y)
+    }
 
-        let degrees = atan(initial_x / initial_y) * (180 / CGFloat(M_PI))
+    var degrees: CGFloat {
+        return atan(initialPoint.x / initialPoint.y) * (180 / CGFloat(M_PI))
+    }
 
-        func pointForDegrees(offset: CGFloat, degrees: CGFloat) -> CGPoint {
-            let xOff = offset * cos(degrees * (CGFloat(M_PI) / 180))
-            let yOff = offset * sin(degrees * (CGFloat(M_PI) / 180))
-            return CGPoint(x: xOff, y: yOff)
-        }
+    var distance: CGFloat {
+        return sqrt(pow(initialPoint.x, 2) + pow(initialPoint.y, 2))
+    }
+
+    func pointForDegrees(offset: CGFloat, degrees: CGFloat) -> CGPoint {
+        let xOff = offset * cos(degrees * (CGFloat(M_PI) / 180))
+        let yOff = offset * sin(degrees * (CGFloat(M_PI) / 180))
+        return CGPoint(x: xOff, y: yOff)
+    }
+
+    func addButtons() {
 
         let buttonNames = ["About", "Credits", "Video", "Templates", "Dingen", "Foo"]
 
@@ -87,21 +95,43 @@ class MenuController: UIViewController {
     case .Show:
         self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0)
         centerButton.transform = CGAffineTransformScale(CGAffineTransformMakeRotation(CGFloat(M_PI / 2)), CGFloat.min, CGFloat.min)
-        self.buttons.forEach { $0.transform = CGAffineTransformScale(CGAffineTransformMakeRotation(CGFloat(M_PI / 2)), CGFloat.min, CGFloat.min) }
+        self.buttons.enumerate().forEach { (idx, button) in
+
+            let tx = self.view.center.x - button.center.x
+            let ty = self.view.center.y - button.center.y
+
+            let rotation = CGAffineTransformMakeRotation(CGFloat(M_PI / 2))
+            let translate = CGAffineTransformMakeTranslation(tx, ty)
+            let transform = CGAffineTransformConcat(rotation, translate)
+            button.transform = transform
+        }
     case .Hide:
         centerButton.transform = CGAffineTransformIdentity
         self.buttons.forEach { $0.transform = CGAffineTransformIdentity }
     }
 
-    UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: .CurveEaseIn, animations: {
+    let options: UIViewAnimationOptions = (pressedState == MenuPressedState.Show) ? .CurveEaseIn : .CurveEaseOut
+
+    UIView.animateWithDuration(1.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: options, animations: {
         switch pressedState {
         case .Show:
             self.centerButton.transform = CGAffineTransformIdentity
             self.buttons.forEach { $0.transform = CGAffineTransformIdentity }
 
         case .Hide:
-            self.centerButton.transform = CGAffineTransformMakeScale(0.01, 0.01)
-            self.buttons.forEach { $0.transform = CGAffineTransformMakeScale(0.01, 0.01) }
+            self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0)
+            self.centerButton.transform = CGAffineTransformScale(CGAffineTransformMakeRotation(CGFloat(M_PI / 2)), CGFloat.min, CGFloat.min)
+            self.buttons.enumerate().forEach { (idx, button) in
+
+                let tx = self.view.center.x - button.center.x
+                let ty = self.view.center.y - button.center.y
+
+                let rotation = CGAffineTransformMakeRotation(CGFloat(M_PI / 2))
+                let translate = CGAffineTransformMakeTranslation(tx, ty)
+                let transform = CGAffineTransformConcat(rotation, translate)
+                let scale = CGAffineTransformConcat(CGAffineTransformMakeScale(0.0001, 0.0001), transform)
+                button.transform = scale
+            }
         }
 
         self.view.setNeedsDisplay()
