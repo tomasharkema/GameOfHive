@@ -214,8 +214,13 @@ class MenuController: UIViewController {
 
 //MARK: Menu Button Handling
 
-extension MenuController: ContentDelegate {
-    func contentWillClose(menu: ContentViewController) {
+protocol SubMenuDelegate: class {
+    func contentWillClose(openedViewController: UIViewController)
+}
+
+
+extension MenuController: SubMenuDelegate {
+    func contentWillClose(openedViewController: UIViewController) {
         UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseOut], animations: {
             self.openedHive?.transform = CGAffineTransformIdentity
             }, completion: nil)

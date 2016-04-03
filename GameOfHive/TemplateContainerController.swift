@@ -11,6 +11,7 @@ import UIKit
 class TemplateContainerController: UIViewController {
     @IBOutlet weak var leftOffsetConstraint: NSLayoutConstraint!
 
+    
     weak var templateDelegate: TemplatePickerDelegate?
     var leftOffset: CGFloat = 120
     
@@ -18,6 +19,11 @@ class TemplateContainerController: UIViewController {
         return true
     }
 
+    @IBAction func dismissButtonPressed(sender: UIButton) {
+        templateDelegate?.contentWillClose(self)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 

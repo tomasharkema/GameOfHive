@@ -9,9 +9,6 @@
 import UIKit
 import WebKit
 
-protocol ContentDelegate: class {
-    func contentWillClose(menu: ContentViewController)
-}
 
 class ContentViewController: UIViewController {
     @IBOutlet weak var webViewContainer: UIView!
@@ -20,7 +17,7 @@ class ContentViewController: UIViewController {
 
     let webView = WKWebView()
 
-    weak var delegate: ContentDelegate?
+    weak var delegate: SubMenuDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()

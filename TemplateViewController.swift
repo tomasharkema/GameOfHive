@@ -13,7 +13,7 @@ class TemplateCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView?
 }
 
-protocol TemplatePickerDelegate: class {
+protocol TemplatePickerDelegate: class, SubMenuDelegate  {
     func didSelectTemplate(template: Template)
 }
 
