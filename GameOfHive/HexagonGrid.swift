@@ -38,8 +38,21 @@ public struct HexagonGrid {
         self.init(grid: grid)
     }
     
+    func wrap(value: Int, max: Int) -> Int {
+        if value < 0 {
+            return value + max
+        }
+        if max <= value {
+            return value - max
+        }
+        return value
+    }
+    
     public func hexagon(atLocation location: Coordinate) -> Hexagon? {
-        return grid[location.row]?[location.column]
+        let wrappedRow = wrap(location.row, max: rows)
+        let wrappedColumn = wrap(location.column, max: columns)
+        let wrappedLocation = Coordinate(row: wrappedRow, column: wrappedColumn)
+        return grid[wrappedLocation.row]?[wrappedLocation.column]
     }
     
     func activeNeigbors(cell: Hexagon) -> Int {
@@ -86,6 +99,19 @@ public struct HexagonGrid {
         return HexagonGrid(grid: nextIteration)
         
     }
+    
+    private func rowString(index rowIndex: Int) -> String {
+        var rowString: String = ""
+        for columnIndex in 0..<columns {
+            if let hex = self.grid[rowIndex]?[columnIndex] {
+                rowString += hex.active ? "1" : "0"
+            } else {
+                assertionFailure("Error encoding grid")
+                rowString += "x"
+            }
+        }
+        return rowString
+    }
 }
 
 extension HexagonGrid: CustomStringConvertible {
@@ -118,22 +144,31 @@ extension HexagonGrid: SequenceType {
 extension HexagonGrid: Encodable {
     public func encode() -> JSON {
         var data: [JSON] = []
+        
         for rowIndex in 0..<rows {
-            var rowString: String = ""
-            for columnIndex in 0..<columns {
-                if let hex = self.grid[rowIndex]?[columnIndex] {
-                    rowString += hex.active ? "1" : "0"
-                } else {
-                    assertionFailure("Error encoding grid")
-                    rowString += "x"
-                }
-            }
+            let rowString = self.rowString(index: rowIndex)
             data.append(.String(rowString))
         }
+        
         let size: JSON = ["rows":rows,"columns":columns]
         let grid: JSON = ["data":data,"size":size]
         return ["grid":grid]
     }
+}
+
+extension HexagonGrid: Hashable {
+    public var hashValue: Int {
+        var hashValue: Int = 0
+        for rowIndex in 0..<rows {
+            hashValue ^= self.rowString(index: rowIndex).hashValue
+        }
+        
+        return hashValue
+    }
+}
+
+public func == (lhs: HexagonGrid, rhs: HexagonGrid) -> Bool {
+    return lhs.hashValue == rhs.hashValue
 }
 
 extension HexagonGrid: Decodable {
@@ -202,7 +237,8 @@ func initialGrid(rows: Int, columns: Int, gridType: GridType) -> [Int: HexagonRo
 
 
 func gridFromViewDimensions(gridSize: CGSize, cellSize: CGSize, gridType: GridType = .Empty) -> HexagonGrid {
-    let colums = Int(ceil(gridSize.width / cellSize.width))
-    let rows = Int(ceil((gridSize.height / cellSize.height) * 1.5))    
+    let colums = Int(ceil(gridSize.width / cellSize.width)) + 1
+    let rows = Int(ceil(gridSize.height / ((3 * cellSize.height) / 4))) + 1
+    
     return HexagonGrid(rows: rows, columns: colums, initialGridType: gridType)
 }
