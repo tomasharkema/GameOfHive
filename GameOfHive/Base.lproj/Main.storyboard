@@ -302,13 +302,12 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="m40-6p-ioX" firstAttribute="leading" secondItem="RbE-Xt-g3z" secondAttribute="trailing" id="3lL-Jy-TAw"/>
-                            <constraint firstItem="m40-6p-ioX" firstAttribute="leading" secondItem="iek-OP-kvj" secondAttribute="leading" constant="120" id="8p4-wp-Tfq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="m40-6p-ioX" secondAttribute="trailing" id="AtJ-uQ-RaP"/>
                             <constraint firstItem="RbE-Xt-g3z" firstAttribute="leading" secondItem="iek-OP-kvj" secondAttribute="leading" id="Cdq-Tp-BzB"/>
                             <constraint firstAttribute="trailing" secondItem="RbE-Xt-g3z" secondAttribute="trailing" id="DvU-Zb-5yD"/>
                             <constraint firstItem="RbE-Xt-g3z" firstAttribute="top" secondItem="pAu-Qu-KmA" secondAttribute="bottom" id="Ng1-41-Tw8"/>
                             <constraint firstItem="mDI-Zv-aNT" firstAttribute="top" secondItem="RbE-Xt-g3z" secondAttribute="bottom" id="YCo-wL-7WQ"/>
-                            <constraint firstItem="m40-6p-ioX" firstAttribute="leading" secondItem="iek-OP-kvj" secondAttribute="leadingMargin" constant="120" id="YqW-4E-nZi"/>
+                            <constraint firstItem="m40-6p-ioX" firstAttribute="leading" secondItem="iek-OP-kvj" secondAttribute="leading" constant="120" id="YqW-4E-nZi"/>
                             <constraint firstAttribute="bottomMargin" secondItem="m40-6p-ioX" secondAttribute="bottom" id="f9C-95-Hhd"/>
                             <constraint firstAttribute="trailing" secondItem="m40-6p-ioX" secondAttribute="trailing" id="gcH-fe-QLq"/>
                             <constraint firstItem="m40-6p-ioX" firstAttribute="top" secondItem="iek-OP-kvj" secondAttribute="topMargin" id="pZZ-5b-Fax"/>
@@ -317,7 +316,6 @@
                             <mask key="constraints">
                                 <exclude reference="3lL-Jy-TAw"/>
                                 <exclude reference="AtJ-uQ-RaP"/>
-                                <exclude reference="YqW-4E-nZi"/>
                             </mask>
                         </variation>
                     </view>

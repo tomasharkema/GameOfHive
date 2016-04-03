@@ -142,7 +142,6 @@
 				1CE620481B0C8E350072BBF9 /* AppDelegate.swift */,
 				1CE6204A1B0C8E350072BBF9 /* ViewController.swift */,
 				1C3E32EC1CB10FED003739F0 /* TemplateManager.swift */,
-				1C3E32F81CB152C0003739F0 /* TemplateViewController.swift */,
 				1C3E32F61CB14CEF003739F0 /* TemplateDataSource.swift */,
 				1C3E32F41CB13AE4003739F0 /* Template.swift */,
 				1C3E32F21CB136BD003739F0 /* Persistable.swift */,
@@ -218,6 +217,7 @@
 				C35B190F1CB0092D003DF56C /* HiveButton.swift */,
 				C35B19131CB13E5A003DF56C /* ContentController.swift */,
 				C35B19151CB16862003DF56C /* TemplateContainerController.swift */,
+				1C3E32F81CB152C0003739F0 /* TemplateViewController.swift */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
