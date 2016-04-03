@@ -89,7 +89,7 @@ class ViewController: UIViewController {
         messageView.adjustsFontSizeToFitWidth = true
         messageView.textAlignment = .Center
         messageView.constrainToView(messageHUD, margin: 20)
-        messageView.text = "Tap with three fingers to show and hide the menu"
+        messageView.text = "Tap with three fingers to show and hide the controls"
         messageView.font = UIFont(name: "Raleway-Medium", size: 20)
         messageView.textColor = UIColor.lightAmberColor
 
