@@ -46,15 +46,6 @@ class HiveButton: UIButton {
         }
     }
 
-    override var highlighted: Bool {
-        didSet {
-//            UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: .CurveEaseOut, animations: {
-//                let scale: CGFloat = self.highlighted ? 0.8 : 1.0
-//                self.transform = CGAffineTransformMakeScale(scale, scale)
-//            }, completion: nil)
-        }
-    }
-
     private func initialize() {
         setNeedsLayout()
         layoutIfNeeded()
