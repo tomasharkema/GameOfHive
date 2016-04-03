@@ -110,9 +110,7 @@ class MenuController: UIViewController {
         self.buttons.forEach { $0.transform = CGAffineTransformIdentity }
     }
 
-    let options: UIViewAnimationOptions = (pressedState == MenuPressedState.Show) ? .CurveEaseIn : .CurveEaseOut
-
-    UIView.animateWithDuration(1.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: options, animations: {
+    let animations = {
         switch pressedState {
         case .Show:
             self.centerButton.transform = CGAffineTransformIdentity
@@ -120,7 +118,7 @@ class MenuController: UIViewController {
 
         case .Hide:
             self.view.backgroundColor = UIColor.backgroundColor.colorWithAlphaComponent(0)
-            self.centerButton.transform = CGAffineTransformScale(CGAffineTransformMakeRotation(CGFloat(M_PI / 2)), CGFloat.min, CGFloat.min)
+            self.centerButton.transform = CGAffineTransformScale(CGAffineTransformMakeRotation(CGFloat(M_PI / 2)), 0.01, 0.01)
             self.buttons.enumerate().forEach { (idx, button) in
 
                 let tx = self.view.center.x - button.center.x
@@ -133,9 +131,17 @@ class MenuController: UIViewController {
                 button.transform = scale
             }
         }
-
+        
         self.view.setNeedsDisplay()
-    }, completion: completion)
+    }
+
+    switch pressedState {
+    case .Show:
+        UIView.animateWithDuration(1.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: .CurveEaseIn, animations: animations, completion: completion)
+
+    case .Hide:
+        UIView.animateWithDuration(0.4, delay: 0, options: .CurveEaseIn, animations: animations, completion: completion)
+    }
   }
 
     func animateIn() {
