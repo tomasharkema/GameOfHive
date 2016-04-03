@@ -88,14 +88,6 @@ class MenuController: UIViewController {
         self.buttons = buttons
     }
 
-  func showMenu() {
-    animateMenuState(.Show)
-  }
-
-  func hideMenu() {
-    animateMenuState(.Hide)
-  }
-
   private func animateMenuState(pressedState: MenuPressedState, completion: (Bool -> ())? = nil) {
     switch pressedState {
     case .Show:
