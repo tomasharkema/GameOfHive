@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <stackView opaque="NO" contentMode="top" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oQx-Fh-Mjj">
+                            <stackView opaque="NO" contentMode="top" misplaced="YES" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oQx-Fh-Mjj">
                                 <rect key="frame" x="25" y="25" width="170" height="170"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="left" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jfg-oE-Ymp">
@@ -82,9 +82,12 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="leW-L6-NR1">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="leW-L6-NR1">
                                 <rect key="frame" x="525" y="25" width="50" height="50"/>
                                 <state key="normal" image="button_clear"/>
+                                <connections>
+                                    <action selector="didTapClearButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wRT-yb-2eN"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.090196078430000007" green="0.090196078430000007" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
@@ -102,8 +105,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="bYM-7Y-X5l"/>
-                                <exclude reference="qBg-ky-LHV"/>
+                                <exclude reference="g1q-C6-N3H"/>
+                                <exclude reference="KVK-ya-5kX"/>
                             </mask>
                         </variation>
                     </view>
@@ -112,6 +115,8 @@
                     <connections>
                         <outlet property="buttonsHiddenConstraint" destination="bYM-7Y-X5l" id="bV6-1F-QVY"/>
                         <outlet property="buttonsVisibleConstraint" destination="g1q-C6-N3H" id="yEe-Eg-BuD"/>
+                        <outlet property="clearButtonHiddenConstraint" destination="qBg-ky-LHV" id="Zp6-3t-sfg"/>
+                        <outlet property="clearButtonVisibleConstraint" destination="KVK-ya-5kX" id="yrG-Zf-f4b"/>
                         <outlet property="contentView" destination="WOB-QO-Nq2" id="DPM-ew-Did"/>
                         <outlet property="playButton" destination="cqI-hT-H0A" id="qlw-ND-84d"/>
                         <segue destination="IvH-pj-GKi" kind="show" identifier="presentMenu" animates="NO" id="ogs-3S-5fk"/>

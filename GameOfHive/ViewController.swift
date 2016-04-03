@@ -34,6 +34,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var buttonsVisibleConstraint: NSLayoutConstraint?
     @IBOutlet weak var buttonsHiddenConstraint: NSLayoutConstraint?
+    @IBOutlet weak var clearButtonHiddenConstraint: NSLayoutConstraint?
+    @IBOutlet weak var clearButtonVisibleConstraint: NSLayoutConstraint?
 
     var playing: Bool {
         return timer != nil
@@ -139,9 +141,13 @@ class ViewController: UIViewController {
         if let constraint = buttonsVisibleConstraint where constraint.active {
             buttonsVisibleConstraint?.active = false
             buttonsHiddenConstraint?.active = true
+            clearButtonVisibleConstraint?.active = false
+            clearButtonHiddenConstraint?.active = true
         } else if let constraint = buttonsHiddenConstraint where constraint.active {
             buttonsHiddenConstraint?.active = false
             buttonsVisibleConstraint?.active = true
+            clearButtonHiddenConstraint?.active = false
+            clearButtonVisibleConstraint?.active = true
         }
         UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .BeginFromCurrentState, animations: {
             self.view.layoutIfNeeded()
@@ -261,6 +267,17 @@ class ViewController: UIViewController {
         timer = nil
         playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
     }
+    
+    private func clear() {
+        stop()
+        dispatch_async(gridQueue) {
+            let grid = gridFromViewDimensions(self.view.bounds.size, cellSize: cellSize, gridType: .Empty)
+            self.grid = grid
+            dispatch_async(dispatch_get_main_queue()) {
+                self.drawGrid(grid)
+            }
+        }
+    }
 
     func didDrawWithFinger(recognizer: UIPanGestureRecognizer) {
         guard let cellView = view.hitTest(recognizer.locationInView(view), withEvent: nil) as? HexagonView else {
@@ -300,16 +317,18 @@ extension ViewController {
     }
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        if motion == .MotionShake {
-            stop()
-            dispatch_async(gridQueue) {
-                let grid = gridFromViewDimensions(self.view.bounds.size, cellSize: cellSize, gridType: .Empty)
-                self.grid = grid
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.drawGrid(grid)
-                }
-            }
+        guard motion == .MotionShake else {
+            return
         }
+        
+        clear()
+    }
+}
+
+extension ViewController: MenuDelegate {
+    func menuWillClose(menu: MenuController) {
+        toggleButtons(nil)
+        menu.delegate = nil
     }
 }
 
@@ -342,6 +361,10 @@ extension ViewController {
     
     @IBAction func didTapMenu(sender: UIButton) {
         openMenu()
+    }
+    
+    @IBAction func didTapClearButton(sender: UIButton) {
+        clear()
     }
 }
 
