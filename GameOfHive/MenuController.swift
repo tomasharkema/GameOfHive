@@ -35,10 +35,10 @@ class MenuController: UIViewController {
     private let buttonModels = [
         MenuItemModel(
             title: "About",
-            content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/")!)),
+            content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/about.html")!)),
         MenuItemModel(
             title: "Credits",
-            content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/")!)),
+            content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/credits.html")!)),
         MenuItemModel(
             title: "Templates",
             content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/")!)),
@@ -47,10 +47,10 @@ class MenuController: UIViewController {
             content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/")!)),
         MenuItemModel(
             title: "Donate",
-            content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/")!)),
+            content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/donate.html")!)),
         MenuItemModel(
             title: "Video",
-            content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/")!))]
+            content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/video.html")!))]
 
 
     private var buttons = [HiveButton]()
@@ -62,7 +62,7 @@ class MenuController: UIViewController {
 
         // because, you know, constraints...
         height = centerButton.bounds.height
-        
+
         addButtons()
         animateIn()
     }
