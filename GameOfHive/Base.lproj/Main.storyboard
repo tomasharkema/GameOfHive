@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -164,11 +165,61 @@
                     </view>
                     <connections>
                         <outlet property="centerButton" destination="7TO-0y-wot" id="xhQ-Ad-kD4"/>
+                        <segue destination="Jzz-hA-G2L" kind="show" identifier="presentContentController" id="KoF-Uj-NMy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2e-Ug-6Us" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1029" y="463"/>
+        </scene>
+        <!--Content View Controller-->
+        <scene sceneID="wWB-sX-CD2">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" id="Jzz-hA-G2L" customClass="ContentViewController" customModule="GameOfHive" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pAu-Qu-KmA"/>
+                        <viewControllerLayoutGuide type="bottom" id="mDI-Zv-aNT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iek-OP-kvj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RbE-Xt-g3z" userLabel="Dismiss Button">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <action selector="dismissButtonPressed:" destination="Jzz-hA-G2L" eventType="touchUpInside" id="7Rj-n4-LjU"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m40-6p-ioX">
+                                <rect key="frame" x="140" y="0.0" width="460" height="600"/>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="m40-6p-ioX" firstAttribute="leading" secondItem="RbE-Xt-g3z" secondAttribute="trailing" id="3lL-Jy-TAw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="m40-6p-ioX" secondAttribute="trailing" id="AtJ-uQ-RaP"/>
+                            <constraint firstItem="RbE-Xt-g3z" firstAttribute="leading" secondItem="iek-OP-kvj" secondAttribute="leading" id="Cdq-Tp-BzB"/>
+                            <constraint firstAttribute="trailing" secondItem="RbE-Xt-g3z" secondAttribute="trailing" id="DvU-Zb-5yD"/>
+                            <constraint firstItem="RbE-Xt-g3z" firstAttribute="top" secondItem="pAu-Qu-KmA" secondAttribute="bottom" id="Ng1-41-Tw8"/>
+                            <constraint firstItem="mDI-Zv-aNT" firstAttribute="top" secondItem="RbE-Xt-g3z" secondAttribute="bottom" id="YCo-wL-7WQ"/>
+                            <constraint firstItem="m40-6p-ioX" firstAttribute="leading" secondItem="iek-OP-kvj" secondAttribute="leadingMargin" constant="120" id="YqW-4E-nZi"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="m40-6p-ioX" secondAttribute="bottom" id="f9C-95-Hhd"/>
+                            <constraint firstAttribute="trailing" secondItem="m40-6p-ioX" secondAttribute="trailing" id="gcH-fe-QLq"/>
+                            <constraint firstItem="m40-6p-ioX" firstAttribute="top" secondItem="iek-OP-kvj" secondAttribute="topMargin" id="pZZ-5b-Fax"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="3lL-Jy-TAw"/>
+                                <exclude reference="AtJ-uQ-RaP"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="webViewContainer" destination="m40-6p-ioX" id="0Ze-TQ-srh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cq0-yp-p1o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1702" y="463"/>
         </scene>
     </scenes>
     <resources>
