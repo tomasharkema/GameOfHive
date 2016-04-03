@@ -8,11 +8,22 @@
 
 import UIKit
 
+enum HiveButtonStyle: CGFloat {
+    case Big = 20
+    case Small = 14
+}
+
 @IBDesignable
 class HiveButton: UIButton {
 
     // MARK: Lifecycle
     let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+    
+    var style: HiveButtonStyle = .Big {
+        didSet {
+            titleLabel?.font = UIFont(name: "Raleway-Medium", size: style.rawValue)
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,10 +48,10 @@ class HiveButton: UIButton {
 
     override var highlighted: Bool {
         didSet {
-            UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: .CurveEaseOut, animations: {
-                let scale: CGFloat = self.highlighted ? 0.8 : 1.0
-                self.transform = CGAffineTransformMakeScale(scale, scale)
-            }, completion: nil)
+//            UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: .CurveEaseOut, animations: {
+//                let scale: CGFloat = self.highlighted ? 0.8 : 1.0
+//                self.transform = CGAffineTransformMakeScale(scale, scale)
+//            }, completion: nil)
         }
     }
 
@@ -48,7 +59,7 @@ class HiveButton: UIButton {
         setNeedsLayout()
         layoutIfNeeded()
 
-        titleLabel?.font = UIFont(name: "Raleway-Medium", size: 14)
+        titleLabel?.font = UIFont(name: "Raleway-Medium", size: style.rawValue)
         setTitleColor(UIColor.darkAmberColor, forState: .Normal)
         tintColor = UIColor.darkAmberColor
 
@@ -62,7 +73,7 @@ class HiveButton: UIButton {
         let borderLayer = CAShapeLayer()
         borderLayer.path = maskLayer.path
         borderLayer.strokeColor = UIColor.darkAmberColor.CGColor
-        borderLayer.lineWidth = 5
+        borderLayer.lineWidth = style == HiveButtonStyle.Big ? 5 : 2
         borderLayer.fillColor = UIColor.clearColor().CGColor
         backgroundView.layer.mask = maskLayer
         backgroundView.layer.addSublayer(borderLayer)

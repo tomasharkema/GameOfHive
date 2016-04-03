@@ -29,6 +29,7 @@
 		B3BD1C991B0CD3EF00331176 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BD1C981B0CD3EF00331176 /* Rules.swift */; };
 		C35B19101CB0092D003DF56C /* HiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B190F1CB0092D003DF56C /* HiveButton.swift */; };
 		C35B19121CB06ACF003DF56C /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C35B19111CB06ACF003DF56C /* Raleway-Medium.ttf */; };
+		C35B19141CB13E5A003DF56C /* ContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B19131CB13E5A003DF56C /* ContentController.swift */; };
 		C3881F921B0D4915006D9CF0 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3881F911B0D4915006D9CF0 /* MenuController.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		B3BD1C981B0CD3EF00331176 /* Rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 		C35B190F1CB0092D003DF56C /* HiveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HiveButton.swift; sourceTree = "<group>"; };
 		C35B19111CB06ACF003DF56C /* Raleway-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium.ttf"; sourceTree = "<group>"; };
+		C35B19131CB13E5A003DF56C /* ContentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentController.swift; sourceTree = "<group>"; };
 		C3881F911B0D4915006D9CF0 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		CF2FA7DC67DF597D0AD3E8B0 /* Pods_GameOfHive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameOfHive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -191,6 +193,7 @@
 			children = (
 				C3881F911B0D4915006D9CF0 /* MenuController.swift */,
 				C35B190F1CB0092D003DF56C /* HiveButton.swift */,
+				C35B19131CB13E5A003DF56C /* ContentController.swift */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B38DD5E91B0CA52D0064E7E4 /* HexagonGrid.swift in Sources */,
+				C35B19141CB13E5A003DF56C /* ContentController.swift in Sources */,
 				B399C6D11CB0029F002C57A4 /* Encodable.swift in Sources */,
 				1CE6204B1B0C8E350072BBF9 /* ViewController.swift in Sources */,
 				1CE620691B0C91CD0072BBF9 /* HexagonView.swift in Sources */,
