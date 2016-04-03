@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
@@ -16,11 +15,97 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WOB-QO-Nq2">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="top" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oQx-Fh-Mjj">
+                                <rect key="frame" x="25" y="25" width="152" height="170"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="left" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jfg-oE-Ymp">
+                                        <rect key="frame" x="0.0" y="0.0" width="152" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zi-6M-1t2" userLabel="Undo">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <state key="normal" image="button_undo"/>
+                                                <connections>
+                                                    <action selector="didTapUndo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gAZ-L6-v5q"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cqI-hT-H0A" userLabel="Play">
+                                                <rect key="frame" x="60" y="0.0" width="50" height="50"/>
+                                                <state key="normal" image="button_play"/>
+                                                <connections>
+                                                    <action selector="didTapPlay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qtn-5C-wrO"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wd1-oE-3dY" userLabel="Step">
+                                                <rect key="frame" x="120" y="0.0" width="32" height="50"/>
+                                                <state key="normal" title="Step"/>
+                                                <connections>
+                                                    <action selector="didTapStep:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2QU-dn-dhG"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="left" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pyg-bP-cBA">
+                                        <rect key="frame" x="0.0" y="60" width="110" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wS-al-75T" userLabel="Save">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <state key="normal" image="button_save"/>
+                                                <connections>
+                                                    <action selector="didTapSave:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VJ9-ZK-g7W"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0EC-13-CWz" userLabel="Load">
+                                                <rect key="frame" x="60" y="0.0" width="50" height="50"/>
+                                                <state key="normal" image="button_load"/>
+                                                <connections>
+                                                    <action selector="didTapLoad:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1B7-qQ-8pG"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="left" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="2Jd-hi-vll">
+                                        <rect key="frame" x="0.0" y="120" width="50" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k3g-vA-YgY">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <state key="normal" image="button_menu"/>
+                                                <connections>
+                                                    <action selector="didTapMenu:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SAD-f5-dfl"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" red="0.090196078430000007" green="0.090196078430000007" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WOB-QO-Nq2" secondAttribute="bottom" id="8E5-IH-j3X"/>
+                            <constraint firstItem="oQx-Fh-Mjj" firstAttribute="trailing" secondItem="WOB-QO-Nq2" secondAttribute="leading" id="bYM-7Y-X5l"/>
+                            <constraint firstAttribute="trailing" secondItem="WOB-QO-Nq2" secondAttribute="trailing" id="cfN-Pe-lhg"/>
+                            <constraint firstItem="WOB-QO-Nq2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="f0E-P2-dOT"/>
+                            <constraint firstItem="oQx-Fh-Mjj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="25" id="g1q-C6-N3H"/>
+                            <constraint firstItem="oQx-Fh-Mjj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="25" id="m6o-LY-NH1"/>
+                            <constraint firstItem="WOB-QO-Nq2" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="sde-Kk-3JI"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="bYM-7Y-X5l"/>
+                            </mask>
+                        </variation>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="buttonsHiddenConstraint" destination="bYM-7Y-X5l" id="bV6-1F-QVY"/>
+                        <outlet property="buttonsVisibleConstraint" destination="g1q-C6-N3H" id="yEe-Eg-BuD"/>
+                        <outlet property="contentView" destination="WOB-QO-Nq2" id="DPM-ew-Did"/>
+                        <outlet property="playButton" destination="cqI-hT-H0A" id="qlw-ND-84d"/>
                         <segue destination="IvH-pj-GKi" kind="show" identifier="presentMenu" animates="NO" id="ogs-3S-5fk"/>
                     </connections>
                 </viewController>
@@ -73,4 +158,11 @@
             <point key="canvasLocation" x="1029" y="463"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="button_load" width="50" height="50"/>
+        <image name="button_menu" width="50" height="50"/>
+        <image name="button_play" width="50" height="50"/>
+        <image name="button_save" width="50" height="50"/>
+        <image name="button_undo" width="50" height="50"/>
+    </resources>
 </document>

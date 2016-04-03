@@ -25,13 +25,10 @@ class ViewController: UIViewController {
     var grid: HexagonGrid!
     let rules = Rules.defaultRules
 
-    let contentView = UIView()
-    let buttonContainer = UIStackView()
-    var buttonsVisibleConstraint: NSLayoutConstraint?
-    var buttonsHiddenConstraint: NSLayoutConstraint?
-    let playButton: UIButton = UIButton(type: .Custom)
-    let saveButton = UIButton(type: .Custom)
-    let menuButton = UIButton(type: .Custom)
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet var contentView: UIView!
+    @IBOutlet var buttonsVisibleConstraint: NSLayoutConstraint?
+    @IBOutlet var buttonsHiddenConstraint: NSLayoutConstraint?
     
     let messageOverlay = UIControl()
     let messageHUD = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
@@ -56,35 +53,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(contentView)
-        view.addSubview(buttonContainer)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
-        contentView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
-        contentView.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
-        contentView.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = true
+        print(buttonsHiddenConstraint?.active,buttonsVisibleConstraint?.active)
         createGrid()
-        
-        buttonContainer.translatesAutoresizingMaskIntoConstraints = false
-        buttonsVisibleConstraint = buttonContainer.topAnchor.constraintEqualToAnchor(view.topAnchor, constant: 25)
-        buttonsHiddenConstraint = buttonContainer.bottomAnchor.constraintEqualToAnchor(view.topAnchor)
-        buttonsVisibleConstraint?.active = true
-        buttonContainer.leftAnchor.constraintEqualToAnchor(view.leftAnchor, constant: 25).active = true
-        buttonContainer.axis = .Vertical
-        buttonContainer.spacing = 10
-        
-        playButton.addTarget(self, action: #selector(togglePlayback(_:)), forControlEvents: .TouchUpInside)
-		playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
-        
-        saveButton.setImage(UIImage(named: "button_save"), forState: .Normal)
-        menuButton.setImage(UIImage(named: "button_menu"), forState: .Normal)
-        saveButton.addTarget(self, action: #selector(saveGrid), forControlEvents: .TouchUpInside)
-        menuButton.addTarget(self, action: #selector(openMenu), forControlEvents: .TouchUpInside)
-        
-        buttonContainer.addArrangedSubview(playButton)
-        buttonContainer.addArrangedSubview(saveButton)
-        buttonContainer.addArrangedSubview(menuButton)
-        
         let threeFingerTap = UITapGestureRecognizer(target: self, action: #selector(toggleButtons(_:)))
         threeFingerTap.numberOfTouchesRequired = 3
         contentView.addGestureRecognizer(threeFingerTap)
@@ -156,8 +126,13 @@ class ViewController: UIViewController {
     }
     
     func toggleButtons(gestureRecognizer: UIGestureRecognizer) {
-        buttonsVisibleConstraint?.active = !(buttonsVisibleConstraint?.active ?? false)
-        buttonsHiddenConstraint?.active = !(buttonsHiddenConstraint?.active ?? false)
+        if let constraint = buttonsVisibleConstraint where constraint.active {
+            buttonsVisibleConstraint?.active = false
+            buttonsHiddenConstraint?.active = true
+        } else if let constraint = buttonsHiddenConstraint where constraint.active {
+            buttonsHiddenConstraint?.active = false
+            buttonsVisibleConstraint?.active = true
+        }
         UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .BeginFromCurrentState, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -319,6 +294,31 @@ extension ViewController {
                 }
             }
         }
+    }
+}
+
+extension ViewController {
+    @IBAction func didTapPlay(sender: UIButton) {
+        start()
+    }
+    
+    @IBAction func didTapUndo(sender: UIButton) {
+        
+    }
+    
+    @IBAction func didTapStep(sender: UIButton) {
+    }
+    
+    @IBAction func didTapLoad(sender: UIButton) {
+        loadGrid()
+    }
+    
+    @IBAction func didTapSave(sender: UIButton) {
+        saveGrid()
+    }
+    
+    @IBAction func didTapMenu(sender: UIButton) {
+        openMenu()
     }
 }
 
