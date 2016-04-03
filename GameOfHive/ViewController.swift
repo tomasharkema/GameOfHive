@@ -114,19 +114,19 @@ class ViewController: UIViewController {
         return "\(documentsPath)/save.json"
     }
     
-    @IBAction func saveGrid() {
-        do { try grid.save() } catch let error {
+    func saveGrid(filename: String = "grid.json") {
+        do { try grid.save(filename) } catch let error {
             print("Error saving grid",error)
         }
     }
     
-    func loadGrid() {
-        guard let g = HexagonGrid.load() else {
+    func loadGrid(filename: String = "grid.json") {
+        guard let g = HexagonGrid.load(filename) else {
             return
         }
         stop()
         grid = g
-        drawGrid(grid, animationDuration: 0.2)
+        drawGrid(grid, animationDuration: 0.1)
     }
     
     func openMenu() {
@@ -241,15 +241,6 @@ class ViewController: UIViewController {
         updateGrid()
     }
     
-    // MARK: Button
-    @IBAction func togglePlayback() {
-        if playing {
-            stop()
-        } else {
-            start()
-        }
-    }
-    
     private func start() {
         timer?.invalidate()
         timer = createTimer()
@@ -266,12 +257,6 @@ class ViewController: UIViewController {
         timer = nil
         playButton.setImage(UIImage(named: "button_play"), forState: .Normal)
     }
-    
-    @IBAction func nextStep() {
-        stop()
-        drawGrid(grid, animationDuration: 0.4)
-    }
-
 }
 
 // MARK: HexagonView Delegate
@@ -316,15 +301,22 @@ extension ViewController {
 }
 
 extension ViewController {
-    @IBAction func didTapPlay(sender: UIButton) {
-        start()
+    @IBAction func togglePlayback() {
+        if playing {
+            stop()
+        } else {
+            saveGrid("undo.json")
+            start()
+        }
     }
     
     @IBAction func didTapUndo(sender: UIButton) {
-        
+        loadGrid("undo.json")
     }
     
     @IBAction func didTapStep(sender: UIButton) {
+        stop()
+        updateGrid()
     }
     
     @IBAction func didTapLoad(sender: UIButton) {

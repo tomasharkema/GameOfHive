@@ -20,11 +20,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <stackView opaque="NO" contentMode="top" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oQx-Fh-Mjj">
-                                <rect key="frame" x="25" y="25" width="152" height="170"/>
+                            <stackView opaque="NO" contentMode="top" misplaced="YES" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oQx-Fh-Mjj">
+                                <rect key="frame" x="25" y="25" width="170" height="170"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="left" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jfg-oE-Ymp">
-                                        <rect key="frame" x="0.0" y="0.0" width="152" height="50"/>
+                                    <stackView opaque="NO" contentMode="left" misplaced="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jfg-oE-Ymp">
+                                        <rect key="frame" x="0.0" y="0.0" width="170" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zi-6M-1t2" userLabel="Undo">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -37,14 +37,14 @@
                                                 <rect key="frame" x="60" y="0.0" width="50" height="50"/>
                                                 <state key="normal" image="button_play"/>
                                                 <connections>
-                                                    <action selector="didTapPlay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qtn-5C-wrO"/>
+                                                    <action selector="togglePlayback" destination="BYZ-38-t0r" eventType="touchUpInside" id="QCv-qz-bwe"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wd1-oE-3dY" userLabel="Step">
-                                                <rect key="frame" x="120" y="0.0" width="32" height="50"/>
-                                                <state key="normal" title="Step"/>
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wd1-oE-3dY" userLabel="Step">
+                                                <rect key="frame" x="120" y="0.0" width="50" height="50"/>
+                                                <state key="normal" image="button_step_forward"/>
                                                 <connections>
-                                                    <action selector="didTapStep:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2QU-dn-dhG"/>
+                                                    <action selector="didTapStep:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oww-Hv-7mn"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -163,6 +163,7 @@
         <image name="button_menu" width="50" height="50"/>
         <image name="button_play" width="50" height="50"/>
         <image name="button_save" width="50" height="50"/>
+        <image name="button_step_forward" width="50" height="50"/>
         <image name="button_undo" width="50" height="50"/>
     </resources>
 </document>

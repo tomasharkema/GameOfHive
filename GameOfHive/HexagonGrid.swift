@@ -204,12 +204,12 @@ extension HexagonGrid: Decodable {
 
 //MARK: Loading and saving
 extension HexagonGrid {
-    func save(filename: String = "grid.json") throws {
+    func save(filename: String) throws {
         let file = documentsDirectory.stringByAppendingPathComponent(filename)
         try self.encode().toJSONString.writeToFile(file, atomically: true, encoding: NSUTF8StringEncoding)
     }
     
-    static func load(filename: String = "grid.json") -> HexagonGrid? {
+    static func load(filename: String) -> HexagonGrid? {
         let file = documentsDirectory.stringByAppendingPathComponent(filename)
         guard let data = NSData(contentsOfFile: file), object = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) else {
             return nil
