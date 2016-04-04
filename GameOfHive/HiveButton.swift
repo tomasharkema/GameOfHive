@@ -56,7 +56,7 @@ class HiveButton: UIButton {
 
         insertSubview(backgroundView, belowSubview: titleLabel!)
         backgroundView.constrainToView(self, margin: 0)
-        backgroundView.backgroundColor = UIColor.backgroundColor
+        backgroundView.backgroundColor = UIColor.menuButtonBackgroundColor
         backgroundView.userInteractionEnabled = false
     }
 
