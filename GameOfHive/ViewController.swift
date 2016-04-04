@@ -183,7 +183,7 @@ class ViewController: UIViewController {
             clearButtonHiddenConstraint?.active = false
             clearButtonVisibleConstraint?.active = true
         }
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .BeginFromCurrentState, animations: {
+        UIView.animateWithDuration(0.45, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .BeginFromCurrentState, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
@@ -285,7 +285,15 @@ class ViewController: UIViewController {
         updateGrid()
     }
     
+    func cellsUserInteraction(enabled enabled: Bool) {
+        cells.forEach { cell in
+            cell.userInteractionEnabled = enabled
+        }
+    }
+    
     private func start() {
+        
+        cellsUserInteraction(enabled: false)
         timer?.invalidate()
         timer = createTimer()
         timer.fire()
@@ -296,6 +304,8 @@ class ViewController: UIViewController {
         guard playing else {
             return
         }
+        
+        cellsUserInteraction(enabled: true)
         
         timer?.invalidate()
         timer = nil

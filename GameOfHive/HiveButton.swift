@@ -17,7 +17,7 @@ enum HiveButtonStyle: CGFloat {
 class HiveButton: UIButton {
 
     // MARK: Lifecycle
-    let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+    let backgroundView = UIView()
     
     var style: HiveButtonStyle = .Big {
         didSet {
@@ -55,7 +55,8 @@ class HiveButton: UIButton {
         tintColor = UIColor.darkAmberColor
 
         insertSubview(backgroundView, belowSubview: titleLabel!)
-        backgroundView.constrainToView(self, margin: 0)
+        backgroundView.constrainToView(self)
+        backgroundView.backgroundColor = UIColor.menuButtonBackgroundColor
         backgroundView.userInteractionEnabled = false
     }
 
