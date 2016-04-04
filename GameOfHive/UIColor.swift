@@ -21,4 +21,8 @@ extension UIColor {
     static var backgroundColor : UIColor {
         return UIColor(red: 23.0/255.0, green: 23.0/255.0, blue: 27/255.0, alpha: 1)
     }
+    
+    static var menuButtonBackgroundColor: UIColor {
+        return UIColor.blackColor().colorWithAlphaComponent(0.7)
+    }
 }
