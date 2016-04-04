@@ -362,7 +362,6 @@ extension ViewController: HexagonViewDelegate {
     }
 }
 
-
 //MARK: Shake!
 extension ViewController {
     override func canBecomeFirstResponder() -> Bool {
@@ -379,7 +378,7 @@ extension ViewController {
 }
 
 extension ViewController: MenuDelegate {
-    func menuWillClose(menu: MenuController) {
+    func menuDidClose(menu: MenuController) {
         toggleButtons(nil)
         menu.delegate = nil
     }

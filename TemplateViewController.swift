@@ -11,6 +11,11 @@ import UIKit
 class TemplateCell: UICollectionViewCell {
     static let reuseIdentifier = "TemplateCell"
     @IBOutlet weak var imageView: UIImageView?
+    @IBOutlet weak var dateLabel: UILabel?
+    
+    override func awakeFromNib() {
+        dateLabel?.textColor = UIColor.lightAmberColor
+    }
 }
 
 protocol TemplatePickerDelegate: class, SubMenuDelegate  {
@@ -25,22 +30,15 @@ class TemplateViewController: UICollectionViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
         dataSource.refresh()
+        collectionView!.backgroundColor = UIColor.backgroundColor
+        collectionView!.layer.borderColor = UIColor.darkAmberColor.CGColor
+        collectionView!.layer.borderWidth = 1
     }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            let cellWidth = (view.frame.width - 20)/2
-            let screenBounds = UIScreen.mainScreen().bounds
-            let ratio = screenBounds.height/screenBounds.width
-            layout.itemSize = CGSize(width: cellWidth, height: cellWidth*ratio)
-            
-        }
-    }
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return dataSource.numberOfSections
     }
@@ -57,6 +55,10 @@ class TemplateViewController: UICollectionViewController {
         }
         
         cell.imageView?.image = template.image
+        let dateFormat = NSDateFormatter.init()
+        dateFormat.dateStyle = NSDateFormatterStyle.ShortStyle
+        dateFormat.timeStyle = NSDateFormatterStyle.MediumStyle
+        cell.dateLabel?.text = dateFormat.stringFromDate(template.date)
         return cell
     }
     
