@@ -14,7 +14,7 @@ enum MenuPressedState {
 }
 
 protocol MenuDelegate: class {
-    func menuWillClose(menu: MenuController)
+    func menuDidClose(menu: MenuController)
     func loadTemplate(template: Template)
 }
 
@@ -193,10 +193,10 @@ class MenuController: UIViewController {
     }
     
     func animateOut() {
-        delegate?.menuWillClose(self)
         animateMenuState(.Hide) { completed in
             if completed {
                 self.dismissViewControllerAnimated(false, completion: nil)
+                self.delegate?.menuDidClose(self)
             }
         }
     }

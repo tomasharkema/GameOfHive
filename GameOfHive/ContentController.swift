@@ -26,7 +26,7 @@ class ContentViewController: UIViewController {
         webView.scrollView.backgroundColor = UIColor.backgroundColor
         webView.opaque = false
         webViewContainer.addSubview(webView)
-        webView.constrainToView(webViewContainer, margin: 10)
+        webView.constrainToView(webViewContainer, margin: 0)
     }
 
     override func viewWillAppear(animated: Bool) {
