@@ -285,12 +285,15 @@ class ViewController: UIViewController {
         updateGrid()
     }
     
+    func cellsUserInteraction(enabled enabled: Bool) {
+        cells.forEach { cell in
+            cell.userInteractionEnabled = enabled
+        }
+    }
+    
     private func start() {
         
-        cells.forEach { cell in
-            cell.userInteractionEnabled = false
-        }
-
+        cellsUserInteraction(enabled: false)
         timer?.invalidate()
         timer = createTimer()
         timer.fire()
@@ -302,9 +305,7 @@ class ViewController: UIViewController {
             return
         }
         
-        cells.forEach { cell in
-            cell.userInteractionEnabled = true
-        }
+        cellsUserInteraction(enabled: true)
         
         timer?.invalidate()
         timer = nil
