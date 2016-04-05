@@ -95,7 +95,7 @@ class MenuController: UIViewController {
     func pointForDegrees(offset: CGFloat, degrees: CGFloat) -> CGPoint {
         let xOff = offset * cos(degrees * (CGFloat(M_PI) / 180))
         let yOff = offset * sin(degrees * (CGFloat(M_PI) / 180))
-        return CGPoint(x: xOff, y: yOff)
+        return CGPoint(x: round(xOff), y: round(yOff))
     }
 
     func addButtons() {
