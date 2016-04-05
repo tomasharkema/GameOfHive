@@ -105,7 +105,7 @@ class ViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let maskLayer = CAShapeLayer()
-        maskLayer.path = hexagonPath(messageHUD.frame.size)
+        maskLayer.path = hexagonPath(messageHUD.frame.size, lineWidth: 5)
         let borderLayer = CAShapeLayer()
         borderLayer.path = maskLayer.path
         borderLayer.strokeColor = UIColor.lightAmberColor.CGColor
