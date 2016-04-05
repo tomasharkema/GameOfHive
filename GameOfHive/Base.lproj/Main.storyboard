@@ -146,10 +146,10 @@
                                     <action selector="dismissButtonPressed:" destination="IvH-pj-GKi" eventType="touchUpInside" id="6q1-KZ-lxv"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TO-0y-wot" customClass="HiveButton" customModule="GameOfHive" customModuleProvider="target">
-                                <rect key="frame" x="213.5" y="200" width="173" height="200"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TO-0y-wot" customClass="HiveButton" customModule="GameOfHive" customModuleProvider="target">
+                                <rect key="frame" x="128" y="100" width="345" height="400"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="2iP-nv-DL5"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="325" id="2iP-nv-DL5"/>
                                     <constraint firstAttribute="height" constant="200" id="VCw-ki-VgB"/>
                                     <constraint firstAttribute="width" constant="173" id="h68-tg-OyW"/>
                                     <constraint firstAttribute="width" secondItem="7TO-0y-wot" secondAttribute="height" multiplier="173:200" id="iZb-aS-ygg"/>
@@ -165,7 +165,7 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="iUg-en-1Jk" secondAttribute="bottom" id="FGA-tJ-HtK"/>
-                            <constraint firstItem="7TO-0y-wot" firstAttribute="top" secondItem="FXe-b0-Gkg" secondAttribute="bottom" priority="750" constant="200" id="Fif-7K-3fB"/>
+                            <constraint firstItem="7TO-0y-wot" firstAttribute="top" secondItem="FXe-b0-Gkg" secondAttribute="bottom" priority="750" constant="80" id="Fif-7K-3fB"/>
                             <constraint firstItem="iUg-en-1Jk" firstAttribute="top" secondItem="2hG-AS-kvK" secondAttribute="top" id="KP5-U0-hFr"/>
                             <constraint firstItem="7TO-0y-wot" firstAttribute="centerY" secondItem="2hG-AS-kvK" secondAttribute="centerY" id="Sck-7M-hDo"/>
                             <constraint firstItem="7TO-0y-wot" firstAttribute="centerY" secondItem="2hG-AS-kvK" secondAttribute="centerY" id="bkW-3B-mhW"/>
