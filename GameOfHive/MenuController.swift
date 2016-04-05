@@ -79,7 +79,7 @@ class MenuController: UIViewController {
 
     var initialPoint: CGPoint {
         // calculate initial degrees for offset
-        let initial_x = ((height / 2.0) * sqrt(3.0) / 2.0) + (pow(offset, 2) / 2.0)
+        let initial_x = hexagonWidthForHeight((height / 2.0)) + (pow(offset, 2) / 2.0)
         let initial_y = (height / 2.0) + (pow(offset, 2) / 2.0)
         return CGPoint(x: initial_x, y: initial_y)
     }
@@ -95,7 +95,7 @@ class MenuController: UIViewController {
     func pointForDegrees(offset: CGFloat, degrees: CGFloat) -> CGPoint {
         let xOff = offset * cos(degrees * (CGFloat(M_PI) / 180))
         let yOff = offset * sin(degrees * (CGFloat(M_PI) / 180))
-        return CGPoint(x: xOff, y: yOff)
+        return CGPoint(x: round(xOff), y: round(yOff))
     }
 
     func addButtons() {
@@ -108,7 +108,7 @@ class MenuController: UIViewController {
 
         let buttons = buttonsAndCoordinates.map { (model, point) -> HiveButton in
             let center = CGPoint(x: point.x + (self.view.frame.width / 2), y: point.y + (self.view.frame.height / 2))
-            let rect = CGRect(x: center.x, y: center.y, width: height/2 * sqrt(3.0) / 2.0, height: height/2)
+            let rect = CGRect(x: center.x, y: center.y, width: hexagonWidthForHeight(height/2), height: height/2)
 
             let button = HiveButton(type: .Custom)
             button.style = .Small
@@ -252,7 +252,7 @@ extension MenuController: ContentDelegate {
 
     switch item.content {
     case let .Webpage(url):
-        destination.leftOffset = height/2 * sqrt(3.0) / 2.0
+        destination.leftOffset = hexagonWidthForHeight(height/2)
         destination.webView.loadRequest(NSURLRequest(URL: url))
     }
 

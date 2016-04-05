@@ -14,12 +14,15 @@ let gridQueue = dispatch_queue_create("grid_queue", DISPATCH_QUEUE_SERIAL)
 
 let cellSize: CGSize = {
     let cellHeight: CGFloat = 26 // must be even!!!! We use half height and half width for drawing
-    var cellWidth = (sqrt((3 * cellHeight * cellHeight) / 16)) * 2
-    cellWidth = ceil(cellWidth) % 2 == 1 ? floor(cellWidth) : ceil(cellWidth)
-    
+    var cellWidth = hexagonWidthForHeight(cellHeight)
     return CGSize(width: cellWidth, height: cellHeight)
 }()
 
+func hexagonWidthForHeight(height: CGFloat) -> CGFloat {
+    var cellWidth = (sqrt((3 * height * height) / 16)) * 2
+    cellWidth = ceil(cellWidth) % 2 == 1 ? floor(cellWidth) : ceil(cellWidth)
+    return cellWidth
+}
 
 let lineWidth: CGFloat = 1.0
 
@@ -102,7 +105,7 @@ class ViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let maskLayer = CAShapeLayer()
-        maskLayer.path = hexagonPath(messageHUD.frame.size)
+        maskLayer.path = hexagonPath(messageHUD.frame.size, lineWidth: 5)
         let borderLayer = CAShapeLayer()
         borderLayer.path = maskLayer.path
         borderLayer.strokeColor = UIColor.lightAmberColor.CGColor
