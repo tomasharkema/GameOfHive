@@ -9,7 +9,7 @@
 import UIKit
 
 enum HiveButtonStyle: CGFloat {
-    case Big = 18
+    case Big = 16
     case Small = 14
 }
 
@@ -21,6 +21,8 @@ class HiveButton: UIButton {
     
     var style: HiveButtonStyle = .Big {
         didSet {
+            titleLabel?.numberOfLines = 0
+            titleLabel?.textAlignment = .Center
             titleLabel?.font = UIFont(name: "Raleway-Medium", size: style.rawValue)
         }
     }

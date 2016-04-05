@@ -40,10 +40,10 @@ class MenuController: UIViewController {
             title: "Credits",
             content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/credits.html")!)),
         MenuItemModel(
-            title: "Templates",
+            title: "Hives",
             content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/")!)),
         MenuItemModel(
-            title: "Saved Grids",
+            title: "Saved Hives",
             content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/")!)),
         MenuItemModel(
             title: "Donate",
