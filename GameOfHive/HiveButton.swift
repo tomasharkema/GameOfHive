@@ -59,6 +59,11 @@ class HiveButton: UIButton {
         backgroundView.backgroundColor = UIColor.menuButtonBackgroundColor
         backgroundView.userInteractionEnabled = false
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        backgroundView.frame = bounds
+    }
 
     override func drawRect(rect: CGRect) {
         updateLayers()
