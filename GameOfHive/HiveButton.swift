@@ -22,6 +22,7 @@ class HiveButton: UIButton {
     var style: HiveButtonStyle = .Big {
         didSet {
             titleLabel?.numberOfLines = 0
+            titleLabel?.textAlignment = .Center
             titleLabel?.font = UIFont(name: "Raleway-Medium", size: style.rawValue)
         }
     }
