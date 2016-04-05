@@ -9,7 +9,7 @@
 import UIKit
 
 enum HiveButtonStyle: CGFloat {
-    case Big = 18
+    case Big = 16
     case Small = 14
 }
 
