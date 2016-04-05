@@ -67,5 +67,17 @@ class TemplateManager {
         try template.save(templatePath)
         
         NSUserDefaults.standardUserDefaults().setObject(identifier, forKey: lastSavedTemplateIdentifierKey)
-    }    
+    }
+    
+    func allTemplates() -> [Template] {
+        
+        guard let filenames = try? NSFileManager.defaultManager().contentsOfDirectoryAtPath(templateDirectory as String) else {
+            return []
+        }
+        let paths = filenames.filter { $0.hasSuffix(".json") }.map(templateDirectory.stringByAppendingPathComponent)
+        return paths.flatMap { path in
+            do { return try Template.load(path) }
+            catch { return nil }
+        }
+    }
 }

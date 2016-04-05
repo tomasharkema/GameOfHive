@@ -14,11 +14,13 @@ enum MenuPressedState {
 }
 
 protocol MenuDelegate: class {
-    func menuWillClose(menu: MenuController)
+    func menuDidClose(menu: MenuController)
+    func loadTemplate(template: Template)
 }
 
 enum Content {
     case Webpage(NSURL)
+    case TemplatePicker
 }
 
 struct MenuItemModel {
@@ -41,7 +43,7 @@ class MenuController: UIViewController {
             content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/credits.html")!)),
         MenuItemModel(
             title: "Templates",
-            content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/")!)),
+            content: .TemplatePicker),
         MenuItemModel(
             title: "Saved Grids",
             content: .Webpage(NSURL(string: "https://tomasharkema.github.io/GameOfHive/")!)),
@@ -191,10 +193,10 @@ class MenuController: UIViewController {
     }
     
     func animateOut() {
-        delegate?.menuWillClose(self)
         animateMenuState(.Hide) { completed in
             if completed {
                 self.dismissViewControllerAnimated(false, completion: nil)
+                self.delegate?.menuDidClose(self)
             }
         }
     }
@@ -212,7 +214,27 @@ class MenuController: UIViewController {
 
 //MARK: Menu Button Handling
 
-extension MenuController: ContentDelegate {
+protocol SubMenuDelegate: class {
+    func contentWillClose(openedViewController: UIViewController)
+}
+
+
+extension MenuController: SubMenuDelegate {
+    func contentWillClose(openedViewController: UIViewController) {
+        UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseOut], animations: {
+            self.openedHive?.transform = CGAffineTransformIdentity
+            }, completion: nil)
+    }
+}
+
+extension MenuController: TemplatePickerDelegate {
+    func didSelectTemplate(template: Template) {
+        delegate?.loadTemplate(template)
+        animateOut()
+    }
+}
+
+extension MenuController {
     func animateButtonToControllerPoint(hiveButton: HiveButton, completion: ((Bool) -> ())?) {
         let endX = (hiveButton.frame.width / 2) + 30
         let endY = (hiveButton.frame.height / 2) + 30
@@ -236,32 +258,34 @@ extension MenuController: ContentDelegate {
         switch item.content {
         case .Webpage:
             performSegueWithIdentifier("presentContentController", sender: self)
-
+            animateButtonToControllerPoint(hiveButton) { _ in }
+        case .TemplatePicker:
+            performSegueWithIdentifier("openTemplatePicker", sender: self)
             animateButtonToControllerPoint(hiveButton) { _ in }
         }
     }
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    guard let destination = segue.destinationViewController as? ContentViewController where segue.identifier == "presentContentController" else {
-      return
-    }
-
     guard let item = buttonModels.filter({ $0.title == self.openedHive?.titleForState(.Normal) }).first else {
         return
     }
 
     switch item.content {
     case let .Webpage(url):
+        guard let destination = segue.destinationViewController as? ContentViewController where segue.identifier == "presentContentController" else {
+            return
+        }
         destination.leftOffset = height/2 * sqrt(3.0) / 2.0
         destination.webView.loadRequest(NSURLRequest(URL: url))
+        destination.delegate = self
+    case .TemplatePicker:
+        guard let destination = segue.destinationViewController as? TemplateContainerController where segue.identifier == "openTemplatePicker" else {
+            return
+        }
+        destination.leftOffset = height/2 * sqrt(3.0) / 2.0
+        destination.templateDelegate = self
+        print("preparing for template picker segue")
     }
-
-    destination.delegate = self
   }
 
-  func contentWillClose(menu: ContentViewController) {
-    UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseOut], animations: {
-        self.openedHive?.transform = CGAffineTransformIdentity
-    }, completion: nil)
-  }
 }
