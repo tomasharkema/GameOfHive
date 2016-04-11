@@ -25,7 +25,7 @@ class ContentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        webView.backgroundColor = UIColor.backgroundColor
+        webView.backgroundColor = UIColor.whiteColor()
         webView.scrollView.backgroundColor = UIColor.backgroundColor
         webView.opaque = false
         webViewContainer.addSubview(webView)
